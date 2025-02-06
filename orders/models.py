@@ -99,6 +99,8 @@ class Returns(models.Model):
         elif self.return_status == 'approved':
             self.order_item.order.order_status = 'refunded'
             self.order_item.order.save()
+            self.order_item.order.payment.payment_status = 'refunded'
+            self.order_item.order.payment.save()
             self.order_item.product_variant.returned_quantity += self.order_item.quantity
             self.order_item.product_variant.save()
         elif self.return_status == 'rejected':
