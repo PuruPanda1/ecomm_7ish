@@ -19,7 +19,10 @@ class AttributeValueAdmin(admin.ModelAdmin):
 
 @admin.register(ProductVariant)
 class ProductVariantAdmin(admin.ModelAdmin):
-    list_display = ('product', 'sku', 'usual_price', 'discount_price', 'stock', 'get_variant_name')
+    list_display = ('product', 'sku', 'usual_price', 'discount_price', 'stock', 'returned_quantity', 'get_variant_name')
+    list_filter = ('product','stock','returned_quantity', 'is_active')
+    search_fields = ('product__name', 'sku')
+    list_per_page = 20
     filter_horizontal = ('attributes',)
     inlines = [ProductVariantImageInline]
 

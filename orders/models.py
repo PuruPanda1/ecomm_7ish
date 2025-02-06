@@ -7,9 +7,20 @@ from decimal import Decimal
 # total_tax = total_pre_tax * tax_rate
 # order_total = total_pre_tax + total_tax
 class Order(models.Model):
+    ORDER_STATUS_CHOICES = [
+        ('ordered', 'Ordered'),
+        ('confirmed', 'Confirmed'), 
+        ('shipped', 'Shipped'),
+        ('delivered', 'Delivered'),
+        ('returned', 'Returned'),
+        ('refunded', 'Refunded'),
+    ]
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     order_date = models.DateTimeField(auto_now_add=True)
     shipping_cost = models.DecimalField(max_digits=10, decimal_places=2)
+    order_status = models.CharField(max_length=100, choices=ORDER_STATUS_CHOICES, default='ordered')
+    shipping_address = models.ForeignKey(UserAddress, on_delete=models.CASCADE, related_name='shipping_address')
+    billing_address = models.ForeignKey(UserAddress, on_delete=models.CASCADE, related_name='billing_address')
     @property
     def total_price_pre_tax(self):
         return sum(item.total_price_pre_tax for item in self.order_items.all())
@@ -21,17 +32,6 @@ class Order(models.Model):
     @property
     def order_total(self):
         return self.total_price_pre_tax + self.total_tax + self.shipping_cost
-    ORDER_STATUS_CHOICES = [
-        ('ordered', 'Ordered'),
-        ('confirmed', 'Confirmed'), 
-        ('shipped', 'Shipped'),
-        ('delivered', 'Delivered'),
-        ('returned', 'Returned'),
-        ('refunded', 'Refunded'),
-    ]
-    order_status = models.CharField(max_length=100, choices=ORDER_STATUS_CHOICES, default='ordered')
-    shipping_address = models.ForeignKey(UserAddress, on_delete=models.CASCADE, related_name='shipping_address')
-    billing_address = models.ForeignKey(UserAddress, on_delete=models.CASCADE, related_name='billing_address')
     
     def __str__(self):
         return f"Order {self.id} - {self.user.email}"
@@ -71,17 +71,25 @@ class OrderItem(models.Model):
         )
         order_item.save()
         return order_item
+    
+    def save(self, *args, **kwargs):
+        if self.quantity > self.product_variant.stock:
+            raise ValueError(f"Error: Out of stock. Available stock: {self.product_variant.stock}")
+        # Reduce stock when saving an order item
+        self.product_variant.stock -= self.quantity
+        self.product_variant.save()
+        super().save(*args, **kwargs)
 
 class Returns(models.Model):
-    order_item = models.ForeignKey(OrderItem, on_delete=models.CASCADE, related_name='returns')
-    return_date = models.DateTimeField(auto_now_add=True)
-    return_reason = models.TextField()
-    return_images = models.ImageField(upload_to='returns/')
     RETURN_STATUS_CHOICES = [
         ('pending', 'Pending'),
         ('approved', 'Approved'),
         ('rejected', 'Rejected'),
     ]
+    order_item = models.ForeignKey(OrderItem, on_delete=models.CASCADE, related_name='returns')
+    return_date = models.DateTimeField(auto_now_add=True)
+    return_reason = models.TextField()
+    return_images = models.ImageField(upload_to='returns/')
     return_status = models.CharField(max_length=100, choices=RETURN_STATUS_CHOICES, default='pending')
 
     def save(self, *args, **kwargs):
@@ -91,6 +99,8 @@ class Returns(models.Model):
         elif self.return_status == 'approved':
             self.order_item.order.order_status = 'refunded'
             self.order_item.order.save()
+            self.order_item.product_variant.returned_quantity += self.order_item.quantity
+            self.order_item.product_variant.save()
         elif self.return_status == 'rejected':
             self.order_item.order.order_status = 'delivered'
             self.order_item.order.save()
