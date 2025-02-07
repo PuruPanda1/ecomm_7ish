@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'payments',
     'wishlist',
     'cart',
+    'server',
 ]
 
 MIDDLEWARE = [
@@ -61,8 +62,8 @@ ROOT_URLCONF = 'ecom_7ish_backend.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
-        'APP_DIRS': True,
+        'DIRS': [BASE_DIR / "templates"],  # Project-level templates directory
+        'APP_DIRS': True, 
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -129,7 +130,12 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+STATICFILES_DIRS = [    
+    BASE_DIR / "static",  # This allows using the global static folder
+]
 
 
 # Default primary key field type

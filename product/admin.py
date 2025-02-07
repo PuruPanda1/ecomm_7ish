@@ -28,3 +28,4 @@ class ProductVariantAdmin(admin.ModelAdmin):
 
 admin.site.register(Category)
 admin.site.register(SubCategory)
+admin.site.register(Tag)
