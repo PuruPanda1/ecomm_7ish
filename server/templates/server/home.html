@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-{% load static %}
+
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
   <head>
     <meta charset="utf-8" />
-    <title>7ish - Complete Your Wish</title>
+    <title>Ecomus - Ultimate HTML</title>
 
     <meta name="author" content="themesflat.com" />
     <meta
@@ -25,8 +25,8 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}" />
 
     <!-- Favicon and Touch Icons  -->
-    <link rel="shortcut icon" href="{% static 'images/logo/favicon32.png' %}" />
-    <link rel="apple-touch-icon-precomposed" href="{% static 'images/logo/favicon32.png' %}" />
+    <link rel="shortcut icon" href="{% static 'images/logo/favicon.png' %}" />
+    <link rel="apple-touch-icon-precomposed" href="{% static 'images/logo/favicon.png' %}" />
   </head>
 
   <body class="preload-wrapper">
@@ -46,143 +46,372 @@
     </div>
     <!-- /preload -->
     <div id="wrapper">
-      <!-- Top bar -->
-      <div class="tf-top-bar bg_white line">
-        <div class="px_15 lg-px_40">
-          <div class="tf-top-bar_wrap grid-3 gap-30 align-items-center">
-            <ul class="tf-top-bar_item tf-social-icon d-flex gap-10">
-              <li>
-                <a href="#" class="box-icon w_28 round social-facebook bg_line"
-                  ><i class="icon fs-12 icon-fb"></i
-                ></a>
-              </li>
-              <li>
-                <a href="#" class="box-icon w_28 round social-twiter bg_line"
-                  ><i class="icon fs-10 icon-Icon-x"></i
-                ></a>
-              </li>
-              <li>
-                <a href="#" class="box-icon w_28 round social-instagram bg_line"
-                  ><i class="icon fs-12 icon-instagram"></i
-                ></a>
-              </li>
-              <li>
-                <a href="#" class="box-icon w_28 round social-tiktok bg_line"
-                  ><i class="icon fs-12 icon-tiktok"></i
-                ></a>
-              </li>
-              <li>
-                <a href="#" class="box-icon w_28 round social-pinterest bg_line"
-                  ><i class="icon fs-12 icon-pinterest-1"></i
-                ></a>
-              </li>
-            </ul>
-            <div class="text-center overflow-hidden">
-              <div
-                dir="ltr"
-                class="swiper tf-sw-top_bar"
-                data-preview="1"
-                data-space="0"
-                data-loop="true"
-                data-speed="1000"
-                data-delay="2000"
-              >
-                <div class="swiper-wrapper">
-                  <div class="swiper-slide">
-                    <p class="top-bar-text fw-5">
-                      Spring Fashion Sale
-                      <a
-                        href="shop-default.html"
-                        title="all collection"
-                        class="tf-btn btn-line"
-                        >Shop now<i class="icon icon-arrow1-top-left"></i
-                      ></a>
-                    </p>
-                  </div>
-                  <div class="swiper-slide">
-                    <p class="top-bar-text fw-5">
-                      Summer sale discount off 70%
-                    </p>
-                  </div>
-                  <div class="swiper-slide">
-                    <p class="top-bar-text fw-5">
-                      Time to refresh your wardrobe.
-                    </p>
-                  </div>
-                </div>
-              </div>
+      <!-- announcement-bar -->
+      <div class="announcement-bar bg_dark">
+        <div class="wrap-announcement-bar">
+          <div class="box-sw-announcement-bar speed-1">
+            <div class="announcement-bar-item">
+              <p>FREE SHIPPING AND RETURNS</p>
             </div>
+            <div class="announcement-bar-item">
+              <p>NEW SEASON, NEW STYLES: FASHION SALE YOU CAN'T MISS</p>
+            </div>
+            <div class="announcement-bar-item">
+              <p>LIMITED TIME OFFER: FASHION SALE YOU CAN'T RESIST</p>
+            </div>
+            <div class="announcement-bar-item">
+              <p>FREE SHIPPING AND RETURNS</p>
+            </div>
+            <div class="announcement-bar-item">
+              <p>NEW SEASON, NEW STYLES: FASHION SALE YOU CAN'T MISS</p>
+            </div>
+            <div class="announcement-bar-item">
+              <p>LIMITED TIME OFFER: FASHION SALE YOU CAN'T RESIST</p>
+            </div>
+            <div class="announcement-bar-item">
+              <p>FREE SHIPPING AND RETURNS</p>
+            </div>
+            <div class="announcement-bar-item">
+              <p>NEW SEASON, NEW STYLES: FASHION SALE YOU CAN'T MISS</p>
+            </div>
+            <div class="announcement-bar-item">
+              <p>LIMITED TIME OFFER: FASHION SALE YOU CAN'T RESIST</p>
+            </div>
+            <div class="announcement-bar-item">
+              <p>FREE SHIPPING AND RETURNS</p>
+            </div>
+            <div class="announcement-bar-item">
+              <p>NEW SEASON, NEW STYLES: FASHION SALE YOU CAN'T MISS</p>
+            </div>
+            <div class="announcement-bar-item">
+              <p>LIMITED TIME OFFER: FASHION SALE YOU CAN'T RESIST</p>
+            </div>
+            <div class="announcement-bar-item">
+              <p>FREE SHIPPING AND RETURNS</p>
+            </div>
+            <div class="announcement-bar-item">
+              <p>NEW SEASON, NEW STYLES: FASHION SALE YOU CAN'T MISS</p>
+            </div>
+            <div class="announcement-bar-item">
+              <p>LIMITED TIME OFFER: FASHION SALE YOU CAN'T RESIST</p>
+            </div>
+          </div>
+        </div>
+        <span class="icon-close close-announcement-bar"></span>
+      </div>
+      <!-- /announcement-bar -->
 
-            <div class="top-bar-language tf-cur justify-content-end">
-              <div class="tf-currencies">
-                <select
-                  class="image-select center style-default type-currencies"
-                >
-                  <option data-thumbnail="images/country/fr.svg">
-                    EUR <span>€ | France</span>
-                  </option>
-                  <option data-thumbnail="images/country/de.svg">
-                    EUR <span>€ | Germany</span>
-                  </option>
-                  <option selected data-thumbnail="images/country/us.svg">
-                    USD <span>$ | United States</span>
-                  </option>
-                  <option data-thumbnail="images/country/vn.svg">
-                    VND <span>₫ | Vietnam</span>
-                  </option>
-                </select>
+      <!-- header -->
+      <header id="header" class="header-default header-style-2">
+        <div class="main-header line">
+          <div class="container-full px_15 lg-px_40">
+            <div class="row wrapper-header align-items-center">
+              <div class="col-xl-5 tf-md-hidden">
+                <ul class="header-list-categories">
+                  <li class="categories-item active">
+                    <a href="home-multi-brand.html" class="text-uppercase"
+                      >Women</a
+                    >
+                  </li>
+                  <li class="categories-item">
+                    <a href="home-men.html" class="text-uppercase">Men</a>
+                  </li>
+                  <li class="categories-item">
+                    <a href="home-kids.html" class="text-uppercase">Kids</a>
+                  </li>
+                  <li class="categories-item">
+                    <a href="store-locations.html" class="text-uppercase"
+                      >Find a Store</a
+                    >
+                  </li>
+                </ul>
               </div>
-              <div class="tf-languages">
-                <select
-                  class="image-select center style-default type-languages"
+              <div class="col-md-4 col-3 tf-lg-hidden">
+                <a
+                  href="#mobileMenu"
+                  data-bs-toggle="offcanvas"
+                  aria-controls="offcanvasLeft"
                 >
-                  <option>English</option>
-                  <option>العربية</option>
-                  <option>简体中文</option>
-                  <option>اردو</option>
-                </select>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="16"
+                    viewBox="0 0 24 16"
+                    fill="none"
+                  >
+                    <path
+                      d="M2.00056 2.28571H16.8577C17.1608 2.28571 17.4515 2.16531 17.6658 1.95098C17.8802 1.73665 18.0006 1.44596 18.0006 1.14286C18.0006 0.839753 17.8802 0.549063 17.6658 0.334735C17.4515 0.120408 17.1608 0 16.8577 0H2.00056C1.69745 0 1.40676 0.120408 1.19244 0.334735C0.978109 0.549063 0.857702 0.839753 0.857702 1.14286C0.857702 1.44596 0.978109 1.73665 1.19244 1.95098C1.40676 2.16531 1.69745 2.28571 2.00056 2.28571ZM0.857702 8C0.857702 7.6969 0.978109 7.40621 1.19244 7.19188C1.40676 6.97755 1.69745 6.85714 2.00056 6.85714H22.572C22.8751 6.85714 23.1658 6.97755 23.3801 7.19188C23.5944 7.40621 23.7148 7.6969 23.7148 8C23.7148 8.30311 23.5944 8.59379 23.3801 8.80812C23.1658 9.02245 22.8751 9.14286 22.572 9.14286H2.00056C1.69745 9.14286 1.40676 9.02245 1.19244 8.80812C0.978109 8.59379 0.857702 8.30311 0.857702 8ZM0.857702 14.8571C0.857702 14.554 0.978109 14.2633 1.19244 14.049C1.40676 13.8347 1.69745 13.7143 2.00056 13.7143H12.2863C12.5894 13.7143 12.8801 13.8347 13.0944 14.049C13.3087 14.2633 13.4291 14.554 13.4291 14.8571C13.4291 15.1602 13.3087 15.4509 13.0944 15.6653C12.8801 15.8796 12.5894 16 12.2863 16H2.00056C1.69745 16 1.40676 15.8796 1.19244 15.6653C0.978109 15.4509 0.857702 15.1602 0.857702 14.8571Z"
+                      fill="currentColor"
+                    ></path>
+                  </svg>
+                </a>
+              </div>
+              <div class="col-xl-2 col-md-4 col-6 text-center">
+                <a href="home-multi-brand.html" class="logo-header">
+                  <img
+                    src="images/logo/women-logo.svg"
+                    alt="logo"
+                    class="logo"
+                  />
+                </a>
+              </div>
+
+              <div class="col-xl-5 col-md-4 col-3">
+                <ul
+                  class="nav-icon d-flex justify-content-end align-items-center gap-20"
+                >
+                  <li class="nav-search">
+                    <a
+                      href="#canvasSearch"
+                      data-bs-toggle="offcanvas"
+                      aria-controls="offcanvasLeft"
+                      class="nav-icon-item"
+                      ><i class="icon icon-search"></i
+                    ></a>
+                  </li>
+                  <li class="nav-account">
+                    <a
+                      href="#login"
+                      data-bs-toggle="modal"
+                      class="nav-icon-item"
+                      ><i class="icon icon-account"></i
+                    ></a>
+                  </li>
+                  <li class="nav-wishlist">
+                    <a href="wishlist.html" class="nav-icon-item"
+                      ><i class="icon icon-heart"></i
+                      ><span class="count-box">0</span></a
+                    >
+                  </li>
+                  <li class="nav-cart">
+                    <a
+                      href="#shoppingCart"
+                      data-bs-toggle="modal"
+                      class="nav-icon-item"
+                      ><i class="icon icon-bag"></i
+                      ><span class="count-box">0</span></a
+                    >
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <!-- /Top bar -->
-      <!-- Header -->
-      <header id="header" class="header-default">
-        <div class="px_15 lg-px_40">
-          <div class="row wrapper-header align-items-center">
-            <div class="col-md-4 col-3 tf-lg-hidden">
-              <a
-                href="#mobileMenu"
-                data-bs-toggle="offcanvas"
-                aria-controls="offcanvasLeft"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="16"
-                  viewBox="0 0 24 16"
-                  fill="none"
-                >
-                  <path
-                    d="M2.00056 2.28571H16.8577C17.1608 2.28571 17.4515 2.16531 17.6658 1.95098C17.8802 1.73665 18.0006 1.44596 18.0006 1.14286C18.0006 0.839753 17.8802 0.549063 17.6658 0.334735C17.4515 0.120408 17.1608 0 16.8577 0H2.00056C1.69745 0 1.40676 0.120408 1.19244 0.334735C0.978109 0.549063 0.857702 0.839753 0.857702 1.14286C0.857702 1.44596 0.978109 1.73665 1.19244 1.95098C1.40676 2.16531 1.69745 2.28571 2.00056 2.28571ZM0.857702 8C0.857702 7.6969 0.978109 7.40621 1.19244 7.19188C1.40676 6.97755 1.69745 6.85714 2.00056 6.85714H22.572C22.8751 6.85714 23.1658 6.97755 23.3801 7.19188C23.5944 7.40621 23.7148 7.6969 23.7148 8C23.7148 8.30311 23.5944 8.59379 23.3801 8.80812C23.1658 9.02245 22.8751 9.14286 22.572 9.14286H2.00056C1.69745 9.14286 1.40676 9.02245 1.19244 8.80812C0.978109 8.59379 0.857702 8.30311 0.857702 8ZM0.857702 14.8571C0.857702 14.554 0.978109 14.2633 1.19244 14.049C1.40676 13.8347 1.69745 13.7143 2.00056 13.7143H12.2863C12.5894 13.7143 12.8801 13.8347 13.0944 14.049C13.3087 14.2633 13.4291 14.554 13.4291 14.8571C13.4291 15.1602 13.3087 15.4509 13.0944 15.6653C12.8801 15.8796 12.5894 16 12.2863 16H2.00056C1.69745 16 1.40676 15.8796 1.19244 15.6653C0.978109 15.4509 0.857702 15.1602 0.857702 14.8571Z"
-                    fill="currentColor"
-                  ></path>
-                </svg>
-              </a>
-            </div>
-            <div class="col-xl-3 col-md-4 col-6">
-              <a href="index.html" class="logo-header">
-                <img src="{% static 'images/logo/logo.svg' %}" alt="logo" class="logo" />
-              </a>
-            </div>
-            <div class="col-xl-6 tf-md-hidden">
+        <div class="header-bottom line">
+          <div class="container-full px_15 lg-px_40">
+            <div
+              class="wrapper-header d-flex justify-content-center align-items-center"
+            >
               <nav class="box-navigation text-center">
                 <ul
                   class="box-nav-ul d-flex align-items-center justify-content-center gap-30"
                 >
                   <li class="menu-item">
-                    <a href="{% url 'server:home' %}" class="item-link">Home</a>
+                    <a href="#" class="item-link"
+                      >Home<i class="icon icon-arrow-down"></i
+                    ></a>
+                    <div class="sub-menu mega-menu">
+                      <div class="container">
+                        <div class="row-demo">
+                          <div class="demo-item">
+                            <a href="index.html">
+                              <div class="demo-image position-relative">
+                                <img
+                                  class="lazyload"
+                                  data-src="images/demo/home-01.jpg"
+                                  src="images/demo/home-01.jpg"
+                                  alt="home-01"
+                                />
+                                <div class="demo-label">
+                                  <span class="demo-new">New</span>
+                                  <span>Trend</span>
+                                </div>
+                              </div>
+                              <span class="demo-name">Home Fashion 01</span>
+                            </a>
+                          </div>
+                          <div class="demo-item">
+                            <a href="home-multi-brand.html">
+                              <div class="demo-image position-relative">
+                                <img
+                                  class="lazyload"
+                                  data-src="images/demo/home-multi-brand.jpg"
+                                  src="images/demo/home-multi-brand.jpg"
+                                  alt="home-multi-brand"
+                                />
+                                <div class="demo-label">
+                                  <span class="demo-new">New</span>
+                                  <span class="demo-hot">Hot</span>
+                                </div>
+                              </div>
+                              <span class="demo-name">Home Multi Brand</span>
+                            </a>
+                          </div>
+                          <div class="demo-item">
+                            <a href="home-02.html">
+                              <div class="demo-image position-relative">
+                                <img
+                                  class="lazyload"
+                                  data-src="images/demo/home-02.jpg"
+                                  src="images/demo/home-02.jpg"
+                                  alt="home-02"
+                                />
+                                <div class="demo-label">
+                                  <span class="demo-hot">Hot</span>
+                                </div>
+                              </div>
+                              <span class="demo-name">Home Fashion 02</span>
+                            </a>
+                          </div>
+                          <div class="demo-item">
+                            <a href="home-03.html">
+                              <div class="demo-image">
+                                <img
+                                  class="lazyload"
+                                  data-src="images/demo/home-03.jpg"
+                                  src="images/demo/home-03.jpg"
+                                  alt="home-03"
+                                />
+                              </div>
+                              <span class="demo-name">Home Fashion 03</span>
+                            </a>
+                          </div>
+                          <div class="demo-item">
+                            <a href="home-04.html">
+                              <div class="demo-image">
+                                <img
+                                  class="lazyload"
+                                  data-src="images/demo/home-04.jpg"
+                                  src="images/demo/home-04.jpg"
+                                  alt="home-04"
+                                />
+                              </div>
+                              <span class="demo-name">Home Fashion 04</span>
+                            </a>
+                          </div>
+                          <div class="demo-item">
+                            <a href="home-05.html">
+                              <div class="demo-image">
+                                <img
+                                  class="lazyload"
+                                  data-src="images/demo/home-05.jpg"
+                                  src="images/demo/home-05.jpg"
+                                  alt="home-05"
+                                />
+                              </div>
+                              <span class="demo-name">Home Fashion 05</span>
+                            </a>
+                          </div>
+                          <div class="demo-item">
+                            <a href="home-06.html">
+                              <div class="demo-image position-relative">
+                                <img
+                                  class="lazyload"
+                                  data-src="images/demo/home-06.jpg"
+                                  src="images/demo/home-06.jpg"
+                                  alt="home-06"
+                                />
+                                <div class="demo-label">
+                                  <span class="demo-new">New</span>
+                                </div>
+                              </div>
+                              <span class="demo-name">Home Fashion 06</span>
+                            </a>
+                          </div>
+                          <div class="demo-item position-relative">
+                            <a href="home-personalized-pod.html">
+                              <div class="demo-image">
+                                <img
+                                  class="lazyload"
+                                  data-src="images/demo/home-personalized-pod.jpg"
+                                  src="images/demo/home-personalized-pod.jpg"
+                                  alt="home-personalized-pod"
+                                />
+                                <div class="demo-label">
+                                  <span class="demo-new">New</span>
+                                </div>
+                              </div>
+                              <span class="demo-name"
+                                >Home Personalized Pod</span
+                              >
+                            </a>
+                          </div>
+                          <div class="demo-item position-relative">
+                            <a href="home-pickleball.html">
+                              <div class="demo-image">
+                                <img
+                                  class="lazyload"
+                                  data-src="images/demo/home-pickleball.png"
+                                  src="images/demo/home-pickleball.png"
+                                  alt="home-pickleball"
+                                />
+                                <div class="demo-label">
+                                  <span class="demo-new">New</span>
+                                </div>
+                              </div>
+                              <span class="demo-name">Home Pickleball</span>
+                            </a>
+                          </div>
+                          <div class="demo-item position-relative">
+                            <a href="home-ceramic.html">
+                              <div class="demo-image">
+                                <img
+                                  class="lazyload"
+                                  data-src="images/demo/home-ceramic.png"
+                                  src="images/demo/home-ceramic.png"
+                                  alt="home-ceramic"
+                                />
+                                <div class="demo-label">
+                                  <span class="demo-new">New</span>
+                                </div>
+                              </div>
+                              <span class="demo-name">Home Ceramic</span>
+                            </a>
+                          </div>
+                          <div class="demo-item position-relative">
+                            <a href="home-food.html">
+                              <div class="demo-image">
+                                <img
+                                  class="lazyload"
+                                  data-src="images/demo/home-food.png"
+                                  src="images/demo/home-food.png"
+                                  alt="home-food"
+                                />
+                                <div class="demo-label">
+                                  <span class="demo-new">New</span>
+                                </div>
+                              </div>
+                              <span class="demo-name">Home Food</span>
+                            </a>
+                          </div>
+                          <div class="demo-item position-relative">
+                            <a href="home-camp-and-hike.html">
+                              <div class="demo-image">
+                                <img
+                                  class="lazyload"
+                                  data-src="images/demo/home-camp-and-hike.png"
+                                  src="images/demo/home-camp-and-hike.png"
+                                  alt="home-camp-and-hike"
+                                />
+                                <div class="demo-label">
+                                  <span class="demo-new">New</span>
+                                </div>
+                              </div>
+                              <span class="demo-name">Home Camp And Hike</span>
+                            </a>
+                          </div>
+                        </div>
+                        <div class="text-center view-all-demo">
+                          <a
+                            href="#modalDemo"
+                            data-bs-toggle="modal"
+                            class="tf-btn btn-xl btn-fill radius-3 animate-hover-btn fw-6"
+                            ><span>View all demos (46+)</span
+                            ><i class="icon icon-arrow-right"></i
+                          ></a>
+                        </div>
+                      </div>
+                    </div>
                   </li>
                   <li class="menu-item">
                     <a href="#" class="item-link"
@@ -1459,38 +1688,21 @@
                   </li>
                 </ul>
               </nav>
-            </div>
-            <div class="col-xl-3 col-md-4 col-3">
-              <ul
-                class="nav-icon d-flex justify-content-end align-items-center gap-20"
-              >
-                <li class="nav-search">
-                  <a
-                    href="#canvasSearch"
-                    data-bs-toggle="offcanvas"
-                    aria-controls="offcanvasLeft"
-                    class="nav-icon-item"
-                    ><i class="icon icon-search"></i
-                  ></a>
-                </li>
-                <li class="nav-account">
-                  <a href="#login" data-bs-toggle="modal" class="nav-icon-item"
-                    ><i class="icon icon-account"></i
-                  ></a>
-                </li>
-                <li class="nav-wishlist">
-                  <a href="wishlist.html" class="nav-icon-item"
-                    ><i class="icon icon-heart"></i
-                    ><span class="count-box">0</span></a
+              <ul class="header-list-categories tf-lg-hidden">
+                <li class="categories-item active">
+                  <a href="home-multi-brand.html" class="text-uppercase"
+                    >Women</a
                   >
                 </li>
-                <li class="nav-cart">
-                  <a
-                    href="#shoppingCart"
-                    data-bs-toggle="modal"
-                    class="nav-icon-item"
-                    ><i class="icon icon-bag"></i
-                    ><span class="count-box">0</span></a
+                <li class="categories-item">
+                  <a href="home-men.html" class="text-uppercase">Men</a>
+                </li>
+                <li class="categories-item">
+                  <a href="home-kids.html" class="text-uppercase">Kids</a>
+                </li>
+                <li class="categories-item">
+                  <a href="store-locations.html" class="text-uppercase"
+                    >Find a Store</a
                   >
                 </li>
               </ul>
@@ -1498,9 +1710,167 @@
           </div>
         </div>
       </header>
-      <!-- /Header -->
-      <!-- Slider -->
-      <div class="tf-slideshow slider-home-2 slider-effect-fade position-relative">
+      <!-- /header -->
+
+      <!-- categories -->
+      <section class="flat-spacing-20">
+        <div class="container">
+          <div class="tf-categories-wrap">
+            <div class="tf-categories-container">
+              <div class="collection-item-circle hover-img">
+                <a
+                  href="shop-collection-sub.html"
+                  class="collection-image img-style"
+                >
+                  <img
+                    class="lazyload"
+                    data-src="images/collections/collection-circle-8.jpg"
+                    src="images/collections/collection-circle-8.jpg"
+                    alt="collection-img"
+                  />
+                </a>
+                <div class="collection-content text-center">
+                  <a href="shop-collection-sub.html" class="link title fw-6"
+                    >New Arrivals</a
+                  >
+                </div>
+              </div>
+              <div class="collection-item-circle hover-img">
+                <a
+                  href="shop-collection-sub.html"
+                  class="collection-image img-style"
+                >
+                  <img
+                    class="lazyload"
+                    data-src="images/collections/collection-circle-9.jpg"
+                    src="images/collections/collection-circle-9.jpg"
+                    alt="collection-img"
+                  />
+                </a>
+                <div class="collection-content text-center">
+                  <a href="shop-collection-sub.html" class="link title fw-6"
+                    >Best Sellers</a
+                  >
+                </div>
+              </div>
+              <div class="collection-item-circle hover-img">
+                <a
+                  href="shop-collection-sub.html"
+                  class="collection-image img-style"
+                >
+                  <img
+                    class="lazyload"
+                    data-src="images/collections/collection-circle-10.jpg"
+                    src="images/collections/collection-circle-10.jpg"
+                    alt="collection-img"
+                  />
+                </a>
+                <div class="collection-content text-center">
+                  <a href="shop-collection-sub.html" class="link title fw-6"
+                    >Top Rated</a
+                  >
+                </div>
+              </div>
+              <div class="collection-item-circle hover-img">
+                <a
+                  href="shop-collection-sub.html"
+                  class="collection-image img-style"
+                >
+                  <img
+                    class="lazyload"
+                    data-src="images/collections/collection-circle-11.jpg"
+                    src="images/collections/collection-circle-11.jpg"
+                    alt="collection-img"
+                  />
+                </a>
+                <div class="collection-content text-center">
+                  <a href="shop-collection-sub.html" class="link title fw-6"
+                    >Brands We Love</a
+                  >
+                </div>
+              </div>
+              <div class="collection-item-circle hover-img">
+                <a
+                  href="shop-collection-sub.html"
+                  class="collection-image img-style"
+                >
+                  <img
+                    class="lazyload"
+                    data-src="images/collections/collection-circle-12.jpg"
+                    src="images/collections/collection-circle-12.jpg"
+                    alt="collection-img"
+                  />
+                </a>
+                <div class="collection-content text-center">
+                  <a href="shop-collection-sub.html" class="link title fw-6"
+                    >Trending</a
+                  >
+                </div>
+              </div>
+              <div class="collection-item-circle hover-img">
+                <a
+                  href="shop-collection-sub.html"
+                  class="collection-image img-style"
+                >
+                  <img
+                    class="lazyload"
+                    data-src="images/collections/collection-circle-13.jpg"
+                    src="images/collections/collection-circle-13.jpg"
+                    alt="collection-img"
+                  />
+                </a>
+                <div class="collection-content text-center">
+                  <a href="shop-collection-sub.html" class="link title fw-6"
+                    >The Re-Imagined</a
+                  >
+                </div>
+              </div>
+              <div class="collection-item-circle hover-img">
+                <div class="has-saleoff-wrap position-relative">
+                  <a
+                    href="shop-collection-sub.html"
+                    class="collection-image img-style"
+                  >
+                    <img
+                      class="lazyload"
+                      data-src="images/collections/sale.jpg"
+                      src="images/collections/sale.jpg"
+                      alt="collection-img"
+                    />
+                  </a>
+                  <div class="sale-off fw-5">30% off</div>
+                </div>
+                <div class="collection-content text-center">
+                  <a href="shop-collection-sub.html" class="link title fw-6"
+                    >Sale</a
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="tf-shopall-wrap">
+              <div class="collection-item-circle tf-shopall">
+                <a
+                  href="shop-collection-sub.html"
+                  class="collection-image img-style tf-shopall-icon"
+                >
+                  <i class="icon icon-arrow1-top-left"></i>
+                </a>
+                <div class="collection-content text-center">
+                  <a href="shop-collection-sub.html" class="link title fw-6"
+                    >Shop all</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- /categories -->
+
+      <!-- slider -->
+      <div
+        class="tf-slideshow slider-women slider-effect-fade position-relative"
+      >
         <div
           dir="ltr"
           class="swiper tf-sw-slideshow"
@@ -1510,31 +1880,28 @@
           data-centered="false"
           data-space="0"
           data-loop="true"
-          data-auto-play="true"
+          data-auto-play="false"
           data-delay="2000"
           data-speed="1000"
         >
           <div class="swiper-wrapper">
-            {% for banner in banners %}
             <div class="swiper-slide" lazy="true">
               <div class="wrap-slider">
                 <img
                   class="lazyload"
-                  data-src="{{ banner.image.url }}"
-                  src="{{ banner.image.url }}"
-                  alt="{{ banner.title }}"
+                  data-src="images/slider/women-slideshow-1.jpg"
+                  src="images/slider/women-slideshow-1.jpg"
+                  alt="women-slideshow-01"
                 />
                 <div class="box-content">
                   <div class="container">
-                    <h1 class="fade-item fade-item-1">
-                      {{ banner.title }}
-                    </h1>
+                    <h1 class="fade-item fade-item-1">Elegance</h1>
                     <p class="fade-item fade-item-2">
-                      {{ banner.sub_title }}
+                      From casual to formal, we've got you covered
                     </p>
                     <a
-                      href="{% url 'server:shop' banner.tag banner.sub_title %}"
-                      class="fade-item fade-item-3 tf-btn btn-fill animate-hover-btn btn-xl radius-3"
+                      href="shop-default.html"
+                      class="fade-item fade-item-3 tf-btn btn-fill animate-hover-btn btn-xl radius-60"
                       ><span>Shop collection</span
                       ><i class="icon icon-arrow-right"></i
                     ></a>
@@ -1542,165 +1909,323 @@
                 </div>
               </div>
             </div>
-
-            {% endfor %}
-            
+            <div class="swiper-slide" lazy="true">
+              <div class="wrap-slider">
+                <img
+                  class="lazyload"
+                  data-src="images/slider/women-slideshow-2.jpg"
+                  src="images/slider/women-slideshow-2.jpg"
+                  alt="women-slideshow-02"
+                />
+                <div class="box-content">
+                  <div class="container">
+                    <h1 class="fade-item fade-item-1">Boutique</h1>
+                    <p class="fade-item fade-item-2">
+                      From casual to formal, we've got you covered
+                    </p>
+                    <a
+                      href="shop-default.html"
+                      class="fade-item fade-item-3 tf-btn btn-fill animate-hover-btn btn-xl radius-60"
+                      ><span>Shop collection</span
+                      ><i class="icon icon-arrow-right"></i
+                    ></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="swiper-slide" lazy="true">
+              <div class="wrap-slider">
+                <img
+                  class="lazyload"
+                  data-src="images/slider/women-slideshow-3.jpg"
+                  src="images/slider/women-slideshow-3.jpg"
+                  alt="women-slideshow-03"
+                />
+                <div class="box-content">
+                  <div class="container">
+                    <h1 class="fade-item fade-item-1">Luxury</h1>
+                    <p class="fade-item fade-item-2">
+                      From casual to formal, we've got you covered
+                    </p>
+                    <a
+                      href="shop-default.html"
+                      class="fade-item fade-item-3 tf-btn btn-fill animate-hover-btn btn-xl radius-60"
+                      ><span>Shop collection</span
+                      ><i class="icon icon-arrow-right"></i
+                    ></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="wrap-pagination sw-absolute-2">
+        <div class="wrap-pagination">
           <div class="container">
-            <div class="sw-dots sw-pagination-slider"></div>
+            <div
+              class="sw-dots sw-pagination-slider justify-content-center"
+            ></div>
           </div>
         </div>
       </div>
-      <!-- /Slider -->
-      <!-- Collection -->
-      <section class="flat-spacing-8">
-        <div class="container-full">
-          <div class="masonry-layout wow fadeInUp">
-            <div class="item-1 collection-item large hover-img">
-              <div class="collection-inner">
-                <a
-                  href="shop-women.html"
-                  class="collection-image img-style rounded-0"
-                >
-                  <img
-                    class="lazyload"
-                    data-src="{{ first.image.url }}"
-                    src="{{ first.image.url }}"
-                    alt="collection-img"
-                  />
-                </a>
-                <div class="collection-content">
-                  <a
-                    href="{% url 'server:shop' first.tag first.title %}"
-                    class="tf-btn collection-title hover-icon"
-                    ><span>{{ first.title }}</span><i class="icon icon-arrow1-top-left"></i
-                  ></a>
-                </div>
-              </div>
-            </div>
-            <div class="item-2 collection-item large hover-img">
-              <div class="collection-inner">
-                <a
-                  href="{% url 'server:shop' second.tag second.title %}"
-                  class="collection-image img-style rounded-0"
-                >
-                  <img
-                    class="lazyload"
-                    data-src="{{ second.image.url }}"
-                    src="{{ second.image.url }}"
-                    alt="collection-img"
-                  />
-                </a>
-                <div class="collection-content">
-                  <a
-                    href="{% url 'server:shop' second.tag second.title %}"
-                    class="tf-btn collection-title hover-icon">
-                    <span>{{ second.title }}</span>
-                    <i class="icon icon-arrow1-top-left"></i>
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div class="item-3 collection-item large hover-img">
-              <div class="collection-inner">
-                <a
-                  href="{% url 'server:shop' third.tag third.title %}"
-                  class="collection-image img-style rounded-0"
-                >
-                  <img
-                    class="lazyload"
-                    data-src="{{ third.image.url }}"
-                    src="{{ third.image.url }}"
-                    alt="collection-img"
-                  />
-                </a>
-                <div class="collection-content">
-                  <a
-                    href="{% url 'server:shop' third.tag third.title %}"
-                    class="tf-btn collection-title hover-icon"
-                    ><span>{{ third.title }}</span>
-                    <i class="icon icon-arrow1-top-left"></i>
-                  ></a>
-                </div>
-              </div>
-            </div>
-            <div class="item-4 collection-item large hover-img">
-              <div class="collection-inner">
-                <a
-                  href="{% url 'server:shop' fourth.tag fourth.title %}"
-                  class="collection-image img-style rounded-0"
-                >
-                  <img
-                    class="lazyload"
-                    data-src="{{ fourth.image.url }}"
-                    src="{{ fourth.image.url }}"
-                    alt="collection-img"
-                  />
-                </a>
-                <div class="collection-content">
-                  <a
-                    href="{% url 'server:shop' fourth.tag fourth.title %}"
-                    class="tf-btn collection-title hover-icon">
-                    <span>{{ fourth.title }}</span>
-                    <i class="icon icon-arrow1-top-left"></i>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      <!-- /Collection -->
-      <!-- Shop Collection -->
-      <section class="flat-spacing-4 pt_0">
+      <!-- /slider -->
+
+      <!-- Categories -->
+      <section class="flat-spacing-5 pb_0">
         <div class="container">
-          <div class="tf-grid-layout md-col-2 tf-img-with-text">
-            <div class="tf-image-wrap wow fadeInUp" data-wow-delay="0s">
-              <img
-                class="lazyload"
-                data-src="{{ featured_product.image.url }}"
-                src="{{ featured_product.image.url }}"
-                alt="collection-img"
-              />
-            </div>
-            <div class="tf-content-wrap wow fadeInUp" data-wow-delay="0s">
-              <span class="sub-heading text-uppercase fw-7"
-                >{{ featured_product.quote_text }}</span
-              >
-              <div class="heading">
-                {{ featured_product.title }} 
-              </div>
-              <p class="description">
-                {{ featured_product.sub_title }}
-              </p>
-              <a
-                href="{% url 'server:shop' featured_product.tag featured_product.title %}"
-                class="tf-btn style-2 btn-fill radius-3 animate-hover-btn"
-                >{{ featured_product.button_text }}</a
-              >
-            </div>
-          </div>
-        </div>
-      </section>
-      <!-- /Shop Collection -->
-      <!-- Best seller -->
-      <section class="flat-spacing-2 pt_0">
-        <div class="container">
-          <div class="flat-title flex-row justify-content-between px-0">
+          <div class="flat-title">
             <span class="title wow fadeInUp" data-wow-delay="0s"
-              >Best Seller</span
+              >Categories you might like</span
             >
-            <div class="box-sw-navigation">
-              <div class="nav-sw square nav-next-slider nav-next-product">
-                <span class="icon icon-arrow1-left"></span>
+          </div>
+          <div class="hover-sw-nav">
+            <div
+              dir="ltr"
+              class="swiper tf-sw-collection"
+              data-preview="4"
+              data-tablet="2"
+              data-mobile="2"
+              data-space-lg="30"
+              data-space-md="30"
+              data-space="15"
+              data-loop="false"
+              data-auto-play="false"
+            >
+              <div class="swiper-wrapper">
+                <div class="swiper-slide" lazy="true">
+                  <div class="collection-item style-2 hover-img">
+                    <div class="collection-inner">
+                      <a
+                        href="shop-collection-sub.html"
+                        class="collection-image img-style"
+                      >
+                        <img
+                          class="lazyload"
+                          data-src="images/collections/collection-42.jpg"
+                          src="images/collections/collection-42.jpg"
+                          alt="collection-img"
+                        />
+                      </a>
+                      <div class="collection-content">
+                        <a
+                          href="shop-collection-sub.html"
+                          class="tf-btn collection-title hover-icon fs-15 rounded-full"
+                          ><span>Tops</span
+                          ><i class="icon icon-arrow1-top-left"></i
+                        ></a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="swiper-slide" lazy="true">
+                  <div class="collection-item style-2 hover-img">
+                    <div class="collection-inner">
+                      <a
+                        href="shop-collection-sub.html"
+                        class="collection-image img-style"
+                      >
+                        <img
+                          class="lazyload"
+                          data-src="images/collections/collection-43.jpg"
+                          src="images/collections/collection-43.jpg"
+                          alt="collection-img"
+                        />
+                      </a>
+                      <div class="collection-content">
+                        <a
+                          href="shop-collection-sub.html"
+                          class="tf-btn collection-title hover-icon fs-15 rounded-full"
+                          ><span>Sweatshirts</span
+                          ><i class="icon icon-arrow1-top-left"></i
+                        ></a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="swiper-slide" lazy="true">
+                  <div class="collection-item style-2 hover-img">
+                    <div class="collection-inner">
+                      <a
+                        href="shop-collection-sub.html"
+                        class="collection-image img-style"
+                      >
+                        <img
+                          class="lazyload"
+                          data-src="images/collections/collection-44.jpg"
+                          src="images/collections/collection-44.jpg"
+                          alt="collection-img"
+                        />
+                      </a>
+                      <div class="collection-content">
+                        <a
+                          href="shop-collection-sub.html"
+                          class="tf-btn collection-title hover-icon fs-15 rounded-full"
+                          ><span>Swim</span
+                          ><i class="icon icon-arrow1-top-left"></i
+                        ></a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="swiper-slide" lazy="true">
+                  <div class="collection-item style-2 hover-img">
+                    <div class="collection-inner">
+                      <a
+                        href="shop-collection-sub.html"
+                        class="collection-image img-style"
+                      >
+                        <img
+                          class="lazyload"
+                          data-src="images/collections/collection-45.jpg"
+                          src="images/collections/collection-45.jpg"
+                          alt="collection-img"
+                        />
+                      </a>
+                      <div class="collection-content">
+                        <a
+                          href="shop-collection-sub.html"
+                          class="tf-btn collection-title hover-icon fs-15 rounded-full"
+                          ><span>Dresses</span
+                          ><i class="icon icon-arrow1-top-left"></i
+                        ></a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="swiper-slide" lazy="true">
+                  <div class="collection-item style-2 hover-img">
+                    <div class="collection-inner">
+                      <a
+                        href="shop-collection-sub.html"
+                        class="collection-image img-style"
+                      >
+                        <img
+                          class="lazyload"
+                          data-src="images/collections/collection-46.jpg"
+                          src="images/collections/collection-46.jpg"
+                          alt="collection-img"
+                        />
+                      </a>
+                      <div class="collection-content">
+                        <a
+                          href="shop-collection-sub.html"
+                          class="tf-btn collection-title hover-icon fs-15 rounded-full"
+                          ><span>Cardigans</span
+                          ><i class="icon icon-arrow1-top-left"></i
+                        ></a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div class="nav-sw square nav-prev-slider nav-prev-product">
-                <span class="icon icon-arrow1-right"></span>
+            </div>
+            <div
+              class="nav-sw nav-next-slider nav-next-collection box-icon w_46 round"
+            >
+              <span class="icon icon-arrow-left"></span>
+            </div>
+            <div
+              class="nav-sw nav-prev-slider nav-prev-collection box-icon w_46 round"
+            >
+              <span class="icon icon-arrow-right"></span>
+            </div>
+            <div
+              class="sw-dots style-2 sw-pagination-collection justify-content-center"
+            ></div>
+          </div>
+        </div>
+      </section>
+      <!-- /Categories -->
+
+      <!-- Banner Collection -->
+      <section class="flat-spacing-10 pb_0">
+        <div class="container">
+          <div
+            dir="ltr"
+            class="swiper tf-sw-recent"
+            data-preview="2"
+            data-tablet="2"
+            data-mobile="1.3"
+            data-space-lg="30"
+            data-space-md="15"
+            data-space="15"
+            data-pagination="1"
+            data-pagination-md="1"
+            data-pagination-lg="1"
+          >
+            <div class="swiper-wrapper">
+              <div class="swiper-slide" lazy="true">
+                <div class="collection-item-v4 hover-img">
+                  <div class="collection-inner">
+                    <a
+                      href="shop-collection-sub.html"
+                      class="collection-image img-style radius-10"
+                    >
+                      <img
+                        class="lazyload"
+                        data-src="images/collections/collection-47.jpg"
+                        src="images/collections/collection-47.jpg"
+                        alt="collection-img"
+                      />
+                    </a>
+                    <div
+                      class="collection-content wow fadeInUp"
+                      data-wow-delay="0s"
+                    >
+                      <h5 class="heading text_white">The January Collection</h5>
+                      <a
+                        href="shop-collection-sub.html"
+                        class="tf-btn style-3 fw-6 btn-light-icon rounded-full animate-hover-btn"
+                        ><span>Shop now</span></a
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="swiper-slide" lazy="true">
+                <div class="collection-item-v4 hover-img">
+                  <div class="collection-inner">
+                    <a
+                      href="shop-collection-sub.html"
+                      class="collection-image img-style radius-10"
+                    >
+                      <img
+                        class="lazyload"
+                        data-src="images/collections/collection-48.jpg"
+                        src="images/collections/collection-48.jpg"
+                        alt="collection-img"
+                      />
+                    </a>
+                    <div
+                      class="collection-content wow fadeInUp"
+                      data-wow-delay="0s"
+                    >
+                      <h5 class="heading text_white">Olympia's picks</h5>
+                      <a
+                        href="shop-collection-sub.html"
+                        class="tf-btn style-3 fw-6 btn-light-icon rounded-full animate-hover-btn"
+                        ><span>Shop now</span></a
+                      >
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-          <div class="hover-sw-nav hover-sw-2">
+        </div>
+      </section>
+      <!-- /Banner Collection -->
+
+      <!-- Best seller -->
+      <section class="flat-spacing-15 pb_0">
+        <div class="container">
+          <div class="flat-title wow fadeInUp" data-wow-delay="0s">
+            <span class="title">Ecomus’s Favorites</span>
+            <p class="sub-title">
+              Beautifully Functional. Purposefully Designed. Consciously
+              Crafted.
+            </p>
+          </div>
+          <div class="hover-sw-nav hover-sw-3">
             <div
               dir="ltr"
               class="swiper tf-sw-product-sell wrap-sw-over"
@@ -1714,32 +2239,35 @@
               data-pagination-lg="3"
             >
               <div class="swiper-wrapper">
-                {% for product in best_sellers %}
                 <div class="swiper-slide" lazy="true">
-                  <div class="card-product style-2">
+                  <div class="card-product">
                     <div class="card-product-wrapper">
                       <a href="product-detail.html" class="product-img">
-                        {% with first_image=product.variants.first.get_images.first %}
                         <img
                           class="lazyload img-product"
-                          data-src="{{ first_image.image.url }}"
-                          src="{{ first_image.image.url }}"
-                          alt="{{ product.name }}"
+                          data-src="images/products/orange-1.jpg"
+                          src="images/products/orange-1.jpg"
+                          alt="image-product"
                         />
-                        {% endwith %}
-                        {% with second_image=product.variants.first.get_images.last %}
                         <img
                           class="lazyload img-hover"
-                          data-src="{{ second_image.image.url }}"
-                          src="{{ second_image.image.url }}"
-                          alt="{{ product.name }}"
+                          data-src="images/products/white-1.jpg"
+                          src="images/products/white-1.jpg"
+                          alt="image-product"
                         />
-                        {% endwith %}
                       </a>
-                      <div class="list-product-btn column-left">
+                      <div class="list-product-btn">
+                        <a
+                          href="#quick_add"
+                          data-bs-toggle="modal"
+                          class="box-icon bg_white quick-add tf-btn-loading"
+                        >
+                          <span class="icon icon-bag"></span>
+                          <span class="tooltip">Quick Add</span>
+                        </a>
                         <a
                           href="javascript:void(0);"
-                          class="box-icon wishlist bg_white btn-icon-action"
+                          class="box-icon bg_white wishlist btn-icon-action"
                         >
                           <span class="icon icon-heart"></span>
                           <span class="tooltip">Add to Wishlist</span>
@@ -1755,49 +2283,118 @@
                           <span class="tooltip">Add to Compare</span>
                           <span class="icon icon-check"></span>
                         </a>
+                        <a
+                          href="#quick_view"
+                          data-bs-toggle="modal"
+                          class="box-icon bg_white quickview tf-btn-loading"
+                        >
+                          <span class="icon icon-view"></span>
+                          <span class="tooltip">Quick View</span>
+                        </a>
                       </div>
-                      <div class="list-product-btn absolute-3">
+                      <div class="size-list">
+                        <span>4 sizes available</span>
+                      </div>
+                    </div>
+                    <div class="card-product-info">
+                      <a href="product-detail.html" class="title link"
+                        >Ribbed Tank Top</a
+                      >
+                      <span class="price">$16.95</span>
+                      <ul class="list-color-product">
+                        <li class="list-color-item color-swatch active">
+                          <span class="tooltip">Orange</span>
+                          <span class="swatch-value bg_orange-3"></span>
+                          <img
+                            class="lazyload"
+                            data-src="images/products/orange-1.jpg"
+                            src="images/products/orange-1.jpg"
+                            alt="image-product"
+                          />
+                        </li>
+                        <li class="list-color-item color-swatch">
+                          <span class="tooltip">Black</span>
+                          <span class="swatch-value bg_dark"></span>
+                          <img
+                            class="lazyload"
+                            data-src="images/products/black-1.jpg"
+                            src="images/products/black-1.jpg"
+                            alt="image-product"
+                          />
+                        </li>
+                        <li class="list-color-item color-swatch">
+                          <span class="tooltip">White</span>
+                          <span class="swatch-value bg_white"></span>
+                          <img
+                            class="lazyload"
+                            data-src="images/products/white-1.jpg"
+                            src="images/products/white-1.jpg"
+                            alt="image-product"
+                          />
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="swiper-slide" lazy="true">
+                  <div class="card-product">
+                    <div class="card-product-wrapper">
+                      <a href="product-detail.html" class="product-img">
+                        <img
+                          class="lazyload img-product"
+                          data-src="images/products/brown.jpg"
+                          src="images/products/brown.jpg"
+                          alt="image-product"
+                        />
+                        <img
+                          class="lazyload img-hover"
+                          data-src="images/products/purple.jpg"
+                          src="images/products/purple.jpg"
+                          alt="image-product"
+                        />
+                      </a>
+                      <div class="list-product-btn">
                         <a
                           href="#quick_add"
                           data-bs-toggle="modal"
-                          class="box-icon quick-add style-2"
+                          class="box-icon bg_white quick-add tf-btn-loading"
                         >
                           <span class="icon icon-bag"></span>
-                          <span class="text">QUICK ADD</span>
+                          <span class="tooltip">Quick Add</span>
+                        </a>
+                        <a
+                          href="javascript:void(0);"
+                          class="box-icon bg_white wishlist btn-icon-action"
+                        >
+                          <span class="icon icon-heart"></span>
+                          <span class="tooltip">Add to Wishlist</span>
+                          <span class="icon icon-delete"></span>
+                        </a>
+                        <a
+                          href="#compare"
+                          data-bs-toggle="offcanvas"
+                          aria-controls="offcanvasLeft"
+                          class="box-icon bg_white compare btn-icon-action"
+                        >
+                          <span class="icon icon-compare"></span>
+                          <span class="tooltip">Add to Compare</span>
+                          <span class="icon icon-check"></span>
                         </a>
                         <a
                           href="#quick_view"
                           data-bs-toggle="modal"
-                          class="box-icon quickview style-2"
+                          class="box-icon bg_white quickview tf-btn-loading"
                         >
                           <span class="icon icon-view"></span>
-                          <span class="text">QUICK VIEW</span>
+                          <span class="tooltip">Quick View</span>
                         </a>
                       </div>
-                      <div class="size-list style-2">
-                        {% with first_variant=product.variants.first %}
-                        {% with color=first_variant.get_color %}
-                        {% if color %}
-                            {% for variant in product.variants.all %}
-                            {% if variant.get_color == color %}
-                                {% with size=variant.attributes.filter.first %}
-                                <span>{{ size.value }}</span>
-                                {% endwith %}
-                            {% endif %}
-                            {% endfor %}
-                        {% endif %}
-                        {% endwith %}
-                        {% endwith %}
+                      <div class="size-list">
+                        <span>4 sizes available</span>
                       </div>
-                      {% with first_variant=product.variants.first %}
-                      {% if first_variant.discount_percentage > 0 %}
-                      <div class="on-sale-wrap text-end">
-                        <div class="on-sale-item">
-                          -{{ first_variant.discount_percentage }}%
-                        </div>
+                      <div class="on-sale-wrap">
+                        <div class="on-sale-item">-33%</div>
                       </div>
-                      {% endif %}
-                      {% endwith %}
                       <div class="countdown-box">
                         <div
                           class="js-countdown"
@@ -1808,31 +2405,414 @@
                     </div>
                     <div class="card-product-info">
                       <a href="product-detail.html" class="title link"
-                        >{{ product.name }}</a
+                        >Ribbed modal T-shirt</a
                       >
-                      {% with first_variant=product.variants.first %}
-                      <span class="price">${{ first_variant.discount_price }}</span>
-                      {% endwith %}
+                      <span class="price">From $18.95</span>
                       <ul class="list-color-product">
-                        {% for image in product.images.all %}
-                        {% if image.color %}
-                        <li class="list-color-item color-swatch {% if forloop.first %}active{% endif %}">
-                          <span class="tooltip">{{ image.color.value }}</span>
-                          <span class="swatch-value bg_{{ image.color.value|lower }}"></span>
+                        <li class="list-color-item color-swatch active">
+                          <span class="tooltip">Brown</span>
+                          <span class="swatch-value bg_brown"></span>
                           <img
                             class="lazyload"
-                            data-src="{{ image.image.url }}"
-                            src="{{ image.image.url }}"
-                            alt="{{ product.name }} - {{ image.color.value }}"
+                            data-src="images/products/brown.jpg"
+                            src="images/products/brown.jpg"
+                            alt="image-product"
                           />
                         </li>
-                        {% endif %}
-                        {% endfor %}
+                        <li class="list-color-item color-swatch">
+                          <span class="tooltip">Light Purple</span>
+                          <span class="swatch-value bg_purple"></span>
+                          <img
+                            class="lazyload"
+                            data-src="images/products/purple.jpg"
+                            src="images/products/purple.jpg"
+                            alt="image-product"
+                          />
+                        </li>
+                        <li class="list-color-item color-swatch">
+                          <span class="tooltip">Light Green</span>
+                          <span class="swatch-value bg_light-green"></span>
+                          <img
+                            class="lazyload"
+                            data-src="images/products/green.jpg"
+                            src="images/products/green.jpg"
+                            alt="image-product"
+                          />
+                        </li>
                       </ul>
                     </div>
                   </div>
                 </div>
-                {% endfor %}
+                <div class="swiper-slide" lazy="true">
+                  <div class="card-product">
+                    <div class="card-product-wrapper">
+                      <a href="product-detail.html" class="product-img">
+                        <img
+                          class="lazyload img-product"
+                          data-src="images/products/white-3.jpg"
+                          src="images/products/white-3.jpg"
+                          alt="image-product"
+                        />
+                        <img
+                          class="lazyload img-hover"
+                          data-src="images/products/white-4.jpg"
+                          src="images/products/white-4.jpg"
+                          alt="image-product"
+                        />
+                      </a>
+                      <div class="list-product-btn absolute-2">
+                        <a
+                          href="#shoppingCart"
+                          data-bs-toggle="modal"
+                          class="box-icon bg_white quick-add tf-btn-loading"
+                        >
+                          <span class="icon icon-bag"></span>
+                          <span class="tooltip">Add to cart</span>
+                        </a>
+                        <a
+                          href="javascript:void(0);"
+                          class="box-icon bg_white wishlist btn-icon-action"
+                        >
+                          <span class="icon icon-heart"></span>
+                          <span class="tooltip">Add to Wishlist</span>
+                          <span class="icon icon-delete"></span>
+                        </a>
+                        <a
+                          href="#compare"
+                          data-bs-toggle="offcanvas"
+                          aria-controls="offcanvasLeft"
+                          class="box-icon bg_white compare btn-icon-action"
+                        >
+                          <span class="icon icon-compare"></span>
+                          <span class="tooltip">Add to Compare</span>
+                          <span class="icon icon-check"></span>
+                        </a>
+                        <a
+                          href="#quick_view"
+                          data-bs-toggle="modal"
+                          class="box-icon bg_white quickview tf-btn-loading"
+                        >
+                          <span class="icon icon-view"></span>
+                          <span class="tooltip">Quick View</span>
+                        </a>
+                      </div>
+                    </div>
+                    <div class="card-product-info">
+                      <a href="product-detail.html" class="title link"
+                        >Oversized Printed T-shirt</a
+                      >
+                      <span class="price">$10.00</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="swiper-slide" lazy="true">
+                  <div class="card-product">
+                    <div class="card-product-wrapper">
+                      <a href="product-detail.html" class="product-img">
+                        <img
+                          class="lazyload img-product"
+                          data-src="images/products/white-2.jpg"
+                          src="images/products/white-2.jpg"
+                          alt="image-product"
+                        />
+                        <img
+                          class="lazyload img-hover"
+                          data-src="images/products/pink-1.jpg"
+                          src="images/products/pink-1.jpg"
+                          alt="image-product"
+                        />
+                      </a>
+                      <div class="list-product-btn">
+                        <a
+                          href="#quick_add"
+                          data-bs-toggle="modal"
+                          class="box-icon bg_white quick-add tf-btn-loading"
+                        >
+                          <span class="icon icon-bag"></span>
+                          <span class="tooltip">Quick Add</span>
+                        </a>
+                        <a
+                          href="javascript:void(0);"
+                          class="box-icon bg_white wishlist btn-icon-action"
+                        >
+                          <span class="icon icon-heart"></span>
+                          <span class="tooltip">Add to Wishlist</span>
+                          <span class="icon icon-delete"></span>
+                        </a>
+                        <a
+                          href="#compare"
+                          data-bs-toggle="offcanvas"
+                          aria-controls="offcanvasLeft"
+                          class="box-icon bg_white compare btn-icon-action"
+                        >
+                          <span class="icon icon-compare"></span>
+                          <span class="tooltip">Add to Compare</span>
+                          <span class="icon icon-check"></span>
+                        </a>
+                        <a
+                          href="#quick_view"
+                          data-bs-toggle="modal"
+                          class="box-icon bg_white quickview tf-btn-loading"
+                        >
+                          <span class="icon icon-view"></span>
+                          <span class="tooltip">Quick View</span>
+                        </a>
+                      </div>
+                      <div class="size-list">
+                        <span>4 sizes available</span>
+                      </div>
+                    </div>
+                    <div class="card-product-info">
+                      <a href="product-detail.html" class="title"
+                        >Oversized Printed T-shirt</a
+                      >
+                      <span class="price">$16.95</span>
+                      <ul class="list-color-product">
+                        <li class="list-color-item color-swatch active">
+                          <span class="tooltip">White</span>
+                          <span class="swatch-value bg_white"></span>
+                          <img
+                            class="lazyload"
+                            data-src="images/products/white-2.jpg"
+                            src="images/products/white-2.jpg"
+                            alt="image-product"
+                          />
+                        </li>
+                        <li class="list-color-item color-swatch">
+                          <span class="tooltip">Pink</span>
+                          <span class="swatch-value bg_purple"></span>
+                          <img
+                            class="lazyload"
+                            data-src="images/products/pink-1.jpg"
+                            src="images/products/pink-1.jpg"
+                            alt="image-product"
+                          />
+                        </li>
+                        <li class="list-color-item color-swatch">
+                          <span class="tooltip">Black</span>
+                          <span class="swatch-value bg_dark"></span>
+                          <img
+                            class="lazyload"
+                            data-src="images/products/black-2.jpg"
+                            src="images/products/black-2.jpg"
+                            alt="image-product"
+                          />
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="swiper-slide" lazy="true">
+                  <div class="card-product">
+                    <div class="card-product-wrapper">
+                      <a href="product-detail.html" class="product-img">
+                        <img
+                          class="lazyload img-product"
+                          data-src="images/products/brown-2.jpg"
+                          src="images/products/brown-2.jpg"
+                          alt="image-product"
+                        />
+                        <img
+                          class="lazyload img-hover"
+                          data-src="images/products/brown-3.jpg"
+                          src="images/products/brown-3.jpg"
+                          alt="image-product"
+                        />
+                      </a>
+                      <div class="size-list">
+                        <span>4 sizes available</span>
+                      </div>
+                      <div class="list-product-btn">
+                        <a
+                          href="#quick_add"
+                          data-bs-toggle="modal"
+                          class="box-icon bg_white quick-add tf-btn-loading"
+                        >
+                          <span class="icon icon-bag"></span>
+                          <span class="tooltip">Quick Add</span>
+                        </a>
+                        <a
+                          href="javascript:void(0);"
+                          class="box-icon bg_white wishlist btn-icon-action"
+                        >
+                          <span class="icon icon-heart"></span>
+                          <span class="tooltip">Add to Wishlist</span>
+                          <span class="icon icon-delete"></span>
+                        </a>
+                        <a
+                          href="#compare"
+                          data-bs-toggle="offcanvas"
+                          aria-controls="offcanvasLeft"
+                          class="box-icon bg_white compare btn-icon-action"
+                        >
+                          <span class="icon icon-compare"></span>
+                          <span class="tooltip">Add to Compare</span>
+                          <span class="icon icon-check"></span>
+                        </a>
+                        <a
+                          href="#quick_view"
+                          data-bs-toggle="modal"
+                          class="box-icon bg_white quickview tf-btn-loading"
+                        >
+                          <span class="icon icon-view"></span>
+                          <span class="tooltip">Quick View</span>
+                        </a>
+                      </div>
+                    </div>
+                    <div class="card-product-info">
+                      <a href="product-detail.html" class="title link"
+                        >V-neck linen T-shirt</a
+                      >
+                      <span class="price">$114.95</span>
+                      <ul class="list-color-product">
+                        <li class="list-color-item color-swatch active">
+                          <span class="tooltip">Brown</span>
+                          <span class="swatch-value bg_brown"></span>
+                          <img
+                            class="lazyload"
+                            data-src="images/products/brown-2.jpg"
+                            src="images/products/brown-2.jpg"
+                            alt="image-product"
+                          />
+                        </li>
+                        <li class="list-color-item color-swatch">
+                          <span class="tooltip">White</span>
+                          <span class="swatch-value bg_white"></span>
+                          <img
+                            class="lazyload"
+                            data-src="images/products/white-5.jpg"
+                            src="images/products/white-5.jpg"
+                            alt="image-product"
+                          />
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="swiper-slide" lazy="true">
+                  <div class="card-product">
+                    <div class="card-product-wrapper">
+                      <a href="product-detail.html" class="product-img">
+                        <img
+                          class="lazyload img-product"
+                          data-src="images/products/light-green-1.jpg"
+                          src="images/products/light-green-1.jpg"
+                          alt="image-product"
+                        />
+                        <img
+                          class="lazyload img-hover"
+                          data-src="images/products/light-green-2.jpg"
+                          src="images/products/light-green-2.jpg"
+                          alt="image-product"
+                        />
+                      </a>
+                      <div class="list-product-btn absolute-2">
+                        <a
+                          href="#quick_add"
+                          data-bs-toggle="modal"
+                          class="box-icon bg_white quick-add tf-btn-loading"
+                        >
+                          <span class="icon icon-bag"></span>
+                          <span class="tooltip">Quick Add</span>
+                        </a>
+                        <a
+                          href="javascript:void(0);"
+                          class="box-icon bg_white wishlist btn-icon-action"
+                        >
+                          <span class="icon icon-heart"></span>
+                          <span class="tooltip">Add to Wishlist</span>
+                          <span class="icon icon-delete"></span>
+                        </a>
+                        <a
+                          href="#compare"
+                          data-bs-toggle="offcanvas"
+                          aria-controls="offcanvasLeft"
+                          class="box-icon bg_white compare btn-icon-action"
+                        >
+                          <span class="icon icon-compare"></span>
+                          <span class="tooltip">Add to Compare</span>
+                          <span class="icon icon-check"></span>
+                        </a>
+                        <a
+                          href="#quick_view"
+                          data-bs-toggle="modal"
+                          class="box-icon bg_white quickview tf-btn-loading"
+                        >
+                          <span class="icon icon-view"></span>
+                          <span class="tooltip">Quick View</span>
+                        </a>
+                      </div>
+                    </div>
+                    <div class="card-product-info">
+                      <a href="product-detail.html" class="title link"
+                        >Loose Fit Sweatshirt</a
+                      >
+                      <span class="price">$10.00</span>
+                      <ul class="list-color-product">
+                        <li class="list-color-item color-swatch active">
+                          <span class="tooltip">Light Green</span>
+                          <span class="swatch-value bg_light-green"></span>
+                          <img
+                            class="lazyload"
+                            data-src="images/products/light-green-1.jpg"
+                            src="images/products/light-green-1.jpg"
+                            alt="image-product"
+                          />
+                        </li>
+                        <li class="list-color-item color-swatch">
+                          <span class="tooltip">Black</span>
+                          <span class="swatch-value bg_dark"></span>
+                          <img
+                            class="lazyload"
+                            data-src="images/products/black-3.jpg"
+                            src="images/products/black-3.jpg"
+                            alt="image-product"
+                          />
+                        </li>
+                        <li class="list-color-item color-swatch">
+                          <span class="tooltip">Blue</span>
+                          <span class="swatch-value bg_blue-2"></span>
+                          <img
+                            class="lazyload"
+                            data-src="images/products/blue.jpg"
+                            src="images/products/blue.jpg"
+                            alt="image-product"
+                          />
+                        </li>
+                        <li class="list-color-item color-swatch">
+                          <span class="tooltip">Dark Blue</span>
+                          <span class="swatch-value bg_dark-blue"></span>
+                          <img
+                            class="lazyload"
+                            data-src="images/products/dark-blue.jpg"
+                            src="images/products/dark-blue.jpg"
+                            alt="image-product"
+                          />
+                        </li>
+                        <li class="list-color-item color-swatch">
+                          <span class="tooltip">White</span>
+                          <span class="swatch-value bg_white"></span>
+                          <img
+                            class="lazyload"
+                            data-src="images/products/white-6.jpg"
+                            src="images/products/white-6.jpg"
+                            alt="image-product"
+                          />
+                        </li>
+                        <li class="list-color-item color-swatch">
+                          <span class="tooltip">Light Grey</span>
+                          <span class="swatch-value bg_light-grey"></span>
+                          <img
+                            class="lazyload"
+                            data-src="images/products/light-grey.jpg"
+                            src="images/products/light-grey.jpg"
+                            alt="image-product"
+                          />
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
             <div
@@ -1849,166 +2829,367 @@
         </div>
       </section>
       <!-- /Best seller -->
-      <!-- Banner Collection -->
-      <section class="flat-spacing-3 pt_0 line">
-        <div class="container-full">
-          <div class="wrap-carousel">
-            <div
-              dir="ltr"
-              class="swiper tf-sw-collection"
-              data-preview="2"
-              data-tablet="2"
-              data-mobile="1"
-              data-space-lg="30"
-              data-space-md="30"
-              data-space="15"
-              data-loop="false"
-              data-auto-play="false"
-            >
-              <div class="swiper-wrapper">
-                {% for banner in mid_banner %}
-                <div class="swiper-slide" lazy="true">
-                  <div class="banner-gr-item text-center hover-img">
-                    <a href="shop-default.html" class="img-style">
-                      <img
-                        class="lazyload"
-                        data-src="{{ banner.image.url }}"
-                        src="{{ banner.image.url }}"
-                        alt="banner-collection"
-                      />
-                    </a>
-                    <div class="content">
-                      <div class="title">
-                        <a href="shop-default.html" class="link"
-                          >{{ banner.title }}</a
-                        >
+
+      <!-- Shop Collection -->
+      <section class="flat-spacing-19">
+        <div class="container">
+          <div class="tf-grid-layout md-col-2 tf-img-with-text style-1">
+            <div class="tf-image-wrap wow fadeInUp" data-wow-delay="0s">
+              <img
+                class="lazyload"
+                data-src="images/collections/collection-58.jpg"
+                src="images/collections/collection-58.jpg"
+                alt="collection-img"
+              />
+            </div>
+            <div class="tf-content-wrap wow fadeInUp" data-wow-delay="0s">
+              <div class="heading">
+                Redefining Fashion <br />
+                Excellence
+              </div>
+              <p class="description">
+                Here is your chance to upgrade your wardrobe with a variation of
+                styles
+              </p>
+              <a
+                href="shop-collection-list.html"
+                class="tf-btn style-2 btn-fill rounded-full animate-hover-btn"
+                >Read our stories</a
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- /Shop Collection -->
+
+      <!-- Testimonial -->
+      <section
+        class="flat-testimonial-v2 py-0 wow fadeInUp"
+        data-wow-delay="0s"
+      >
+        <div class="container">
+          <div
+            class="wrapper-thumbs-testimonial-v2 type-1 flat-thumbs-testimonial"
+          >
+            <div class="box-left">
+              <div
+                dir="ltr"
+                class="swiper tf-sw-tes-2"
+                data-preview="1"
+                data-space-lg="40"
+                data-space-md="30"
+              >
+                <div class="swiper-wrapper">
+                  <div class="swiper-slide">
+                    <div class="testimonial-item lg lg-2">
+                      <div class="icon">
+                        <img
+                          class="lazyloaded"
+                          data-src="images/item/quote.svg"
+                          src="images/item/quote.svg"
+                        />
                       </div>
-                      <p>{{ banner.sub_title }}</p>
-                      <a href="{% url 'server:shop' banner.tag banner.title %}" class="tf-btn btn-line"
-                        >{{ banner.button_text }}<i class="icon icon-arrow1-top-left"></i
-                      ></a>
+                      <div class="heading fs-12 mb_18">PEOPLE ARE TALKING</div>
+                      <div class="rating">
+                        <i class="icon-star"></i>
+                        <i class="icon-star"></i>
+                        <i class="icon-star"></i>
+                        <i class="icon-star"></i>
+                        <i class="icon-star"></i>
+                      </div>
+                      <p class="text">
+                        "The shipping is always fast and the customer service
+                        team is friendly and helpful. I highly recommend this
+                        site to anyone looking for affordable clothing."
+                      </p>
+                      <div class="author box-author">
+                        <div class="box-img d-md-none rounded-0">
+                          <img
+                            class="lazyload img-product"
+                            data-src="images/slider/te4.jpg"
+                            src="images/slider/te4.jpg"
+                            alt="image-product"
+                          />
+                        </div>
+                        <div class="content">
+                          <div class="name">Robert smith</div>
+                          <a href="product-detail.html" class="metas link"
+                            >Purchase item : <span>Boxy T-shirt</span></a
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="swiper-slide">
+                    <div class="testimonial-item lg lg-2">
+                      <div class="icon">
+                        <img
+                          class="lazyloaded"
+                          data-src="images/item/quote.svg"
+                          src="images/item/quote.svg"
+                          alt=""
+                          src="images/item/quote.svg"
+                        />
+                      </div>
+                      <div class="heading fs-12 mb_18">PEOPLE ARE TALKING</div>
+                      <div class="rating">
+                        <i class="icon-star"></i>
+                        <i class="icon-star"></i>
+                        <i class="icon-star"></i>
+                        <i class="icon-star"></i>
+                        <i class="icon-star"></i>
+                      </div>
+                      <p class="text">
+                        "The shipping is always fast and the customer service
+                        team is friendly and helpful. I highly recommend this
+                        site to anyone looking for affordable clothing."
+                      </p>
+                      <div class="author box-author">
+                        <div class="box-img d-md-none rounded-0">
+                          <img
+                            class="lazyload img-product"
+                            data-src="images/slider/te6.jpg"
+                            src="images/slider/te6.jpg"
+                            alt="image-product"
+                          />
+                        </div>
+                        <div class="content">
+                          <div class="name">Jenifer Unix</div>
+                          <a href="product-detail.html" class="metas link"
+                            >Purchase item :
+                            <span> Sweetheart-neckline Top</span></a
+                          >
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
-                {% endfor %}
-               
+              </div>
+              <div class="d-md-flex d-none box-sw-navigation">
+                <div class="nav-sw nav-next-slider nav-next-tes-2">
+                  <span class="icon icon-arrow-left"></span>
+                </div>
+                <div class="nav-sw nav-prev-slider nav-prev-tes-2">
+                  <span class="icon icon-arrow-right"></span>
+                </div>
+              </div>
+              <div class="d-md-none sw-dots style-2 sw-pagination-tes-2"></div>
+            </div>
+            <div class="box-right">
+              <div
+                dir="ltr"
+                class="swiper tf-thumb-tes"
+                data-preview="1"
+                data-space="30"
+              >
+                <div class="swiper-wrapper">
+                  <div class="swiper-slide">
+                    <div class="grid-img-group style-ter-1">
+                      <div class="box-img item-1 hover-img">
+                        <div class="img-style">
+                          <img
+                            class="lazyload"
+                            data-src="images/slider/te4.jpg"
+                            src="images/slider/te4.jpg"
+                            alt="img-slider"
+                          />
+                        </div>
+                      </div>
+                      <div class="box-img item-2 hover-img">
+                        <div class="img-style">
+                          <img
+                            class="lazyload"
+                            data-src="images/slider/te3.jpg"
+                            src="images/slider/te3.jpg"
+                            alt="img-slider"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="swiper-slide">
+                    <div class="grid-img-group style-ter-1">
+                      <div class="box-img item-1 hover-img">
+                        <div class="img-style">
+                          <img
+                            class="lazyload"
+                            data-src="images/slider/te6.jpg"
+                            src="images/slider/te6.jpg"
+                            alt="img-slider"
+                          />
+                        </div>
+                      </div>
+                      <div class="box-img item-2 hover-img">
+                        <div class="img-style">
+                          <img
+                            class="lazyload"
+                            data-src="images/slider/te5.jpg"
+                            src="images/slider/te5.jpg"
+                            alt="img-slider"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- /Testimonial -->
+
+      <!-- Icon box -->
+      <section
+        class="flat-spacing-11 pb_0 flat-iconbox wow fadeInUp"
+        data-wow-delay="0s"
+      >
+        <div class="container">
+          <div class="wrap-carousel wrap-mobile">
+            <div
+              dir="ltr"
+              class="swiper tf-sw-mobile"
+              data-preview="1"
+              data-space="15"
+            >
+              <div class="swiper-wrapper wrap-iconbox">
+                <div class="swiper-slide">
+                  <div class="tf-icon-box style-border-line text-center">
+                    <div class="icon">
+                      <i class="icon-shipping"></i>
+                    </div>
+                    <div class="content">
+                      <div class="title">Free Shipping</div>
+                      <p>Free shipping over order $120</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="swiper-slide">
+                  <div class="tf-icon-box style-border-line text-center">
+                    <div class="icon">
+                      <i class="icon-payment fs-22"></i>
+                    </div>
+                    <div class="content">
+                      <div class="title">Flexible Payment</div>
+                      <p>Pay with Multiple Credit Cards</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="swiper-slide">
+                  <div class="tf-icon-box style-border-line text-center">
+                    <div class="icon">
+                      <i class="icon-return fs-22"></i>
+                    </div>
+                    <div class="content">
+                      <div class="title">14 Day Returns</div>
+                      <p>Within 30 days for an exchange</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="swiper-slide">
+                  <div class="tf-icon-box style-border-line text-center">
+                    <div class="icon">
+                      <i class="icon-suport"></i>
+                    </div>
+                    <div class="content">
+                      <div class="title">Premium Support</div>
+                      <p>Outstanding premium support</p>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
             <div
-              class="sw-dots style-2 sw-pagination-collection justify-content-center"
+              class="sw-dots style-2 sw-pagination-mb justify-content-center"
             ></div>
           </div>
         </div>
       </section>
-      <!-- /Banner Collection -->
-      <!-- Store -->
-      <section class="flat-spacing-9 pb_0">
-        <div class="container">
-          <div class="flat-title wow fadeInUp" data-wow-delay="0s">
-            <span class="title">Visit our store</span>
-          </div>
-          <div class="flat-tab-store flat-animate-tab">
-            <ul class="widget-tab-2" role="tablist">
-                {% for store in store %}
-              <li class="nav-tab-item" role="presentation">
-                <a href="#{{ store.store_city }}" class="active" data-bs-toggle="tab"
-                  >{{ store.store_city }}</a
-                >
-              </li>
-              {% endfor %}
-            </ul>
-            <div class="tab-content">
-                {% for store in store %}
-              <div class="tab-pane active show" id="{{ store.store_city }}" role="tabpanel">
-                <div
-                  class="widget-card-store align-items-center tf-grid-layout md-col-2"
-                >
-                  <div class="store-item-info">
-                    <h5 class="store-heading">{{ store.store_city }} Store</h5>
-                    <div class="description">
-                      <p>
-                        {{ store.store_address }}<br />{{ store.store_email }}
-                        <br />{{ store.store_phone }}
-                      </p>
-                      <p>
-                        {{ store.store_timings }}
-                      </p>
-                    </div>
-                  </div>
-                  <div class="store-img">
-                    <img
-                      class="lazyload"
-                      data-src="images/shop/store/ourstore1.png"
-                      src="images/shop/store/ourstore1.png"
-                      alt="store-img"
-                    />
-                  </div>
+      <!-- /Icon box -->
+
+      <!-- Brand -->
+      <section class="flat-spacing-12">
+        <div class="wrap-carousel wrap-brand wrap-brand-v2 autoplay-linear">
+          <div
+            dir="ltr"
+            class="swiper tf-sw-brand border-0"
+            data-play="true"
+            data-loop="true"
+            data-preview="6"
+            data-tablet="4"
+            data-mobile="2"
+            data-space-lg="30"
+            data-space-md="15"
+          >
+            <div class="swiper-wrapper">
+              <div class="swiper-slide">
+                <div class="brand-item-v2">
+                  <img
+                    class="lazyload"
+                    data-src="images/brand/brand-01.png"
+                    src="images/brand/brand-01.png"
+                    alt="image-brand"
+                  />
                 </div>
               </div>
-              {% endfor %}
-            </div>
-          </div>
-        </div>
-      </section>
-      <!-- /Store -->
-      <!-- Brand -->
-      <section class="flat-spacing-1 wow fadeIn" data-wow-delay="0s">
-        <div class="container">
-          <div class="row-brand">
-            <div class="brand-item-v2 hover-img-brand">
-              <img
-                class="lazyload"
-                data-src="images/brand/brand-01.png"
-                src="images/brand/brand-01.png"
-                alt="image-brand"
-              />
-            </div>
-            <div class="brand-item-v2 hover-img-brand">
-              <img
-                class="lazyload"
-                data-src="images/brand/brand-02.png"
-                src="images/brand/brand-02.png"
-                alt="image-brand"
-              />
-            </div>
-            <div class="brand-item-v2 hover-img-brand">
-              <img
-                class="lazyload"
-                data-src="images/brand/brand-03.png"
-                src="images/brand/brand-03.png"
-                alt="image-brand"
-              />
-            </div>
-            <div class="brand-item-v2 hover-img-brand">
-              <img
-                class="lazyload"
-                data-src="images/brand/brand-04.png"
-                src="images/brand/brand-04.png"
-                alt="image-brand"
-              />
-            </div>
-            <div class="brand-item-v2 hover-img-brand">
-              <img
-                class="lazyload"
-                data-src="images/brand/brand-05.png"
-                src="images/brand/brand-05.png"
-                alt="image-brand"
-              />
-            </div>
-            <div class="brand-item-v2 hover-img-brand">
-              <img
-                class="lazyload"
-                data-src="images/brand/brand-06.png"
-                src="images/brand/brand-06.png"
-                alt="image-brand"
-              />
+              <div class="swiper-slide">
+                <div class="brand-item-v2">
+                  <img
+                    class="lazyload"
+                    data-src="images/brand/brand-02.png"
+                    src="images/brand/brand-02.png"
+                    alt="image-brand"
+                  />
+                </div>
+              </div>
+              <div class="swiper-slide">
+                <div class="brand-item-v2">
+                  <img
+                    class="lazyload"
+                    data-src="images/brand/brand-03.png"
+                    src="images/brand/brand-03.png"
+                    alt="image-brand"
+                  />
+                </div>
+              </div>
+              <div class="swiper-slide">
+                <div class="brand-item-v2">
+                  <img
+                    class="lazyload"
+                    data-src="images/brand/brand-04.png"
+                    src="images/brand/brand-04.png"
+                    alt="image-brand"
+                  />
+                </div>
+              </div>
+              <div class="swiper-slide">
+                <div class="brand-item-v2">
+                  <img
+                    class="lazyload"
+                    data-src="images/brand/brand-05.png"
+                    src="images/brand/brand-05.png"
+                    alt="image-brand"
+                  />
+                </div>
+              </div>
+              <div class="swiper-slide">
+                <div class="brand-item-v2">
+                  <img
+                    class="lazyload"
+                    data-src="images/brand/brand-06.png"
+                    src="images/brand/brand-06.png"
+                    alt="image-brand"
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
       <!-- /Brand -->
-      <!-- Footer -->
-      <footer id="footer" class="footer md-pb-70">
+
+      <!-- footer -->
+      <footer id="footer" class="footer background-gray md-pb-70">
         <div class="footer-wrap">
           <div class="footer-body">
             <div class="container">
@@ -2363,7 +3544,7 @@
           </div>
         </div>
       </footer>
-      <!-- /Footer -->
+      <!-- /footer -->
     </div>
 
     <!-- gotop -->
@@ -5682,40 +6863,16 @@
     <!-- /modal find_size -->
 
     <!-- Javascript -->
-    <script
-      type="text/javascript"
-      src="{% static 'js/bootstrap.min.js' %}"
-    ></script>
-    <script
-      type="text/javascript"
-      src="{% static 'js/jquery.min.js' %}"
-    ></script>
-    <script
-      type="text/javascript"
-      src="{% static 'js/swiper-bundle.min.js' %}"
-    ></script>
+    <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/swiper-bundle.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/carousel.js' %}"></script>
-    <script
-      type="text/javascript"
-      src="{% static 'js/bootstrap-select.min.js' %}"
-    ></script>
-    <script
-      type="text/javascript"
-      src="{% static 'js/lazysize.min.js' %}"
-    ></script>
-    <script
-      type="text/javascript"
-      src="{% static 'js/bootstrap-select.min.js' %}"
-    ></script>
-    <script
-      type="text/javascript"
-      src="{% static 'js/count-down.js' %}"
-    ></script>
+    <script type="text/javascript" src="{% static 'js/bootstrap-select.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/lazysize.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bootstrap-select.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/count-down.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/wow.min.js' %}"></script>
-    <script
-      type="text/javascript"
-      src="{% static 'js/multiple-modal.js' %}"
-    ></script>
+    <script type="text/javascript" src="{% static 'js/multiple-modal.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/main.js' %}"></script>
 
     <script src="{% static 'js/sibforms.js' %}" defer></script>

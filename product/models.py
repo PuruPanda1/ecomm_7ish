@@ -6,7 +6,6 @@ from django.dispatch import receiver
 class Category(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
-    image = models.ImageField(upload_to='categories/')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -27,8 +26,10 @@ class SubCategory(models.Model):
 
 
 class Tag(models.Model):
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='tags', null=True, blank=True)
     name = models.CharField(max_length=255)
     description = models.TextField()
+    image = models.ImageField(upload_to='tags/', default='tags/default.jpg')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
