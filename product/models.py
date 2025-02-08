@@ -1,5 +1,7 @@
 from django.db import models
 from django.utils import timezone
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 class Category(models.Model):
     name = models.CharField(max_length=255)
@@ -43,6 +45,7 @@ class Product(models.Model):
     tax_rate = models.DecimalField(max_digits=10, decimal_places=2, default=0.1)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return self.name
@@ -63,7 +66,6 @@ class AttributeValue(models.Model):
 
 class ProductVariant(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='variants')
-    sku = models.CharField(max_length=50, unique=True)  # Stock Keeping Unit
     usual_price = models.DecimalField(max_digits=10, decimal_places=2)
     discount_price = models.DecimalField(max_digits=10, decimal_places=2)
     stock = models.PositiveIntegerField(default=0)
@@ -74,6 +76,13 @@ class ProductVariant(models.Model):
     
     # Many-to-many relationship with AttributeValue
     attributes = models.ManyToManyField(AttributeValue)
+
+    @property
+    def sku(self):
+        """Generate SKU dynamically based on product ID and attributes."""
+        attribute_values = "-".join([av.value for av in self.attributes.all()])
+        return f"{self.product.id}-{attribute_values}" if attribute_values else f"{self.product.id}"
+
 
     def __str__(self):
         return f"{self.product.name} - {self.sku}"
@@ -88,5 +97,3 @@ class ProductVariantImage(models.Model):
 
     def __str__(self):
         return f"{self.product_variant.product.name} - {self.product_variant.created_at}"
-
-
