@@ -33,3 +33,13 @@ class FeaturedProduct(models.Model):
     def __str__(self):
         return self.title   
 
+class MidBanner(models.Model):
+    title = models.CharField(max_length=512)
+    sub_title = models.CharField(max_length=512)
+    image = models.ImageField(upload_to='mid_banners/')
+    tag = models.CharField(max_length=512, default='Trending')
+    button_text = models.CharField(max_length=512)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.title

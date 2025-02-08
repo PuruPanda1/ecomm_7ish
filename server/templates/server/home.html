@@ -1866,52 +1866,32 @@
               data-auto-play="false"
             >
               <div class="swiper-wrapper">
+                {% for banner in mid_banner %}
                 <div class="swiper-slide" lazy="true">
                   <div class="banner-gr-item text-center hover-img">
                     <a href="shop-default.html" class="img-style">
                       <img
                         class="lazyload"
-                        data-src="images/shop/file/banner-gr-1.jpg"
-                        src="images/shop/file/banner-gr-1.jpg"
+                        data-src="{{ banner.image.url }}"
+                        src="{{ banner.image.url }}"
                         alt="banner-collection"
                       />
                     </a>
                     <div class="content">
                       <div class="title">
                         <a href="shop-default.html" class="link"
-                          >Accessories Galore</a
+                          >{{ banner.title }}</a
                         >
                       </div>
-                      <p>Shop through our latest selection of Fashion</p>
-                      <a href="shop-default.html" class="tf-btn btn-line"
-                        >Shop Collection<i class="icon icon-arrow1-top-left"></i
+                      <p>{{ banner.sub_title }}</p>
+                      <a href="{% url 'server:shop' banner.tag banner.title %}" class="tf-btn btn-line"
+                        >{{ banner.button_text }}<i class="icon icon-arrow1-top-left"></i
                       ></a>
                     </div>
                   </div>
                 </div>
-                <div class="swiper-slide" lazy="true">
-                  <div class="banner-gr-item text-center hover-img">
-                    <a href="shop-default.html" class="img-style">
-                      <img
-                        class="lazyload"
-                        data-src="images/shop/file/banner-gr-2.jpg"
-                        src="images/shop/file/banner-gr-2.jpg"
-                        alt="banner-collection"
-                      />
-                    </a>
-                    <div class="content">
-                      <div class="title">
-                        <a href="shop-default.html" class="link"
-                          >Statement Pieces</a
-                        >
-                      </div>
-                      <p>Shop through our latest selection of Womens</p>
-                      <a href="shop-default.html" class="tf-btn btn-line"
-                        >Shop Collection<i class="icon icon-arrow1-top-left"></i
-                      ></a>
-                    </div>
-                  </div>
-                </div>
+                {% endfor %}
+               
               </div>
             </div>
             <div
