@@ -1909,33 +1909,29 @@
           </div>
           <div class="flat-tab-store flat-animate-tab">
             <ul class="widget-tab-2" role="tablist">
+                {% for store in store %}
               <li class="nav-tab-item" role="presentation">
-                <a href="#hongkong" class="active" data-bs-toggle="tab"
-                  >Hongkong</a
+                <a href="#{{ store.store_city }}" class="active" data-bs-toggle="tab"
+                  >{{ store.store_city }}</a
                 >
               </li>
-              <li class="nav-tab-item" role="presentation">
-                <a href="#london" data-bs-toggle="tab">London</a>
-              </li>
-              <li class="nav-tab-item" role="presentation">
-                <a href="#paris" data-bs-toggle="tab">Paris</a>
-              </li>
+              {% endfor %}
             </ul>
             <div class="tab-content">
-              <div class="tab-pane active show" id="hongkong" role="tabpanel">
+                {% for store in store %}
+              <div class="tab-pane active show" id="{{ store.store_city }}" role="tabpanel">
                 <div
                   class="widget-card-store align-items-center tf-grid-layout md-col-2"
                 >
                   <div class="store-item-info">
-                    <h5 class="store-heading">Hongkong Store</h5>
+                    <h5 class="store-heading">{{ store.store_city }} Store</h5>
                     <div class="description">
                       <p>
-                        301 Front St WToronto,<br />Ecomus@support.com
-                        <br />(08) 8942 1299
+                        {{ store.store_address }}<br />{{ store.store_email }}
+                        <br />{{ store.store_phone }}
                       </p>
                       <p>
-                        Mon - Fri, 8:30am - 10:30pm<br />Saturday, 8:30am -
-                        10:30pm <br />Sunday Closed
+                        {{ store.store_timings }}
                       </p>
                     </div>
                   </div>
@@ -1949,60 +1945,7 @@
                   </div>
                 </div>
               </div>
-              <div class="tab-pane" id="london" role="tabpanel">
-                <div
-                  class="widget-card-store align-items-center tf-grid-layout md-col-2"
-                >
-                  <div class="store-item-info">
-                    <h5 class="store-heading">London Store</h5>
-                    <div class="description">
-                      <p>
-                        301 Front St WToronto,<br />Ecomus@support.com
-                        <br />(08) 8942 1299
-                      </p>
-                      <p>
-                        Mon - Fri, 8:30am - 10:30pm<br />Saturday, 8:30am -
-                        10:30pm <br />Sunday Closed
-                      </p>
-                    </div>
-                  </div>
-                  <div class="store-img">
-                    <img
-                      class="lazyload"
-                      data-src="images/shop/store/ourstore2.png"
-                      src="images/shop/store/ourstore2.png"
-                      alt="store-img"
-                    />
-                  </div>
-                </div>
-              </div>
-              <div class="tab-pane" id="paris" role="tabpanel">
-                <div
-                  class="widget-card-store align-items-center tf-grid-layout md-col-2"
-                >
-                  <div class="store-item-info">
-                    <h5 class="store-heading">Paris Store</h5>
-                    <div class="description">
-                      <p>
-                        301 Front St WToronto,<br />Ecomus@support.com
-                        <br />(08) 8942 1299
-                      </p>
-                      <p>
-                        Mon - Fri, 8:30am - 10:30pm<br />Saturday, 8:30am -
-                        10:30pm <br />Sunday Closed
-                      </p>
-                    </div>
-                  </div>
-                  <div class="store-img">
-                    <img
-                      class="lazyload"
-                      data-src="images/shop/store/ourstore3.png"
-                      src="images/shop/store/ourstore3.png"
-                      alt="store-img"
-                    />
-                  </div>
-                </div>
-              </div>
+              {% endfor %}
             </div>
           </div>
         </div>
