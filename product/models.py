@@ -83,17 +83,51 @@ class ProductVariant(models.Model):
         attribute_values = "-".join([av.value for av in self.attributes.all()])
         return f"{self.product.id}-{attribute_values}" if attribute_values else f"{self.product.id}"
 
+    @property
+    def discount_percentage(self):
+        """Calculate and return the discount percentage."""
+        if self.discount_price and self.usual_price and self.usual_price > self.discount_price:
+            return round(((self.usual_price - self.discount_price) / self.usual_price) * 100)
+        return 0  
 
     def __str__(self):
-        return f"{self.product.name} - {self.sku}"
+        return f"{self.product.name} --> {self.sku}"
 
     def get_variant_name(self):
         return ", ".join([str(attr) for attr in self.attributes.all()])
-
-class ProductVariantImage(models.Model):
-    product_variant = models.ForeignKey(ProductVariant, on_delete=models.CASCADE, related_name='images')
-    image = models.ImageField(upload_to='products/')
     
+    def get_color(self):
+        return self.attributes.filter(attribute__name='Color').first()
+
+    def get_images(self):
+        color = self.get_color()
+        if color:
+            return self.product.images.filter(color=color)
+        else:
+            return self.product.images.filter(color__isnull=True)
+
+# class ProductVariantImage(models.Model):
+#     product_variant = models.ForeignKey(ProductVariant, on_delete=models.CASCADE, related_name='images')
+#     image = models.ImageField(upload_to='products/')
+
+#     def __str__(self):
+#         return f"{self.product_variant.product.name} - {self.product_variant.created_at}"
+
+class ProductImage(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='images')
+    color = models.ForeignKey(
+        AttributeValue,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        limit_choices_to={'attribute__name': 'Color'},
+        related_name='product_images'
+    )
+    image = models.ImageField(upload_to='products/')
+    order = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        ordering = ['order']
 
     def __str__(self):
-        return f"{self.product_variant.product.name} - {self.product_variant.created_at}"
+        return f"{self.product.name} - {self.color.value if self.color else 'No Color'}"

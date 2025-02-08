@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Product, ProductVariant, Attribute, AttributeValue, Category, SubCategory, Tag
+from .models import Product, ProductVariant, Attribute, AttributeValue, Category, SubCategory, Tag, ProductImage
 
 class AttributeValueInline(admin.TabularInline):
     model = AttributeValue
@@ -21,7 +21,7 @@ class AttributeAdmin(admin.ModelAdmin):
 admin.site.register(Category)
 admin.site.register(SubCategory)
 admin.site.register(Tag)
-
+admin.site.register(ProductImage)
 
 @admin.register(ProductVariant)
 class ProductVariantAdmin(admin.ModelAdmin):
