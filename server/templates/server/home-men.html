@@ -1,4 +1,4 @@
-
+{% load static %}
 
 <!DOCTYPE html>
 
@@ -12,18 +12,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
    <!-- font -->
-   <link rel="stylesheet" href="fonts/fonts.css">
+   <link rel="stylesheet" href="{% static 'fonts/fonts.css' %}">
    <!-- Icons -->
-   <link rel="stylesheet" href="fonts/font-icons.css">
-   <link rel="stylesheet" href="css/bootstrap.min.css">
-   <link rel="stylesheet" href="css/swiper-bundle.min.css">
-   <link rel="stylesheet" href="css/animate.css">
-   <link rel="stylesheet" href="../../../sibforms.com/forms/end-form/build/sib-styles.css">
-   <link rel="stylesheet"type="text/css" href="css/styles.css"/>
+   <link rel="stylesheet" href="{% static 'fonts/font-icons.css' %}">
+   <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+   <link rel="stylesheet" href="{% static 'css/swiper-bundle.min.css' %}">
+   <link rel="stylesheet" href="{% static 'css/animate.css' %}">
+   <link rel="stylesheet" href="{% static 'css/sib-styles.css' %}">
+   <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
 
     <!-- Favicon and Touch Icons  -->
-    <link rel="shortcut icon" href="images/logo/favicon.png">
-    <link rel="apple-touch-icon-precomposed" href="images/logo/favicon.png">
+    <link rel="shortcut icon" href="{% static 'images/logo/favicon.png' %}">
+    <link rel="apple-touch-icon-precomposed" href="{% static 'images/logo/favicon.png' %}">
 
 </head>
 
@@ -738,9 +738,10 @@
         <div class="tf-slideshow slideshow-men slider-effect-fade position-relative">
             <div dir="ltr" class="swiper tf-sw-slideshow" data-preview="1" data-tablet="1" data-mobile="1" data-centered="false" data-space="0" data-loop="false" data-auto-play="false" data-delay="2000" data-speed="1000">
                 <div class="swiper-wrapper">
+                    {% for banner in banners %}
                     <div class="swiper-slide" lazy="true">
                         <div class="wrap-slider">
-                            <img class="lazyload" data-src="images/slider/men-slide1.jpg" src="images/slider/men-slide1.jpg" alt="men-slideshow-01" >
+                            <img class="lazyload" data-src="{{ banner.image.url }}" src="{{ banner.image.url }}" alt="men-slideshow-01" >
                             <div class="lookbook-1">
                                 <div class="lookbook-item item-2">
                                     <div class="inner">
@@ -752,13 +753,13 @@
                                                 <li>
                                                     <div class="lookbook-product">
                                                         <a href="product-detail.html" class="image">
-                                                            <img class="lazyload" data-src="images/products/lb-men-1.jpg" src="images/products/lb-men-1.jpg" alt="">
+                                                            <img class="lazyload" data-src="{{ banner.product_variant.get_images.first.image.url }}" src="{{ banner.product_variant.get_images.first.image.url }}" alt="">
                                                         </a>
                                                         <div class="content-wrap">
                                                             <div class="product-title">
-                                                                <a href="#">Loose Fit Hoodie</a>
+                                                                <a href="#">{{ banner.product_variant.product.name }}</a>
                                                             </div>
-                                                            <div class="price">$20.00</div>
+                                                            <div class="price">{{ banner.product_variant.discount_price }}</div>
                                                         </div>
                                                         <a href="#quick_view" data-bs-toggle="modal" class=""><i class="icon-view"></i></a>
                                                     </div>
@@ -770,38 +771,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="swiper-slide" lazy="true">
-                        <div class="wrap-slider">
-                            <img class="lazyload" data-src="images/slider/men-slide2.jpg" src="images/slider/men-slide2.jpg" alt="men-slideshow-02">
-                            <div class="lookbook-2">
-                                <div class="lookbook-item item-1">
-                                    <div class="inner">
-                                        <div class="btn-group dropdown dropup dropdown-center">
-                                            <button class="tf-pin-btn" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <span></span>
-                                            </button>
-                                            <ul class="dropdown-menu p-0 border-0">
-                                                <li>
-                                                    <div class="lookbook-product">
-                                                        <a href="product-detail.html" class="image">
-                                                            <img class="lazyload" data-src="images/products/lb-men-2.jpg" src="images/products/lb-men-2.jpg" alt="">
-                                                        </a>
-                                                        <div class="content-wrap">
-                                                            <div class="product-title">
-                                                                <a href="#">Ribbed Tank Top</a>
-                                                            </div>
-                                                            <div class="price">$20.00</div>
-                                                        </div>
-                                                        <a href="#quick_view" data-bs-toggle="modal" class=""><i class="icon-view"></i></a>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
             <div class="wrap-pagination text-center">
@@ -828,20 +798,23 @@
         </div>
         <!-- /slider -->
         <!-- Countdown -->
+         {% if countdown.is_active %}
         <section class="flat-spacing-10 bg_dark">
             <div class="container">
                 <div class="tf-grid-layout md-col-2 align-items-center flat-wrap-countdown countdown-black">
                     <div class="tf-content-wrap-v2 wow fadeInUp" data-wow-delay="0s">
-                        <h4 class="heading">One-Time Only</h4>
-                        <p class="description">Special Offers You Can't Miss: These deals won't last forever!</p>
-                        <a href="shop-collection-list.html" class="tf-btn btn-line">Shop now<i class="icon icon-arrow-right"></i></a>
+                        <h4 class="heading">{{ countdown.title }}</h4>
+                        <p class="description">{{ countdown.sub_title }}</p>
+                        <a href="shop-collection-list.html" class="tf-btn btn-line">{{ countdown.button_text }}<i class="icon icon-arrow-right"></i></a>
                     </div>
                     <div class="tf-countdown-v2 wow fadeInUp" data-wow-delay="0s">
-                        <div class="js-countdown" data-timer="8007500" data-labels="Days,Hours,Mins,Secs"></div>
+                        {% comment %} date timer in seconds {% endcomment %}
+                        <div class="js-countdown" data-timer="{{ countdown.time_left }}" data-labels="Days,Hours,Mins,Secs"></div>
                     </div>
                 </div>
             </div>
         </section>
+        {% endif %}
         <!-- /Countdown -->
         <!-- Collection -->
         <section class="flat-spacing-18">
@@ -4426,19 +4399,19 @@
     <!-- /modal find_size -->
 
     <!-- Javascript -->
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/jquery.min.js"></script>
-    <script type="text/javascript" src="js/swiper-bundle.min.js"></script>
-    <script type="text/javascript" src="js/carousel.js"></script>
-    <script type="text/javascript" src="js/bootstrap-select.min.js"></script>
-    <script type="text/javascript" src="js/lazysize.min.js"></script>
-    <script type="text/javascript" src="js/bootstrap-select.min.js"></script>
-    <script type="text/javascript" src="js/count-down.js"></script>
-    <script type="text/javascript" src="js/wow.min.js"></script>
-    <script type="text/javascript" src="js/multiple-modal.js"></script>
-    <script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/swiper-bundle.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/carousel.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bootstrap-select.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/lazysize.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bootstrap-select.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/count-down.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/wow.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/multiple-modal.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/main.js' %}"></script>
 
-    <script src="js/sibforms.js" defer></script>
+    <script src="{% static 'js/sibforms.js' %}" defer></script>
 
     <script>
         window.REQUIRED_CODE_ERROR_MESSAGE = 'Please choose a country code';

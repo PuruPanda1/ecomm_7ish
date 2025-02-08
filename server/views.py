@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from product.models import Product, Tag, Category, SubCategory
-from banner.models import WomenBanner, WomenCollection, WomenMidBanner
+from banner.models import WomenBanner, WomenCollection, WomenMidBanner, MenBanner, MenCountdown, KidsBanner, KidsCollection, KidsMidBanner
 from reviews.models import Review
 from collaboration.models import Collaboration
 
@@ -24,6 +24,36 @@ def home(request):
         'collaborations': collaborations
     })
 
+def home_men(request):
+    tags = Tag.objects.filter(category__name='Men', is_active=True, on_top=True)    
+    banners = MenBanner.objects.filter(is_active=True) 
+    countdown = MenCountdown.objects.filter(is_active=True).first()
+    return render(request, 'server/home-men.html', {
+        'tags': tags,
+        'banners': banners,
+        'countdown': countdown
+    })
+
+def home_kids(request):
+    tags = Tag.objects.filter(category__name='Kids', is_active=True, on_top=True)    
+    banners = KidsBanner.objects.filter(is_active=True) 
+    mid_banner = KidsMidBanner.objects.filter(is_active=True).first()
+    sub_categories = SubCategory.objects.filter(category__name='Kids')
+    collections = KidsCollection.objects.filter(is_active=True)
+    favorites = Product.objects.filter(is_active=True, tags__name ='New Arrivals')
+    reviews = Review.objects.filter(is_active=True)[:2]
+    collaborations = Collaboration.objects.filter(is_active=True)
+    return render(request, 'server/home-kids.html', {
+        'tags': tags,
+        'banners': banners,
+        'mid_banner': mid_banner,
+        'sub_categories': sub_categories,
+        'collections': collections,
+        'favorites': favorites,
+        'reviews': reviews,
+        'collaborations': collaborations
+    })
+
 # using tag to show the banner of the shops page and sub_title to show the sub_title of the shops page
 def shop(request, tag=None, sub_title=None):
     if tag is None:
@@ -35,7 +65,7 @@ def shop(request, tag=None, sub_title=None):
         products = Product.objects.filter(is_active=True)
     else:
         products = Product.objects.filter(tags__name=tag, is_active=True)
-        
+
     return render(request, 'server/shop.html', {
         'title': tag,
         'sub_title': sub_title,
