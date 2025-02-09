@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from product.models import Product, Tag, Category, SubCategory
-from banner.models import WomenBanner, WomenCollection, WomenMidBanner, MenBanner, MenCountdown, MenMidBanner, MenCollection, MenBarText, KidsBanner, KidsCollection, KidsMidBanner
+from banner.models import WomenBanner, WomenCollection, WomenMidBanner, MenBanner, MenCountdown, MenMidBanner, MenCollection, MenBarText, KidsBanner, KidsCollection, KidsMidBanner, KidBarText
 from reviews.models import Review
 from collaboration.models import Collaboration
 from django.http import JsonResponse
@@ -58,23 +58,19 @@ def home_men(request):
     })
 
 def home_kids(request):
-    tags = Tag.objects.filter(category__name='Kids', is_active=True, on_top=True)    
-    banners = KidsBanner.objects.filter(is_active=True) 
-    mid_banner = KidsMidBanner.objects.filter(is_active=True).first()
-    sub_categories = SubCategory.objects.filter(category__name='Kids')
+    banners =KidsBanner.objects.filter(is_active=True)
+    flash_sale_products = Product.objects.filter(is_active=True, tags__name='Flash Sale')
     collections = KidsCollection.objects.filter(is_active=True)
-    favorites = Product.objects.filter(is_active=True, tags__name ='New Arrivals')
-    reviews = Review.objects.filter(is_active=True)[:2]
-    collaborations = Collaboration.objects.filter(is_active=True)
+    favorites = Product.objects.filter(is_active=True, tags__name='Favorites')
+    mid_banner = KidsMidBanner.objects.filter(is_active=True).first()
+    kid_bar_texts = KidBarText.objects.filter(is_active=True)
     return render(request, 'server/home-kids.html', {
-        'tags': tags,
         'banners': banners,
-        'mid_banner': mid_banner,
-        'sub_categories': sub_categories,
+        'flash_sale_products': flash_sale_products,
         'collections': collections,
         'favorites': favorites,
-        'reviews': reviews,
-        'collaborations': collaborations
+        'mid_banner': mid_banner,
+        'kid_bar_texts': kid_bar_texts
     })
 
 # normal redirect without any category or tag   
@@ -91,7 +87,6 @@ def shop_category(request, category, subcategory):
     products = Product.objects.filter(category__name=category, sub_category__name=subcategory, is_active=True)
     return render(request, 'server/shop.html', {
         'title': subcategory,
-        'sub_title': subcategory.description,
         'products': products
     })
 

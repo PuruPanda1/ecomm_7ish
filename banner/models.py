@@ -133,6 +133,7 @@ class KidsBanner(models.Model):
 
 class KidsCollection(models.Model):
     title = models.CharField(max_length=512)
+    sub_title = models.CharField(max_length=512, default='')
     image = models.ImageField(upload_to='collections/')
     tag = models.ForeignKey(Tag, on_delete=models.CASCADE, related_name='kids_collections', null=True, blank=True, limit_choices_to={'category__name': 'Kids'})
     button_text = models.CharField(max_length=512)
@@ -141,18 +142,6 @@ class KidsCollection(models.Model):
     def __str__(self):
         return self.title
 
-class KidsFeaturedProduct(models.Model):
-    title = models.CharField(max_length=512)
-    sub_title = models.CharField(max_length=512)
-    quote_text = models.CharField(max_length=512)
-    image = models.ImageField(upload_to='featured_products/')
-    tag = models.ForeignKey(Tag, on_delete=models.CASCADE, related_name='kids_featured_products', null=True, blank=True, limit_choices_to={'category__name': 'Kids'})
-    button_text = models.CharField(max_length=512)
-    is_active = models.BooleanField(default=True)
-
-    def __str__(self):
-        return self.title  
-    
 class KidsMidBanner(models.Model):
     title = models.CharField(max_length=512)
     sub_title = models.CharField(max_length=512)
@@ -163,3 +152,10 @@ class KidsMidBanner(models.Model):
 
     def __str__(self):
         return self.title
+
+class KidBarText(models.Model):
+    text = models.CharField(max_length=512)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.text

@@ -14,3 +14,9 @@ admin.site.register(MenFeaturedProduct)
 admin.site.register(MenMidBanner)
 admin.site.register(MenCountdown)
 admin.site.register(MenBarText)
+
+# Kids
+admin.site.register(KidsBanner)
+admin.site.register(KidsCollection)
+admin.site.register(KidsMidBanner)
+admin.site.register(KidBarText)
