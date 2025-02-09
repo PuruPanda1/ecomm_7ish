@@ -1,9 +1,11 @@
 from django.shortcuts import render
 from product.models import Product, Tag, Category, SubCategory
-from banner.models import WomenBanner, WomenCollection, WomenMidBanner, MenBanner, MenCountdown, KidsBanner, KidsCollection, KidsMidBanner
+from banner.models import WomenBanner, WomenCollection, WomenMidBanner, MenBanner, MenCountdown, MenMidBanner, KidsBanner, KidsCollection, KidsMidBanner
 from reviews.models import Review
 from collaboration.models import Collaboration
+from django.http import JsonResponse
 
+# home view for women
 def home(request):
     tags = Tag.objects.filter(category__name='Women', is_active=True, on_top=True)    
     banners = WomenBanner.objects.filter(is_active=True) 
@@ -28,10 +30,26 @@ def home_men(request):
     tags = Tag.objects.filter(category__name='Men', is_active=True, on_top=True)    
     banners = MenBanner.objects.filter(is_active=True) 
     countdown = MenCountdown.objects.filter(is_active=True).first()
+    firstC,secondC,thirdC,fourthC = SubCategory.objects.filter(category__name='Men').order_by('-id')[:4]
+    mid_banner = MenMidBanner.objects.filter(is_active=True).first()
+    best_seller = Product.objects.filter(is_active=True, tags__name='Best Seller')
+    sale = Product.objects.filter(is_active=True, tags__name='Sale')
+    new_arrivals = Product.objects.filter(is_active=True, tags__name='New Arrivals')
+    jeans = Product.objects.filter(is_active=True, tags__name='Jeans')
+    print(jeans.count())
     return render(request, 'server/home-men.html', {
         'tags': tags,
         'banners': banners,
-        'countdown': countdown
+        'countdown': countdown,
+        'firstC': firstC,
+        'secondC': secondC,
+        'thirdC': thirdC,
+        'fourthC': fourthC,
+        'mid_banner': mid_banner,
+        'best_seller': best_seller,
+        'sale': sale,
+        'new_arrivals': new_arrivals,
+        'jeans': jeans
     })
 
 def home_kids(request):

@@ -8,9 +8,12 @@ class AttributeValueInline(admin.TabularInline):
 class ProductVariantInline(admin.TabularInline):
     model = ProductVariant
     extra = 1
+
+
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     inlines = [ProductVariantInline]
+    list_filter = ('category', 'sub_category', 'tags')
 
 @admin.register(Attribute)
 class AttributeAdmin(admin.ModelAdmin):
@@ -18,7 +21,11 @@ class AttributeAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Category)
-admin.site.register(SubCategory)
+@admin.register(SubCategory)
+class SubCategoryAdmin(admin.ModelAdmin):
+    list_filter = ('category__name',)
+
+
 admin.site.register(Tag)
 admin.site.register(ProductImage)
 
