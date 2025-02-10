@@ -7,6 +7,13 @@ from django.http import JsonResponse
 
 # home view for women
 def home_women(request):
+    # header tags
+    men_tags =  Tag.objects.filter(category__name='Men', is_active=True)    
+    women_tags =  Tag.objects.filter(category__name='Women', is_active=True)    
+    kids_tags =  Tag.objects.filter(category__name='Kids', is_active=True)    
+    header_products = Product.objects.filter(is_active=True, tags__name='Best Seller')[:2]
+    current_tab = 'Women'
+    # specific page context
     tags = Tag.objects.filter(category__name='Women', is_active=True, on_top=True)    
     banners = WomenBanner.objects.filter(is_active=True) 
     mid_banner = WomenMidBanner.objects.filter(is_active=True).first()
@@ -23,10 +30,22 @@ def home_women(request):
         'collections': collections,
         'favorites': favorites,
         'reviews': reviews,
-        'collaborations': collaborations
+        'collaborations': collaborations,
+        'men_tags': men_tags,
+        'women_tags': women_tags,
+        'kids_tags': kids_tags,
+        'header_products': header_products,
+        'current_tab': current_tab
     })
 
 def home_men(request):
+    # header tags
+    men_tags =  Tag.objects.filter(category__name='Men', is_active=True)    
+    women_tags =  Tag.objects.filter(category__name='Women', is_active=True)    
+    kids_tags =  Tag.objects.filter(category__name='Kids', is_active=True) 
+    header_products = Product.objects.filter(is_active=True, tags__name='Best Seller')[:2]
+    current_tab = 'Men'
+    # specific page context
     tags = Tag.objects.filter(category__name='Men', is_active=True, on_top=True)    
     # Banners for the page 
     banners = MenBanner.objects.filter(is_active=True) 
@@ -54,10 +73,22 @@ def home_men(request):
         'sale': sale,
         'new_arrivals': new_arrivals,
         'jeans': jeans,
-        'men_bar_texts': men_bar_texts
+        'men_bar_texts': men_bar_texts,
+        'men_tags': men_tags,
+        'women_tags': women_tags,
+        'kids_tags': kids_tags,
+        'header_products': header_products,
+        'current_tab': current_tab
     })
 
 def home_kids(request):
+    # header tags
+    men_tags =  Tag.objects.filter(category__name='Men', is_active=True)    
+    women_tags =  Tag.objects.filter(category__name='Women', is_active=True)    
+    kids_tags =  Tag.objects.filter(category__name='Kids', is_active=True)
+    header_products = Product.objects.filter(is_active=True, tags__name='Best Seller')[:2]
+    current_tab = 'Kids'
+    # specific page context
     banners =KidsBanner.objects.filter(is_active=True)
     flash_sale_products = Product.objects.filter(is_active=True, tags__name='Flash Sale')
     collections = KidsCollection.objects.filter(is_active=True)
@@ -70,7 +101,12 @@ def home_kids(request):
         'collections': collections,
         'favorites': favorites,
         'mid_banner': mid_banner,
-        'kid_bar_texts': kid_bar_texts
+        'kid_bar_texts': kid_bar_texts,
+        'men_tags': men_tags,
+        'women_tags': women_tags,
+        'kids_tags': kids_tags,
+        'header_products': header_products,
+        "current_tab": current_tab
     })
 
 # normal redirect without any category or tag   

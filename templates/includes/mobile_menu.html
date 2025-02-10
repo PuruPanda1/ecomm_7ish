@@ -1,0 +1,155 @@
+{% load static %}
+
+<div class="offcanvas offcanvas-start canvas-mb" id="mobileMenu">
+    <span
+      class="icon-close icon-close-popup"
+      data-bs-dismiss="offcanvas"
+      aria-label="Close"
+    ></span>
+    <div class="mb-canvas-content">
+      <div class="mb-body">
+        <ul class="nav-ul-mb" id="wrapper-menu-navigation">
+          <li class="nav-mb-item">
+            <a
+              href="{% url 'server:home-women' %}"
+              class="collapsed mb-menu-link current"
+              data-bs-toggle="collapse"
+              aria-expanded="true"
+              aria-controls="dropdown-menu-one"
+            >
+              <span>Home</span>
+            </a>
+          </li>
+          <li class="nav-mb-item">
+            <a
+              href="{% url 'server:shop' %}"
+              class="collapsed mb-menu-link current"
+              data-bs-toggle="collapse"
+              aria-expanded="true"
+              aria-controls="dropdown-menu-two"
+            >
+              <span>Shop</span>
+            </a>
+          </li>
+          <li class="nav-mb-item">
+            <a
+              href="#dropdown-menu-three"
+              class="collapsed mb-menu-link current"
+              data-bs-toggle="collapse"
+              aria-expanded="true"
+              aria-controls="dropdown-menu-three"
+            >
+              <span>Products</span>
+              <span class="btn-open-sub"></span>
+            </a>
+            <div id="dropdown-menu-three" class="collapse">
+              <ul class="sub-nav-menu" id="sub-menu-navigation">
+                <li>
+                  <a
+                    href="#sub-product-one"
+                    class="sub-nav-link collapsed"
+                    data-bs-toggle="collapse"
+                    aria-expanded="true"
+                    aria-controls="sub-product-one"
+                  >
+                    <span>Men Products</span>
+                    <span class="btn-open-sub"></span>
+                  </a>
+                  <div id="sub-product-one" class="collapse">
+                    <ul class="sub-nav-menu sub-menu-level-2">
+                      {% for tag in men_tags %}
+                      <li>
+                        <a href="{% url 'server:shop-category' 'Men' tag.name %}" class="sub-nav-link"
+                          >{{ tag.name }}</a
+                        >
+                      </li>
+                      {% endfor %}
+                    </ul>
+                  </div>
+                </li>
+                <li>
+                  <a
+                    href="#sub-product-two"
+                    class="sub-nav-link collapsed"
+                    data-bs-toggle="collapse"
+                    aria-expanded="true"
+                    aria-controls="sub-product-two"
+                  >
+                    <span>Women Products</span>
+                    <span class="btn-open-sub"></span>
+                  </a>
+                  <div id="sub-product-two" class="collapse">
+                    <ul class="sub-nav-menu sub-menu-level-2">
+                        {% for tag in women_tags %}
+                        <li>
+                          <a href="{% url 'server:shop-category' 'Men' tag.name %}" class="sub-nav-link"
+                            >{{ tag.name }}</a
+                          >
+                        </li>
+                        {% endfor %}
+                    </ul>
+                  </div>
+                </li>
+                <li>
+                  <a
+                    href="#sub-product-three"
+                    class="sub-nav-link collapsed"
+                    data-bs-toggle="collapse"
+                    aria-expanded="true"
+                    aria-controls="sub-product-three"
+                  >
+                    <span>Kids Products</span>
+                    <span class="btn-open-sub"></span>
+                  </a>
+                  <div id="sub-product-three" class="collapse">
+                    <ul class="sub-nav-menu sub-menu-level-2">
+                        {% for tag in kids_tags %}
+                        <li>
+                          <a href="{% url 'server:shop-category' 'Men' tag.name %}" class="sub-nav-link"
+                            >{{ tag.name }}</a
+                          >
+                        </li>
+                        {% endfor %}
+                    </ul>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+        <div class="mb-other-content">
+          <div class="d-flex group-icon">
+            <a href="wishlist.html" class="site-nav-icon"
+              ><i class="icon icon-heart"></i>Wishlist</a
+            >
+            <a href="home-search.html" class="site-nav-icon"
+              ><i class="icon icon-search"></i>Search</a
+            >
+          </div>
+        </div>
+      </div>
+      <div class="mb-bottom">
+        <a href="login.html" class="site-nav-icon"
+          ><i class="icon icon-account"></i>Login</a
+        >
+        <div class="bottom-bar-language">
+          <div class="tf-currencies">
+            <select class="image-select center style-default type-currencies">
+              <option data-thumbnail="images/country/fr.svg">
+                EUR <span>€ | France</span>
+              </option>
+              <option data-thumbnail="images/country/de.svg">
+                EUR <span>€ | Germany</span>
+              </option>
+              <option selected data-thumbnail="images/country/us.svg">
+                USD <span>$ | United States</span>
+              </option>
+              <option data-thumbnail="images/country/vn.svg">
+                VND <span>₫ | Vietnam</span>
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
