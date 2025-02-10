@@ -6,16 +6,16 @@ from collaboration.models import Collaboration
 from django.http import JsonResponse
 
 # home view for women
-def home(request):
+def home_women(request):
     tags = Tag.objects.filter(category__name='Women', is_active=True, on_top=True)    
     banners = WomenBanner.objects.filter(is_active=True) 
     mid_banner = WomenMidBanner.objects.filter(is_active=True).first()
     sub_categories = SubCategory.objects.filter(category__name='Women')
     collections = WomenCollection.objects.filter(is_active=True)
-    favorites = Product.objects.filter(is_active=True, tags__name ='New Arrivals')
+    favorites = Product.objects.filter(is_active=True, tags__name ='New Arrivals', category__name='Women')
     reviews = Review.objects.filter(is_active=True)[:2]
     collaborations = Collaboration.objects.filter(is_active=True)
-    return render(request, 'server/home.html', {
+    return render(request, 'server/home-women.html', {
         'tags': tags,
         'banners': banners,
         'mid_banner': mid_banner,
@@ -74,36 +74,26 @@ def home_kids(request):
     })
 
 # normal redirect without any category or tag   
-def shop_no_tag(request):
+def shop(request):
     products = Product.objects.filter(is_active=True)
     return render(request, 'server/shop.html', {
         'title': 'New Arrivals',
-        'sub_title': 'Shop through our latest selection of Fashion',
         'products': products
     })
 
 # using category - (Men | Women | Kids) and subcategory - (T-shirt | Jeans | Shorts | etc) to show the products
 def shop_category(request, category, subcategory):
-    products = Product.objects.filter(category__name=category, sub_category__name=subcategory, is_active=True)
+    if subcategory == 'none':
+        products = Product.objects.filter(category__name=category, is_active=True)
+    else:
+        products = Product.objects.filter(category__name=category, sub_category__name=subcategory, is_active=True)
     return render(request, 'server/shop.html', {
         'title': subcategory,
         'products': products
     })
 
-# redirect from banners/ collections/ featured products to shop page with tag and sub_title
-def shop_with_tag(request, category, tag, sub_title):
-    if tag is None:
-        tag = 'New Arrival'
-    if sub_title is None:
-        sub_title = 'Shop through our latest selection of Fashion'
-
-    if tag is None:
-        products = Product.objects.filter(category__name=category, is_active=True)
-    else:
-        products = Product.objects.filter(category__name=category, tags__name=tag, is_active=True)
-
-    return render(request, 'server/shop.html', {
-        'title': tag,
-        'sub_title': sub_title,
-        'products': products
+def product_detail(request, product_id):
+    product = Product.objects.get(id=product_id)
+    return render(request, 'server/product-detail.html', {
+        'product': product
     })
