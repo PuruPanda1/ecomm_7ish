@@ -3,7 +3,7 @@ from product.models import Product, Tag, Category, SubCategory
 from banner.models import WomenBanner, WomenCollection, WomenMidBanner, MenBanner, MenCountdown, MenMidBanner, MenCollection, MenBarText, KidsBanner, KidsCollection, KidsMidBanner, KidBarText
 from reviews.models import Review
 from collaboration.models import Collaboration
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseBadRequest, HttpResponseNotFound
 
 # home view for women
 def home_women(request):
@@ -111,10 +111,13 @@ def home_kids(request):
 
 # normal redirect without any category or tag   
 def shop(request):
-    products = Product.objects.filter(is_active=True)
+    categories = Category.objects.filter()
+    print(categories)
+    products = Product.objects.filter(is_active=True)[:1]
     return render(request, 'server/shop.html', {
         'title': 'New Arrivals',
-        'products': products
+        'products': products,
+        'categories': categories
     })
 
 # using category - (Men | Women | Kids) and subcategory - (T-shirt | Jeans | Shorts | etc) to show the products
@@ -123,9 +126,11 @@ def shop_category(request, category, subcategory):
         products = Product.objects.filter(category__name=category, is_active=True)
     else:
         products = Product.objects.filter(category__name=category, sub_category__name=subcategory, is_active=True)
+    categories = Category.objects.filter()
     return render(request, 'server/shop.html', {
         'title': subcategory,
-        'products': products
+        'products': products,
+        'categories': categories
     })
 
 def product_detail(request, product_id):
@@ -133,3 +138,21 @@ def product_detail(request, product_id):
     return render(request, 'server/product-detail.html', {
         'product': product
     })
+
+
+# partials views
+
+def update_category(request, category_id):
+    if not request.headers.get('HX-Request'):
+        return HttpResponseBadRequest("HTMX request required")
+        
+    try:
+        category = Category.objects.get(id=category_id)
+        products = Product.objects.filter(category=category, is_active=True)
+        
+        return render(request, 'server/partials/product-list.html', {
+            'products': products,
+            'selected_category': category
+        })
+    except Category.DoesNotExist:
+        return HttpResponseNotFound("Category not found")

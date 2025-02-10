@@ -10,4 +10,7 @@ urlpatterns = [
     path('shop/', shop, name='shop'), # for direct shop page without tag
     path('shop-category/<str:category>/<str:subcategory>/', shop_category, name='shop-category'), # shop through tags/ featured category
     path('product-detail/<int:product_id>/', product_detail, name='product-detail'),
+
+    # partials url
+    path('update-category/<int:category_id>/', update_category, name='update-category'),
 ]
