@@ -1,15 +1,39 @@
-<div id="sub-categories" hx-swap-oob="true">
-  <div class="collapse show">
-    <ul class="list-categoris current-scrollbar mb_36">
-      {% for sub_category in sub_categories %}
-        <li class="cate-item {% if selected_sub_category.name == sub_category.name %}current{% endif %}" 
-        hx-get="{% url 'server:update-sub-category' selected_category.name sub_category.id %}" 
-        hx-target="#gridLayout" 
-        hx-swap="innerHTML"
-        >
-          <a href="javascript:void(0);"><span>{{ sub_category.name }}</span>&nbsp;<span>({{ sub_category.product_set.count }})</span></a>
-        </li>
-      {% endfor %}
-    </ul>
+<form id="filter-form">
+  <div class="btn filter-icon d-flex align-items-center bg-light rounded px-2 mb-2" id="clear-all-btn"
+  onclick="document.querySelectorAll('#filter-form input[type=checkbox]').forEach(checkbox => checkbox.checked = false);"
+  hx-get="{% url 'server:filter-products-by-sub-category' category_id=sub_categories.first.category.id %}"
+  hx-trigger="click"
+  hx-target="#gridLayout"
+  hx-swap="innerHTML"
+  hx-swap-oob="true"
+  >
+    <span class="icon icon-close me-1 mx-2" style="font-size: 0.6rem;"></span>
+    <span style="font-size: 0.7rem;">Clear all</span>
   </div>
-</div>
+  <div id="sub-categories" hx-swap-oob="true">
+      <div class="collapse show">
+          <ul class="tf-filter-group current-scrollbar mb_36">
+              {% for sub_category in sub_categories %}
+                  <li class="list-item d-flex gap-12 align-items-center">
+                      <input type="checkbox" 
+                             name="sub_category" 
+                             class="tf-check"
+                             id="sub_{{ sub_category.id }}"
+                             value="{{ sub_category.id }}"
+                             {% if sub_category.id in selected_sub_categories %}checked{% endif %}
+                             hx-get="{% url 'server:filter-products-by-sub-category' category_id=selected_category.id %}"
+                             hx-trigger="change"
+                             hx-include="#filter-form"
+                             hx-target="#gridLayout"
+                             hx-swap="innerHTML"
+                      />
+                      <label for="sub_{{ sub_category.id }}" class="label">
+                          <span>{{ sub_category.name }}</span>&nbsp;
+                          <span>({{ sub_category.product_set.count }})</span>
+                      </label>
+                  </li>
+              {% endfor %}
+          </ul>
+      </div>
+  </div>
+</form>

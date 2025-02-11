@@ -216,3 +216,17 @@ def update_sort(request, sort_by):
     return render(request, 'server/partials/product-grid.html', {
         'products': products
     })
+
+# filter views
+
+def filter_products_by_sub_category(request, category_id):
+    selected_category = Category.objects.get(id=category_id)
+    products = Product.objects.filter(category=selected_category)
+
+    # Get selected subcategories
+    selected_sub_categories = request.GET.getlist("sub_category")
+
+    if selected_sub_categories:
+        products = products.filter(sub_category__id__in=selected_sub_categories)
+
+    return render(request, "server/partials/product-grid.html", {"products": products})
