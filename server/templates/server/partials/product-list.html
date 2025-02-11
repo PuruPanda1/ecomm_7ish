@@ -1,88 +1,42 @@
 {% load static %}
 
+<div class="tf-list-layout wrapper-shop fade-in-animation" id="listLayout" hx-swap-oob="true">
 {% for product in products %}
-  <div class="swiper-slide fade-in-animation" lazy="true">
-    <div class="card-product style-2">
-      <div class="card-product-wrapper">
-        <a href="{% url 'server:product-detail' product.id %}" class="product-img">
-          {% with first_image=product.variants.first.get_images.first %}
-            <img class="lazyload img-product" data-src="{{ first_image.image.url }}" src="{{ first_image.image.url }}" alt="{{ product.name }}" />
-          {% endwith %}
-          {% with second_image=product.variants.first.get_images.last %}
-            <img class="lazyload img-hover" data-src="{{ second_image.image.url }}" src="{{ second_image.image.url }}" alt="{{ product.name }}" />
-          {% endwith %}
+<div class="card-product list-layout" data-availability="In stock" data-brand="Ecomus">
+    <div class="card-product-wrapper">
+        <a href="#" class="product-img">
+            <img class="lazyload img-product" data-src="{{ product.variants.first.get_images.first.image.url }}" src="{{ product.variants.first.get_images.first.image.url }}" alt="{{ product.name }}">
+            <img class="lazyload img-hover" data-src="{{ product.variants.first.get_images.last.image.url }}" src="{{ product.variants.first.get_images.last.image.url }}" alt="{{ product.name }}">
         </a>
-        <div class="list-product-btn column-left">
-          <a href="javascript:void(0);" class="box-icon wishlist bg_white btn-icon-action">
-            <span class="icon icon-heart"></span>
-            <span class="tooltip">Add to Wishlist</span>
-            <span class="icon icon-delete"></span>
-          </a>
-          <a href="#compare" data-bs-toggle="offcanvas" aria-controls="offcanvasLeft" class="box-icon bg_white compare btn-icon-action">
-            <span class="icon icon-compare"></span>
-            <span class="tooltip">Add to Compare</span>
-            <span class="icon icon-check"></span>
-          </a>
-        </div>
-        <div class="list-product-btn absolute-3">
-          <a href="#quick_add" data-bs-toggle="modal" class="box-icon quick-add style-2">
-            <span class="icon icon-bag"></span>
-            <span class="text">QUICK ADD</span>
-          </a>
-          <a href="#quick_view" data-bs-toggle="modal" class="box-icon quickview style-2">
-            <span class="icon icon-view"></span>
-            <span class="text">QUICK VIEW</span>
-          </a>
-        </div>
-        <div class="size-list style-2">
-          {% with first_variant=product.variants.first %}
-            {% with color=first_variant.get_color %}
-              {% if color %}
-                {% for variant in product.variants.all %}
-                  {% if variant.get_color == color %}
-                    {% with size=variant.attributes.filter.first %}
-                      <span>{{ size.value }}</span>
-                    {% endwith %}
-                  {% endif %}
-                {% endfor %}
-              {% endif %}
-            {% endwith %}
-          {% endwith %}
-        </div>
-        {% with first_variant=product.variants.first %}
-          {% if first_variant.discount_percentage > 0 %}
-            <div class="on-sale-wrap text-end">
-              <div class="on-sale-item">-{{ first_variant.discount_percentage }}%</div>
-            </div>
-          {% endif %}
-        {% endwith %}
-        <div class="countdown-box">
-          <div class="js-countdown" data-timer="1007500" data-labels="d :,h :,m :,s"></div>
-        </div>
-      </div>
-      <div class="card-product-info">
-        <a href="{% url 'server:product-detail' product.id %}" class="title link">{{ product.name }}</a>
-        {% with first_variant=product.variants.first %}
-          <span class="price">${{ first_variant.discount_price }}</span>
-        {% endwith %}
-        <ul class="list-color-product">
-          {% for image in product.images.all %}
-            {% if image.color %}
-              <li class="list-color-item color-swatch {% if forloop.first %}active{% endif %}">
-                <span class="tooltip">{{ image.color.value }}</span>
-                <span class="swatch-value bg_{% if image.color.value|lower == 'black' %}
-                    dark
-                  {% else %}
-                    {{ image.color.value|lower }}
-                  {% endif %}">
-
-                </span>
-                <img class="lazyload" data-src="{{ image.image.url }}" src="{{ image.image.url }}" alt="{{ product.name }} - {{ image.color.value }}" />
-              </li>
-            {% endif %}
-          {% endfor %}
-        </ul>
-      </div>
     </div>
-  </div>
+    <div class="card-product-info">
+        <a href="#" class="title link">{{ product.name }}</a>
+        <span class="price current-price">Rs. {{ product.variants.first.discount_price }}</span>
+        <p class="description">{{ product.description }}</p>
+        <ul class="list-color-product">
+            {% for image in product.images.all %}
+              {% if image.color %}
+                <li class="list-color-item color-swatch {% if forloop.first %}active{% endif %}">
+                  <span class="tooltip">{{ image.color.value }}</span>
+                  <span class="swatch-value bg_{% if image.color.value|lower == 'black' %}dark{% else %}{{ image.color.value|lower }}{% endif %}">
+                  </span>
+                  <img class="lazyload" data-src="{{ image.image.url }}" src="{{ image.image.url }}" alt="{{ product.name }} - {{ image.color.value }}" />
+                </li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        <div class="size-list">
+            {% for variant in product.variants.all %}
+            <span class="size-item">{{ variant.size }}</span>
+            {% endfor %}
+        </div>
+        <div class="list-product-btn">
+            <a href="#quick_add" data-bs-toggle="modal" class="box-icon quick-add style-3 hover-tooltip"><span class="icon icon-bag"></span><span class="tooltip">Quick add</span></a>
+            <a href="#" class="box-icon wishlist style-3 hover-tooltip"><span class="icon icon-heart"></span> <span class="tooltip">Add to Wishlist</span></a>
+            <a href="#compare" data-bs-toggle="offcanvas" class="box-icon compare style-3 hover-tooltip"><span class="icon icon-compare"></span> <span class="tooltip">Add to Compare</span></a>
+            <a href="#quick_view" data-bs-toggle="modal" class="box-icon quickview style-3 hover-tooltip"><span class="icon icon-view"></span><span class="tooltip">Quick view</span></a>
+        </div>
+    </div>
+</div>
 {% endfor %}
+</div>
