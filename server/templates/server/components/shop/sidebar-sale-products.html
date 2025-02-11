@@ -1,0 +1,21 @@
+<div class="widget-facet">
+  <div class="facet-title" data-bs-target="#sale-products" data-bs-toggle="collapse" aria-expanded="true" aria-controls="sale-products">
+    <span>Sale products</span>
+    <span class="icon icon-arrow-up"></span>
+  </div>
+  <div id="sale-products" class="collapse show">
+    <div class="widget-featured-products mb_36">
+      {% for product in sale_products %}
+        <div class="featured-product-item">
+          <a href="{% url 'server:product-detail' product.id %}" class="card-product-wrapper"><img class="lazyload img-product" data-src="{{ product.variants.first.get_images.first.image.url }}" alt="{{ product.name }}" /></a>
+          <div class="card-product-info">
+            <a href="{% url 'server:product-detail' product.id %}" class="title link">{{ product.name }}</a>
+            {% with first_variant=product.variants.first %}
+              <span class="price">Rs. {{ first_variant.discount_price }}</span>
+            {% endwith %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>

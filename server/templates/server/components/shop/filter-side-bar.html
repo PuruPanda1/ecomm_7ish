@@ -8,21 +8,8 @@
         <span class="icon-close icon-close-popup" data-bs-dismiss="offcanvas" aria-label="Close"></span>
       </header>
       <div class="canvas-body">
-        <div class="widget-facet wd-categories">
-          <div class="facet-title" data-bs-target="#categories" data-bs-toggle="collapse" aria-expanded="true" aria-controls="categories">
-            <span>Product categories</span>
-            <span class="icon icon-arrow-up"></span>
-          </div>
-          <div id="categories" class="collapse show">
-            <ul class="list-categoris current-scrollbar mb_36">
-              {% for category in categories %}
-                <li class="cate-item {% if selected_category.id == category.id %}current{% endif %}" hx-get="{% url 'server:update-category' category.id %}" hx-target="#gridLayout" hx-swap="innerHTML swap:0.3s" hx-trigger="click">
-                  <a href="javascript:void(0);"><span>{{ category.name }}</span>&nbsp;<span>({{ category.product_set.count }})</span></a>
-                </li>
-              {% endfor %}
-            </ul>
-          </div>
-        </div>
+        {% include 'server/components/shop/categories.html' %}
+        {% include 'server/components/shop/sub-categories.html' %}
         <form action="#" id="facet-filter-form" class="facet-filter-form">
           <div class="widget-facet">
             <div class="facet-title" data-bs-target="#availability" data-bs-toggle="collapse" aria-expanded="true" aria-controls="availability">

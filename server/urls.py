@@ -14,4 +14,5 @@ urlpatterns = [
     # partials url
     path('update-category/<int:category_id>/', update_category, name='update-category'),
     path('update-sort/<str:sort_by>/', update_sort, name='update-sort'),
+    path('update-sub-category/<str:category>/<int:sub_category_id>/', update_sub_category, name='update-sub-category'),
 ]

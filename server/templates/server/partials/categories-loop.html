@@ -1,0 +1,11 @@
+<div id="categories" hx-swap-oob="true">
+  <div class="collapse show">
+    <ul class="list-categoris current-scrollbar mb_36">
+      {% for category in categories %}
+        <li class="cate-item {% if selected_category.name == category.name %}current{% endif %}" hx-get="{% url 'server:update-category' category.id %}" hx-target="#gridLayout" hx-swap="innerHTML">
+          <a href="javascript:void(0);"><span>{{ category.name }}</span>&nbsp;<span>({{ category.product_set.count }})</span></a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>

@@ -1,17 +1,7 @@
 {% load static %}
 
-{% include 'server/partials/product-list.html' %}
-
 {% include 'server/partials/product-grid.html' %}
 
-<div id="categories" hx-swap-oob="true">
-    <div class="collapse show">
-      <ul class="list-categoris current-scrollbar mb_36">
-        {% for category in categories %}
-          <li class="cate-item {% if selected_category.id == category.id %}current{% endif %}" hx-get="{% url 'server:update-category' category.id %}" hx-target="#gridLayout" hx-swap="innerHTML">
-            <a href="javascript:void(0);"><span>{{ category.name }}</span>&nbsp;<span>({{ category.product_set.count }})</span></a>
-          </li>
-        {% endfor %}
-      </ul>
-    </div>
-</div>
+{% include 'server/partials/categories-loop.html' %}
+
+{% include 'server/partials/sub-categories-loop.html' %}
