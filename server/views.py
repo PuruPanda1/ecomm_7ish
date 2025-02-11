@@ -172,27 +172,6 @@ def update_category(request, category_id):
     except Category.DoesNotExist:
         return HttpResponseNotFound("Category not found")
     
-def update_sub_category(request, category, sub_category_id):
-    if not request.headers.get('HX-Request'):
-        return HttpResponseBadRequest("HTMX request required")
-        
-    try:
-        print("Inside try block")
-        selected_category = Category.objects.get(name=category)
-        print(selected_category.id, 'and ', selected_category.name)
-        sub_categories = SubCategory.objects.filter(category=selected_category)
-        selected_sub_category = SubCategory.objects.get(id=sub_category_id)
-        products = Product.objects.filter(category=selected_category, sub_category=selected_sub_category, is_active=True)
-        
-        return render(request, 'server/partials/update-sub-categories.html', {
-            'products': products,
-            'selected_category': selected_category,
-            'sub_categories': sub_categories,
-            'selected_sub_category': selected_sub_category,
-        })
-    except Category.DoesNotExist:
-        return HttpResponseNotFound("Category not found")
-
 def update_sort(request, sort_by):
     if not request.headers.get('HX-Request'):
         return HttpResponseBadRequest("HTMX request required")
