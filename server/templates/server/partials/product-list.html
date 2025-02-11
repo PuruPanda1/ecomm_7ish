@@ -1,6 +1,7 @@
 {% load static %}
+
 {% for product in products %}
-  <div class="swiper-slide" lazy="true">
+  <div class="swiper-slide fade-in-animation" lazy="true">
     <div class="card-product style-2">
       <div class="card-product-wrapper">
         <a href="{% url 'server:product-detail' product.id %}" class="product-img">

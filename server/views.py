@@ -4,7 +4,7 @@ from banner.models import WomenBanner, WomenCollection, WomenMidBanner, MenBanne
 from reviews.models import Review
 from collaboration.models import Collaboration
 from django.http import JsonResponse, HttpResponseBadRequest, HttpResponseNotFound
-
+from django.db import models
 # home view for women
 def home_women(request):
     # header tags
@@ -112,12 +112,13 @@ def home_kids(request):
 # normal redirect without any category or tag   
 def shop(request):
     categories = Category.objects.filter()
-    print(categories)
     products = Product.objects.filter(is_active=True)[:1]
+    sale_products = Product.objects.filter(is_active=True, tags__name__iexact='Sale')
     return render(request, 'server/shop.html', {
         'title': 'New Arrivals',
         'products': products,
-        'categories': categories
+        'categories': categories,
+        'sale_products': sale_products
     })
 
 # using category - (Men | Women | Kids) and subcategory - (T-shirt | Jeans | Shorts | etc) to show the products
@@ -147,12 +148,39 @@ def update_category(request, category_id):
         return HttpResponseBadRequest("HTMX request required")
         
     try:
+        categories = Category.objects.all()
         category = Category.objects.get(id=category_id)
         products = Product.objects.filter(category=category, is_active=True)
         
-        return render(request, 'server/partials/product-list.html', {
+        return render(request, 'server/partials/update-categories.html', {
             'products': products,
+            'categories': categories,
             'selected_category': category
         })
     except Category.DoesNotExist:
         return HttpResponseNotFound("Category not found")
+    
+
+def update_sort(request, sort_by):
+    if not request.headers.get('HX-Request'):
+        return HttpResponseBadRequest("HTMX request required")
+    
+    products = Product.objects.filter(is_active=True)
+    if sort_by == 'featured':
+        products = products.order_by('-id')
+    elif sort_by == 'a-z':
+        products = products.order_by('name')
+    elif sort_by == 'z-a':
+        products = products.order_by('-name')
+    elif sort_by == 'price-low-high':
+        products = products.annotate(min_price=models.Min('variants__discount_price')).order_by('min_price')
+    elif sort_by == 'price-high-low':
+        products = products.annotate(min_price=models.Min('variants__discount_price')).order_by('-min_price')
+    elif sort_by == 'date-old-new':
+        products = products.order_by('created_at')
+    elif sort_by == 'date-new-old':
+        products = products.order_by('-created_at')
+    
+    return render(request, 'server/partials/product-list.html', {
+        'products': products
+    })
