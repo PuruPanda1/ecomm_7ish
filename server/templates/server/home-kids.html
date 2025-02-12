@@ -29,7 +29,7 @@
                             <div class="container">
                                 <h1 class="fade-item fade-item-1 text-white heading">{{ banner.title }}</h1>
                                 <p class="fade-item fade-item-2 text-white">{{ banner.sub_title }}</p>
-                                <a href="shop-collection-list.html" class="fade-item fade-item-3 tf-btn btn-primary animate-hover-btn btn-xl radius-60"><span>{{ banner.button_text }}</span><i class="icon icon-arrow-right"></i></a>
+                                <a href="{% url 'server:shop-category' 'Kids' banner.tag.name %}" class="fade-item fade-item-3 tf-btn btn-primary animate-hover-btn btn-xl radius-60"><span>{{ banner.button_text }}</span><i class="icon icon-arrow-right"></i></a>
                             </div>
                             
                         </div>
@@ -59,7 +59,7 @@
                         <div class="swiper-slide" lazy="true">
                             <div class="card-product style-8">
                                 <div class="card-product-wrapper">
-                                    <a href="product-detail.html" class="product-img">
+                                    <a href="{% url 'server:product-detail' product.id %}" class="product-img">
                                         <img class="lazyload img-product" data-src="{{ product.images.first.image.url }}" src="{{ product.images.first.image.url }}" alt="image-product">
                                         <img class="lazyload img-hover" data-src="{{ product.images.first.image.url }}" src="{{ product.images.first.image.url }}" alt="image-product">
                                     </a>
