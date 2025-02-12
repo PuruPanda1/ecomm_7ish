@@ -4,7 +4,7 @@ from .views import *
 app_name = 'server'
 
 urlpatterns = [
-    path('home/women/', home_women, name='home-women'),
+    path('', home_women, name='home-women'),
     path('home/men/', home_men, name='home-men'),
     path('home/kids/', home_kids, name='home-kids'),
     path('shop/', shop, name='shop'), # for direct shop page without tag

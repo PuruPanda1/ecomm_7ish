@@ -1,9 +1,9 @@
 from django.shortcuts import render
-from product.models import Product, Tag, Category, SubCategory, Attribute,AttributeValue
+from product.models import Product, Tag, Category, SubCategory
 from banner.models import WomenBanner, WomenCollection, WomenMidBanner, MenBanner, MenCountdown, MenMidBanner, MenCollection, MenBarText, KidsBanner, KidsCollection, KidsMidBanner, KidBarText
 from reviews.models import Review
 from collaboration.models import Collaboration
-from django.http import JsonResponse, HttpResponseBadRequest, HttpResponseNotFound
+from django.http import HttpResponseBadRequest, HttpResponseNotFound
 from django.db import models
 # home view for women
 def home_women(request):
@@ -124,7 +124,8 @@ def shop(request):
 
     # filter form
     brands = products.values_list('brand_name', flat=True).distinct()
-    sizes = AttributeValue.objects.filter(attribute__name='Size')
+    sizes = products.values_list('variants__size', flat=True).distinct()
+    colors = products.values_list('variants__color', flat=True).distinct()
 
     return render(request, 'server/shop.html', {
         'title': 'New Arrivals',
@@ -136,7 +137,8 @@ def shop(request):
         'sizes': sizes,
         'brands': brands,
         'min_price': min_price,
-        'max_price': max_price
+        'max_price': max_price,
+        'colors': colors
     })
 
 # using category - (Men | Women | Kids) and subcategory - (T-shirt | Jeans | Shorts | etc) to show the products
@@ -175,7 +177,8 @@ def update_category(request, category_id):
         selected_category = Category.objects.get(id=category_id)
         sub_categories = SubCategory.objects.filter(category=selected_category)
         products = Product.objects.filter(category=selected_category, is_active=True)
-        sizes = AttributeValue.objects.filter(attribute__name='Size')
+        sizes = products.values_list('variants__size', flat=True).distinct()
+        colors = products.values_list('variants__color', flat=True).distinct()
         brands = products.values_list('brand_name', flat=True).distinct()
 
         prices = [variant.discount_price for product in products for variant in product.variants.all()]
@@ -190,6 +193,7 @@ def update_category(request, category_id):
             'selected_category': selected_category,
             'sub_categories' : sub_categories,
             'sizes': sizes,
+            'colors': colors,
             'brands': brands,
             'min_price': min_price,
             'max_price': max_price

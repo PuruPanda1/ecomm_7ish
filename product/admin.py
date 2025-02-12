@@ -1,24 +1,15 @@
 from django.contrib import admin
-from .models import Product, ProductVariant, Attribute, AttributeValue, Category, SubCategory, Tag, ProductImage
+from .models import Product, ProductVariant, Category, SubCategory, Tag, ProductImage
 
-class AttributeValueInline(admin.TabularInline):
-    model = AttributeValue
-    extra = 1
 
 class ProductVariantInline(admin.TabularInline):
     model = ProductVariant
     extra = 1
 
-
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     inlines = [ProductVariantInline]
     list_filter = ('category', 'sub_category', 'tags')
-
-@admin.register(Attribute)
-class AttributeAdmin(admin.ModelAdmin):
-    inlines = [AttributeValueInline]
-
 
 admin.site.register(Category)
 @admin.register(SubCategory)

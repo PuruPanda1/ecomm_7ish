@@ -54,18 +54,18 @@ class Product(models.Model):
         return self.name
 
 
-class Attribute(models.Model):
-    name = models.CharField(max_length=50)  # e.g., "Color", "Size"
+# class Attribute(models.Model):
+#     name = models.CharField(max_length=50)  # e.g., "Color", "Size"
 
-    def __str__(self):
-        return self.name
+#     def __str__(self):
+#         return self.name
 
-class AttributeValue(models.Model):
-    attribute = models.ForeignKey(Attribute, on_delete=models.CASCADE)
-    value = models.CharField(max_length=50)  # e.g., "Red", "Small"
+# class AttributeValue(models.Model):
+#     attribute = models.ForeignKey(Attribute, on_delete=models.CASCADE)
+#     value = models.CharField(max_length=50)  # e.g., "Red", "Small"
 
-    def __str__(self):
-        return f"{self.attribute.name}: {self.value}"
+#     def __str__(self):
+#         return f"{self.attribute.name}: {self.value}"
 
 class ProductVariant(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='variants')
@@ -77,14 +77,13 @@ class ProductVariant(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)
     
-    # Many-to-many relationship with AttributeValue
-    attributes = models.ManyToManyField(AttributeValue, related_name='variant_attributes')
+    # Attributes
+    color = models.CharField(max_length=255, default='dark')
+    size = models.CharField(max_length=128, default='M')
 
     @property
     def sku(self):
-        """Generate SKU dynamically based on product ID and attributes."""
-        attribute_values = "-".join([av.value for av in self.attributes.all()])
-        return f"{self.product.id}-{attribute_values}" if attribute_values else f"{self.product.id}"
+        return self.get_variant_name()
 
     @property
     def discount_percentage(self):
@@ -97,10 +96,10 @@ class ProductVariant(models.Model):
         return f"{self.product.name} --> {self.sku}"
 
     def get_variant_name(self):
-        return ", ".join([str(attr) for attr in self.attributes.all()])
+        return f"{self.product.name} - {self.color} - {self.size}"
     
     def get_color(self):
-        return self.attributes.filter(attribute__name='Color').first()
+        return self.color
 
     def get_images(self):
         color = self.get_color()
@@ -109,28 +108,12 @@ class ProductVariant(models.Model):
         else:
             return self.product.images.filter(color__isnull=True)
 
-# class ProductVariantImage(models.Model):
-#     product_variant = models.ForeignKey(ProductVariant, on_delete=models.CASCADE, related_name='images')
-#     image = models.ImageField(upload_to='products/')
-
-#     def __str__(self):
-#         return f"{self.product_variant.product.name} - {self.product_variant.created_at}"
 
 class ProductImage(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='images')
-    color = models.ForeignKey(
-        AttributeValue,
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True,
-        limit_choices_to={'attribute__name': 'Color'},
-        related_name='product_images'
-    )
+    color = models.CharField(max_length=255, default='dark')
     image = models.ImageField(upload_to='products/')
     order = models.PositiveIntegerField(default=0)
 
-    class Meta:
-        ordering = ['order']
-
     def __str__(self):
-        return f"{self.product.name} - {self.color.value if self.color else 'No Color'}"
+        return f"{self.product.name} - {self.color}"

@@ -37,10 +37,10 @@
         {% for image in product.images.all %}
           {% if image.color %}
             <li class="list-color-item color-swatch {% if forloop.first %}active{% endif %}">
-              <span class="tooltip">{{ image.color.value }}</span>
-              <span class="swatch-value bg_{% if image.color.value|lower == 'black' %}dark{% else %}{{ image.color.value|lower }}{% endif %}">
+              <span class="tooltip">{{ image.color }}</span>
+              <span class="swatch-value bg_{% if image.color|lower == 'black' %}dark{% else %}{{ image.color|lower }}{% endif %}">
               </span>
-              <img class="lazyload" data-src="{{ image.image.url }}" src="{{ image.image.url }}" alt="{{ product.name }} - {{ image.color.value }}" />
+              <img class="lazyload" data-src="{{ image.image.url }}" src="{{ image.image.url }}" alt="{{ product.name }} - {{ image.color }}" />
             </li>
           {% endif %}
         {% endfor %}
