@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from product.models import Product, Tag, Category, SubCategory
+from product.models import Product, Tag, Category, SubCategory, Attribute,AttributeValue
 from banner.models import WomenBanner, WomenCollection, WomenMidBanner, MenBanner, MenCountdown, MenMidBanner, MenCollection, MenBarText, KidsBanner, KidsCollection, KidsMidBanner, KidBarText
 from reviews.models import Review
 from collaboration.models import Collaboration
@@ -115,15 +115,28 @@ def shop(request):
     selected_category = Category.objects.get(id=1)
     sub_categories = SubCategory.objects.filter(category=selected_category)
     # TODO Implement infinite scroll using pagination
-    products = Product.objects.filter(is_active=True)[:1]
+    products = Product.objects.filter(is_active=True, category=selected_category)
     sale_products = Product.objects.filter(is_active=True, tags__name__iexact='Sale')
+    
+    prices = [variant.discount_price for product in products for variant in product.variants.all()]
+    min_price = min(prices)
+    max_price = max(prices)
+
+    # filter form
+    brands = products.values_list('brand_name', flat=True).distinct()
+    sizes = AttributeValue.objects.filter(attribute__name='Size')
+
     return render(request, 'server/shop.html', {
         'title': 'New Arrivals',
         'products': products,
         'categories': categories,
         'sub_categories': sub_categories,
         'selected_category': selected_category,
-        'sale_products': sale_products
+        'sale_products': sale_products,
+        'sizes': sizes,
+        'brands': brands,
+        'min_price': min_price,
+        'max_price': max_price
     })
 
 # using category - (Men | Women | Kids) and subcategory - (T-shirt | Jeans | Shorts | etc) to show the products
@@ -162,12 +175,24 @@ def update_category(request, category_id):
         selected_category = Category.objects.get(id=category_id)
         sub_categories = SubCategory.objects.filter(category=selected_category)
         products = Product.objects.filter(category=selected_category, is_active=True)
+        sizes = AttributeValue.objects.filter(attribute__name='Size')
+        brands = products.values_list('brand_name', flat=True).distinct()
+
+        prices = [variant.discount_price for product in products for variant in product.variants.all()]
+        min_price = min(prices)
+        max_price = max(prices)
+
+        print(min_price, max_price)
         
         return render(request, 'server/partials/update-categories.html', {
             'products': products,
             'categories': categories,
             'selected_category': selected_category,
-            'sub_categories' : sub_categories
+            'sub_categories' : sub_categories,
+            'sizes': sizes,
+            'brands': brands,
+            'min_price': min_price,
+            'max_price': max_price
         })
     except Category.DoesNotExist:
         return HttpResponseNotFound("Category not found")
@@ -198,14 +223,32 @@ def update_sort(request, sort_by):
 
 # filter views
 
-def filter_products_by_sub_category(request, category_id):
+def filter_products(request, category_id):
     selected_category = Category.objects.get(id=category_id)
     products = Product.objects.filter(category=selected_category)
 
     # Get selected subcategories
     selected_sub_categories = request.GET.getlist("sub_category")
+    selected_brands = request.GET.getlist("brand")
+    selected_sizes = request.GET.getlist("size")
+    max_price = request.GET.get("max_price")
+    min_price = request.GET.get("min_price")
 
     if selected_sub_categories:
         products = products.filter(sub_category__id__in=selected_sub_categories)
 
-    return render(request, "server/partials/product-grid.html", {"products": products})
+    if selected_brands:
+        products = products.filter(brand_name__in=selected_brands)
+
+    if selected_sizes:
+        products = products.filter(variants__attributes__value__in=selected_sizes)
+
+    if max_price:
+        products = products.filter(variants__discount_price__lte=max_price).distinct()
+
+    return render(request, "server/partials/update-filter-form.html", 
+                  {"products": products,
+                   "min_price": min_price,
+                   "max_price": max_price,
+                   "selected_category": selected_category
+                    })

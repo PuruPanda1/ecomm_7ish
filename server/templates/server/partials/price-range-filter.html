@@ -1,0 +1,64 @@
+<div class="widget-facet wd-categories" hx-swap-oob="true">
+    <div class="facet-title" data-bs-target="#price-range" data-bs-toggle="collapse" aria-expanded="true" aria-controls="price-range">
+      <span>Price</span>
+      <span class="icon icon-arrow-up"></span>
+    </div>
+    <div class="container" id="price-range">
+        <input type="hidden" name="min_price" value="{{min_price}}">
+        <input 
+            type="range" 
+            min="{{min_price}}" 
+            max="{{max_price}}" 
+            value="{{max_price}}"
+            hx-trigger="input changed delay:200ms"
+            hx-get="{% url 'server:filter-products' category_id=selected_category.id %}"
+            hx-target="#gridLayout"
+            hx-include="#filter-form"
+            name="max_price"
+            class="accent"
+        >
+        <style>
+            .accent {
+                accent-color: #dc3545;
+                width: 100%;
+                height: 4px;
+                outline: none;
+                border: none;
+            }
+            
+            .accent::-webkit-slider-thumb {
+                -webkit-appearance: none;
+                appearance: none;
+                width: 28px;
+                height: 28px;
+                background: #dc3545;
+                cursor: pointer;
+                outline: none;
+                border: none;
+                transition: transform 0.2s ease;
+            }
+            
+            .accent::-webkit-slider-thumb:hover {
+                transform: scale(1.1);
+            }
+            
+            .accent::-moz-range-thumb {
+                width: 28px;
+                height: 28px;
+                background: #dc3545;
+                border-radius: 50%;
+                cursor: pointer;
+                border: none;
+                outline: none;
+                transition: transform 0.2s ease;
+            }
+            
+            .accent::-moz-range-thumb:hover {
+                transform: scale(1.1);
+            }
+        </style>
+        <div id="result" class="slider-value pb-4" hx-swap-oob="true">
+            Current value: {{min_price}} - {{max_price}}
+        </div>
+    </div>
+</div>

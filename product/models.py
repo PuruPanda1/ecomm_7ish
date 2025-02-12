@@ -78,7 +78,7 @@ class ProductVariant(models.Model):
     is_active = models.BooleanField(default=True)
     
     # Many-to-many relationship with AttributeValue
-    attributes = models.ManyToManyField(AttributeValue)
+    attributes = models.ManyToManyField(AttributeValue, related_name='variant_attributes')
 
     @property
     def sku(self):
