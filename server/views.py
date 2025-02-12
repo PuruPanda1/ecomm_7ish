@@ -144,12 +144,13 @@ def shop(request):
 # using category - (Men | Women | Kids) and subcategory - (T-shirt | Jeans | Shorts | etc) to show the products
 def shop_category(request, category, subcategory):
     if subcategory == 'none':
-        products = Product.objects.filter(category__name=category, is_active=True)
+        selected_category = Category.objects.get(name=category)
+        products = Product.objects.filter(category=selected_category, is_active=True)
     else:
-        products = Product.objects.filter(category__name=category, sub_category__name=subcategory, is_active=True)
+        selected_category = Category.objects.get(name=category)
+        products = Product.objects.filter(category=selected_category, sub_category__name=subcategory, is_active=True)
         categories = Category.objects.filter()
-        sub_categories = SubCategory.objects.filter(category__name='Women')
-        selected_category = 'Women'
+        sub_categories = SubCategory.objects.filter(category__name=category)
     return render(request, 'server/shop.html', {
         'title': subcategory,
         'products': products,
@@ -181,6 +182,8 @@ def update_category(request, category_id):
         colors = products.values_list('variants__color', flat=True).distinct()
         brands = products.values_list('brand_name', flat=True).distinct()
 
+
+        print(sizes, colors)
         prices = [variant.discount_price for product in products for variant in product.variants.all()]
         min_price = min(prices)
         max_price = max(prices)
@@ -245,7 +248,7 @@ def filter_products(request, category_id):
         products = products.filter(brand_name__in=selected_brands)
 
     if selected_sizes:
-        products = products.filter(variants__attributes__value__in=selected_sizes)
+        products = products.filter(variants__size__in=selected_sizes)
 
     if max_price:
         products = products.filter(variants__discount_price__lte=max_price).distinct()

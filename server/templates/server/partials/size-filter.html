@@ -11,16 +11,16 @@
                       <input type="checkbox" 
                              name="size" 
                              class="tf-check"
-                             id="size_{{ size.id }}"
-                             value="{{ size.id }}"
+                             id="size_{{ size }}"
+                             value="{{ size }}"
                              hx-get="{% url 'server:filter-products' category_id=selected_category.id %}"
                              hx-trigger="change"
                              hx-include="#filter-form"
                              hx-target="#gridLayout"
                              hx-swap="innerHTML"
                       />
-                      <label for="size_{{ size.id }}" class="label">
-                          <span>{{ size.value }}</span>
+                      <label for="size_{{ size }}" class="label">
+                          <span>{{ size }}</span>
                       </label>
                   </li>
               {% endfor %}
