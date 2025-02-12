@@ -54,10 +54,10 @@ def home_men(request):
     mid_banner = MenMidBanner.objects.filter(is_active=True).first()
     men_bar_texts = MenBarText.objects.filter(is_active=True)
     # Products
-    best_seller = Product.objects.filter(is_active=True, tags__name='Best Seller')
-    sale = Product.objects.filter(is_active=True, tags__name='Sale')
-    new_arrivals = Product.objects.filter(is_active=True, tags__name='New Arrivals')
-    jeans = Product.objects.filter(is_active=True, tags__name='Jeans')
+    best_seller = Product.objects.filter(is_active=True,category__name='Men', tags__name__iexact='Best Seller')
+    sale = Product.objects.filter(is_active=True,category__name='Men', tags__name__iexact='Sale')
+    new_arrivals = Product.objects.filter(is_active=True,category__name='Men', tags__name__iexact='New Arrivals')
+    jeans = Product.objects.filter(is_active=True,category__name='Men', tags__name__iexact='Jeans')
     print(jeans.count())
     return render(request, 'server/home-men.html', {
         'tags': tags,
@@ -149,6 +149,8 @@ def shop_category(request, category, subcategory):
     else:
         selected_category = Category.objects.get(name=category)
         products = Product.objects.filter(category=selected_category, sub_category__name=subcategory, is_active=True)
+        if products.count() == 0:
+            products = Product.objects.filter(category=selected_category, tags__name=subcategory, is_active=True)
         categories = Category.objects.filter()
         sub_categories = SubCategory.objects.filter(category__name=category)
     return render(request, 'server/shop.html', {
