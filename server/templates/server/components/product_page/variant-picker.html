@@ -5,6 +5,8 @@
 <form id="product-variant-form">
 <div class="tf-product-info-variant-picker">
     {% comment %} color picker -- variant {% endcomment %}
+    <input type="hidden" name="selected_color" value="{{selected_color}}">
+    <input type="hidden" name="selected_size" value="{{selected_size}}">
     <div class="variant-picker-item">
         <div class="variant-picker-label">
             Color: <span class="fw-6 variant-picker-label-value value-currentColor">{{product_variant.color}}</span>
@@ -22,7 +24,7 @@
     {% comment %} size picker {% endcomment %}
     <div class="variant-picker-item">
         <div class="d-flex justify-content-between align-items-center">
-            <div class="variant-picker-label">
+            <div class="variant-picker-label" id="current-size">
                 Size: <span class="fw-6 variant-picker-label-value">{{product_variant.size}}</span>
             </div>
             <a href="#find_size" data-bs-toggle="modal" class="find-size fw-6">Find your size</a>

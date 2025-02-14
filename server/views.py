@@ -281,10 +281,21 @@ def product_detail(request, product_id):
 
 def product_varaint_detail(request, product_id):
     product = Product.objects.get(id=product_id)
+
     selected_size = request.GET.get('size')
     selected_color = request.GET.get('color')
-    images = product.images.filter(color__iexact=selected_color)
-    product_variant = product.variants.filter(size__iexact=selected_size, color__iexact=selected_color).first()
+
+    default_color = request.GET.get('selected_color')
+    default_size = request.GET.get('selected_size')
+
+    variant_color = selected_color or default_color
+    variant_size = selected_size or default_size
+    
+    # default variant and images
+    product_variant = product.variants.filter(color__iexact=variant_color, size__iexact=variant_size).first()
+    images = product.images.filter(color__iexact=variant_color)
+
+
     time.sleep(1)
     return render(request, 'server/partials/product/update-product-details.html', {
         'product_variant': product_variant,
