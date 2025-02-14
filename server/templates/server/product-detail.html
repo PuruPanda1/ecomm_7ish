@@ -260,21 +260,7 @@
         var AUTOHIDE = Boolean(0);
 
 
-        document.addEventListener("DOMContentLoaded", function () {
-            document.body.addEventListener("htmx:beforeRequest", function () {
-                document.getElementById("loading-overlay").style.display = "flex";
-            });
-    
-            document.body.addEventListener("htmx:afterSwap", function () {
-                setTimeout(function () {
-                    document.getElementById("loading-overlay").style.display = "none";
-                }, 1000); // Waits 1 second before hiding the loader
-            });
-    
-            document.body.addEventListener("htmx:responseError", function () {
-                document.getElementById("loading-overlay").style.display = "none";
-            });
-        });
+        
     </script>
     <script type="module" src="{% static 'js/model-viewer.min.js' %}"></script>
     <script type="module" src="{% static 'js/zoom.js' %}"></script>
