@@ -6,9 +6,20 @@ class ProductVariantInline(admin.TabularInline):
     model = ProductVariant
     extra = 1
 
+class ProductImageInline(admin.TabularInline):
+    model = ProductImage
+    extra = 1  # Allows adding multiple images per product
+    ordering = ['order'] 
+
+@admin.register(ProductImage)
+class ProductImageAdmin(admin.ModelAdmin):
+    list_display = ('product', 'color', 'image', 'order')
+    list_filter = ('product', 'color')
+    ordering = ('order',)
+    
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    inlines = [ProductVariantInline]
+    inlines = [ProductVariantInline, ProductImageInline]
     list_filter = ('category', 'sub_category', 'tags')
 
 admin.site.register(Category)
@@ -18,7 +29,8 @@ class SubCategoryAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Tag)
-admin.site.register(ProductImage)
+
+
 
 @admin.register(ProductVariant)
 class ProductVariantAdmin(admin.ModelAdmin):

@@ -1,5 +1,5 @@
 {% load static %}
-
+{% load custom-filters %}
 {% for product in products %}
   <div class="card-product grid fade-in-animation" data-availability="In stock" data-brand="Ecomus">
     <div class="card-product-wrapper">
@@ -34,7 +34,7 @@
         <span class="price current-price">Rs. {{ first_variant.discount_price }}</span>
       {% endwith %}
       <ul class="list-color-product">
-        {% for image in product.images.all %}
+        {% for image in product.images.all|unique_colors %}
           {% if image.color %}
             <li class="list-color-item color-swatch {% if forloop.first %}active{% endif %}">
               <span class="tooltip">{{ image.color }}</span>
