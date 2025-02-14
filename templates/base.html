@@ -9,7 +9,8 @@
 
     {% comment %} htmx cdn {% endcomment %}
     <script src="https://unpkg.com/htmx.org@2.0.4" integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+" crossorigin="anonymous"></script>
-
+    <script src="https://unpkg.com/hyperscript.org@0.9.12"></script>
+    <link rel="stylesheet" href="{% static 'css/loading-animation.css' %}">
     <meta name="author" content="themesflat.com" />
     <meta
       name="viewport"
@@ -2365,6 +2366,14 @@
     </div>
     <!-- /modal find_size -->
 
+
+    <div id="loading-overlay" class="loading-overlay">
+      <div class="loader-container">
+          <div class="spinner"></div>
+          <p class="loading-text">Loading...</p>
+      </div>
+  </div>
+  
 
     {% block scripts %}
     {% endblock %}

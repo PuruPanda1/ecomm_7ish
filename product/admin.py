@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Product, ProductVariant, Category, SubCategory, Tag, ProductImage
+from .models import *
 
 
 class ProductVariantInline(admin.TabularInline):
@@ -39,3 +39,18 @@ class ProductVariantAdmin(admin.ModelAdmin):
     list_filter = ('product','stock','returned_quantity', 'is_active')
     search_fields = ('product__name', 'sku')
     list_per_page = 20
+
+
+# Sale and Coupon Admin
+
+@admin.register(Sale)
+class SaleAdmin(admin.ModelAdmin):
+    list_display = ('sale_name', 'start_date', 'end_date')
+    list_filter = ('start_date', 'end_date')
+    search_fields = ('sale_name',)
+
+@admin.register(Coupon)
+class CouponAdmin(admin.ModelAdmin):
+    list_display = ('coupon_code', 'discount_percentage', 'is_active')
+    list_filter = ('is_active',)
+    search_fields = ('coupon_code',)

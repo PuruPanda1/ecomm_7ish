@@ -1,0 +1,49 @@
+{% load static %}
+{% load custom-filters %}
+
+
+<form id="product-variant-form">
+<div class="tf-product-info-variant-picker">
+    {% comment %} color picker -- variant {% endcomment %}
+    <div class="variant-picker-item">
+        <div class="variant-picker-label">
+            Color: <span class="fw-6 variant-picker-label-value value-currentColor">{{product_variant.color}}</span>
+        </div>
+        <div class="variant-picker-values">
+            {% for color in product.images.all|unique_colors %}
+            <input id="values-{{color.color}}" type="radio" name="color" value="{{color.color}}">
+            <label class="hover-tooltip radius-60 color-btn" for="values-{{color.color}}" data-color="{{color.color}}" data-value="{{color.color}}">
+                <span class="btn-checkbox bg-color-{{color.color|lower}}"></span>
+                <span class="tooltip">{{color.color}}</span>
+            </label>
+            {% endfor %}
+        </div>
+    </div>
+    {% comment %} size picker {% endcomment %}
+    <div class="variant-picker-item">
+        <div class="d-flex justify-content-between align-items-center">
+            <div class="variant-picker-label">
+                Size: <span class="fw-6 variant-picker-label-value">{{product_variant.size}}</span>
+            </div>
+            <a href="#find_size" data-bs-toggle="modal" class="find-size fw-6">Find your size</a>
+        </div>
+        <div class="variant-picker-values">
+            {% for size in sizes %}
+            <input type="radio" name="size" id="values-{{size}}" value="{{size}}" {% if selected_size == size %}checked{% endif %}>
+            <label class="style-text size-btn" for="values-{{size}}" data-value="{{size}}">
+                <p>{{size}}</p>
+            </label>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+</form>
+
+<div 
+    hx-get="{% url 'server:product-varaint-detail' product.id %}" 
+    hx-trigger="change from:#product-variant-form" 
+    hx-target="#product-price-info"
+    hx-include="#product-variant-form"
+    hx-swap="innerHTML"
+    >
+</div>

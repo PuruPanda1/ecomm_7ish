@@ -1,0 +1,11 @@
+{% comment %} image update {% endcomment %}
+
+{% include 'server/partials/product/product-image-swipper.html' %}
+
+{% comment %} price update {% endcomment %}
+
+{% include 'server/partials/product/product-price.html' %}
+
+{% comment %} add to cart btn {% endcomment %}
+
+<a id="add-to-cart-btn" hx-swap-oob="true" href="javascript:void(0);" class="tf-btn btn-fill justify-content-center fw-6 fs-16 flex-grow-1 animate-hover-btn btn-add-to-cart"><span>Add to cart -&nbsp;</span><span class="tf-qty-price total-price">{{product_variant.discount_price}}</span></a>

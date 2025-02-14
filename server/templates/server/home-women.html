@@ -250,7 +250,7 @@
       <section class="flat-spacing-15 pb_0">
         <div class="container">
           <div class="flat-title wow fadeInUp" data-wow-delay="0s">
-            <span class="title">Ecomus’s Favorites</span>
+            <span class="title">7ish’s Favorites</span>
             <p class="sub-title">
               Beautifully Functional. Purposefully Designed. Consciously
               Crafted.
@@ -367,7 +367,7 @@
                         >{{ product.name }}</a
                       >
                       {% with first_variant=product.variants.first %}
-                      <span class="price">${{ first_variant.discount_price }}</span>
+                      <span class="price">Rs. {{ first_variant.discount_price }}</span>
                       {% endwith %}
                       <ul class="list-color-product">
                         {% for image in product.images.all %}
@@ -560,7 +560,7 @@
                     </div>
                     <div class="content">
                       <div class="title">Free Shipping</div>
-                      <p>Free shipping over order $120</p>
+                      <p>Free shipping over order Rs. 120</p>
                     </div>
                   </div>
                 </div>

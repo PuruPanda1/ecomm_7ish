@@ -1,10 +1,11 @@
 from django.shortcuts import render
-from product.models import Product, Tag, Category, SubCategory
+from product.models import Product, Tag, Category, SubCategory, Sale, ProductVariant
 from banner.models import WomenBanner, WomenCollection, WomenMidBanner, MenBanner, MenCountdown, MenMidBanner, MenCollection, MenBarText, KidsBanner, KidsCollection, KidsMidBanner, KidBarText
 from reviews.models import Review
 from collaboration.models import Collaboration
 from django.http import HttpResponseBadRequest, HttpResponseNotFound
 from django.db import models
+import time
 # home view for women
 def home_women(request):
     # header tags
@@ -160,13 +161,6 @@ def shop_category(request, category, subcategory):
         'selected_category': selected_category
     })
 
-def product_detail(request, product_id):
-    product = Product.objects.get(id=product_id)
-    # TODO Implement product detail view
-    return render(request, 'server/product-detail.html', {
-        'product': product
-    })
-
 
 # partials views
 
@@ -231,6 +225,7 @@ def update_sort(request, sort_by):
 # filter views
 
 def filter_products(request, category_id):
+    
     selected_category = Category.objects.get(id=category_id)
     products = Product.objects.filter(category=selected_category)
 
@@ -261,3 +256,37 @@ def filter_products(request, category_id):
                    "max_price": max_price,
                    "selected_category": selected_category
                     })
+
+
+def product_detail(request, product_id):
+    product = Product.objects.get(id=product_id)
+    product_variant = product.variants.first()
+    sizes = product.variants.values_list('size', flat=True).distinct()
+    colors = product.variants.values_list('color', flat=True).distinct()
+    selected_size = sizes.first()
+    selected_color = colors.first()
+    images = product.images.filter(color__iexact=selected_color)
+    people_also_bought = Product.objects.filter(is_active=True, tags__name='Best Seller')[:5]
+    return render(request, 'server/product-detail.html', {
+        'product': product,
+        'product_variant': product_variant,
+        'sizes': sizes,
+        'selected_size': selected_size,
+        'selected_color': selected_color,
+        'people_also_bought': people_also_bought,
+        'images': images
+    })
+
+
+
+def product_varaint_detail(request, product_id):
+    product = Product.objects.get(id=product_id)
+    selected_size = request.GET.get('size')
+    selected_color = request.GET.get('color')
+    images = product.images.filter(color__iexact=selected_color)
+    product_variant = product.variants.filter(size__iexact=selected_size, color__iexact=selected_color).first()
+    time.sleep(1)
+    return render(request, 'server/partials/product/update-product-details.html', {
+        'product_variant': product_variant,
+        'images': images
+    })

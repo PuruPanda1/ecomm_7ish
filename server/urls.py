@@ -15,4 +15,7 @@ urlpatterns = [
     path('update-category/<int:category_id>/', update_category, name='update-category'),
     path('update-sort/<str:sort_by>/', update_sort, name='update-sort'),
     path('filter-products/<int:category_id>/', filter_products, name='filter-products'),
+
+    # product detail url
+    path('product-varaint-detail/<int:product_id>/', product_varaint_detail, name='product-varaint-detail'),
 ]
