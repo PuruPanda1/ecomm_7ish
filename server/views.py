@@ -301,3 +301,29 @@ def product_varaint_detail(request, product_id):
         'product_variant': product_variant,
         'images': images
     })
+
+def update_quantity(request, product_variant_id, option, quantity):
+    product_variant = ProductVariant.objects.get(id=product_variant_id)
+
+    if option == 'increase':
+        quantity += 1
+    elif option == 'decrease':
+        quantity -= 1
+
+    if quantity > product_variant.stock:
+        print(f'Quantity = {quantity} and Stock = {product_variant.stock}')
+        return HttpResponseBadRequest("Quantity cannot be greater than the available quantity")
+
+    if quantity < 1:
+        print(f'Quantity = {quantity} and Stock = {product_variant.stock}')
+        return HttpResponseBadRequest("Quantity cannot be less than 1")
+
+    
+
+    total_price = product_variant.discount_price * quantity
+
+    return render(request, 'server/partials/product/update-total-price.html', {
+        'quantity': quantity,
+        'total_price': total_price,
+        'product_variant': product_variant
+    })

@@ -15,3 +15,8 @@
 <div class="variant-picker-label" id="current-size" hx-swap-oob="true">
     Size: <span class="fw-6 variant-picker-label-value">{{product_variant.size}}</span>
 </div>
+
+{% comment %} update the quantity {% endcomment %}
+{% with quantity=1 %}
+    {% include 'server/partials/product/update-total-price.html' %}
+{% endwith %}

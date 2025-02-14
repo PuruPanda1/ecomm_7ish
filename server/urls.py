@@ -18,4 +18,5 @@ urlpatterns = [
 
     # product detail url
     path('product-varaint-detail/<int:product_id>/', product_varaint_detail, name='product-varaint-detail'),
+    path('update-quantity/<int:product_variant_id>/<str:option>/<int:quantity>/', update_quantity, name='update-quantity'),
 ]

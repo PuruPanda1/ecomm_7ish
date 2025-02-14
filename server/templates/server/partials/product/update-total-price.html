@@ -1,0 +1,11 @@
+<div class="tf-product-info-quantity" id="quantity-product-div" hx-swap-oob="true">
+    <div class="quantity-title fw-6">Quantity</div>
+    <div class="wg-quantity">
+        <span class="btn-quantity btn-decrease" hx-get="{% url 'server:update-quantity' product_variant.id 'decrease' quantity|default:1 %}" hx-target="#quantity-product-div" hx-trigger="click" hx-swap="innerHTML" hx-swap-oob="true">-</span>
+        <input type="text" class="quantity-product" id="quantity-product" name="number" value="{{quantity|default:1}}">
+        <span class="btn-quantity btn-increase" hx-get="{% url 'server:update-quantity' product_variant.id 'increase' quantity|default:1 %}" hx-target="#quantity-product-div" hx-trigger="click" hx-swap="innerHTML" hx-swap-oob="true">+</span>
+    </div>
+</div>
+{% if total_price %}
+<a id="add-to-cart-btn" hx-swap-oob="true" href="javascript:void(0);" class="tf-btn btn-fill justify-content-center fw-6 fs-16 flex-grow-1 animate-hover-btn btn-add-to-cart"><span>Add to cart -&nbsp;</span><span class="tf-qty-price total-price">{{total_price}}</span></a>
+{% endif %}
