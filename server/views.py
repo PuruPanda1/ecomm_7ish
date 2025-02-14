@@ -58,7 +58,6 @@ def home_men(request):
     sale = Product.objects.filter(is_active=True,category__name='Men', tags__name__iexact='Sale')
     new_arrivals = Product.objects.filter(is_active=True,category__name='Men', tags__name__iexact='New Arrivals')
     jeans = Product.objects.filter(is_active=True,category__name='Men', tags__name__iexact='Jeans')
-    print(jeans.count())
     return render(request, 'server/home-men.html', {
         'tags': tags,
         'banners': banners,
@@ -185,12 +184,11 @@ def update_category(request, category_id):
         brands = products.values_list('brand_name', flat=True).distinct()
 
 
-        print(sizes, colors)
         prices = [variant.discount_price for product in products for variant in product.variants.all()]
         min_price = min(prices)
         max_price = max(prices)
 
-        print(min_price, max_price)
+        print(f'Min Price = {min_price} and Max Price = {max_price}')
         
         return render(request, 'server/partials/update-categories.html', {
             'products': products,
@@ -242,6 +240,8 @@ def filter_products(request, category_id):
     selected_sizes = request.GET.getlist("size")
     max_price = request.GET.get("max_price")
     min_price = request.GET.get("min_price")
+
+    print(f'Min Price = {min_price} and Max Price = {max_price}')
 
     if selected_sub_categories:
         products = products.filter(sub_category__id__in=selected_sub_categories)
