@@ -304,6 +304,7 @@ def product_varaint_detail(request, product_id):
 
 def update_quantity(request, product_variant_id, option, quantity):
     product_variant = ProductVariant.objects.get(id=product_variant_id)
+    error = ''
 
     if option == 'increase':
         quantity += 1
@@ -311,12 +312,11 @@ def update_quantity(request, product_variant_id, option, quantity):
         quantity -= 1
 
     if quantity > product_variant.stock:
-        print(f'Quantity = {quantity} and Stock = {product_variant.stock}')
-        return HttpResponseBadRequest("Quantity cannot be greater than the available quantity")
+        error = 'Out of Stock - Decrease Quantity'
 
     if quantity < 1:
-        print(f'Quantity = {quantity} and Stock = {product_variant.stock}')
-        return HttpResponseBadRequest("Quantity cannot be less than 1")
+        error = 'Quantity cannot be less than 1'
+        print(error)
 
     
 
@@ -325,5 +325,6 @@ def update_quantity(request, product_variant_id, option, quantity):
     return render(request, 'server/partials/product/update-total-price.html', {
         'quantity': quantity,
         'total_price': total_price,
-        'product_variant': product_variant
+        'product_variant': product_variant,
+        'error': error
     })

@@ -7,5 +7,9 @@
     </div>
 </div>
 {% if total_price %}
-<a id="add-to-cart-btn" hx-swap-oob="true" href="javascript:void(0);" class="tf-btn btn-fill justify-content-center fw-6 fs-16 flex-grow-1 animate-hover-btn btn-add-to-cart"><span>Add to cart -&nbsp;</span><span class="tf-qty-price total-price">{{total_price}}</span></a>
+    {% if error %}
+        <a id="add-to-cart-btn" hx-swap-oob="true" href="javascript:void(0);" class="tf-btn btn-fill justify-content-center fw-6 fs-16 flex-grow-1 animate-hover-btn btn-add-to-cart"><span>{{error}}</span></a>
+    {% else %}
+        <a id="add-to-cart-btn" hx-swap-oob="true" href="javascript:void(0);" class="tf-btn btn-fill justify-content-center fw-6 fs-16 flex-grow-1 animate-hover-btn btn-add-to-cart"><span>Add to cart -&nbsp;</span><span class="tf-qty-price total-price">{{total_price}}</span></a>
+    {% endif %}
 {% endif %}
