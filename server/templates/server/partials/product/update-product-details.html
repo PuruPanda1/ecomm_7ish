@@ -20,3 +20,10 @@
 {% with quantity=1 %}
     {% include 'server/partials/product/update-total-price.html' %}
 {% endwith %}
+
+{% comment %} variant is in stock OR out of stock {% endcomment %}
+{% if product_variant.stock == 0 %}
+    <a id="add-to-cart-btn" hx-swap-oob="true" href="javascript:void(0);" class="tf-btn btn-fill justify-content-center fw-6 fs-16 flex-grow-1 animate-hover-btn btn-add-to-cart"><span>Out of Stock</span></a>
+{% else %}
+    <a id="add-to-cart-btn" hx-swap-oob="true" href="javascript:void(0);" class="tf-btn btn-fill justify-content-center fw-6 fs-16 flex-grow-1 animate-hover-btn btn-add-to-cart"><span>Add to cart -&nbsp;</span><span class="tf-qty-price total-price">{{product_variant.discount_price}}</span></a>
+{% endif %}
