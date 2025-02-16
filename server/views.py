@@ -428,11 +428,26 @@ def add_remove_wishlist_item(request, product_id):
         wishlist_item.delete()
         in_wishlist = False
 
-    return render(request, 'server/partials/wishlist/heart-icon.html', {
+    return render(request, 'server/partials/wishlist/wishlist-icon.html', {
         'in_wishlist': in_wishlist,
         'product':product
     })
     
+def add_remove_wishlist_item_product_page(request, product_id):
+    product = Product.objects.get(id=product_id)
+    wishlist, created = Wishlist.objects.get_or_create(user=request.user)
+    wishlist_item, created = WishlistItem.objects.get_or_create(wishlist=wishlist, product=product)
+    in_wishlist = True
+    # if item is already in wishlist, remove it
+    if not created:
+        wishlist_item.delete()
+        in_wishlist = False
+
+    return render(request, 'server/partials/product/wishlist-icon.html', {
+        'in_wishlist': in_wishlist,
+        'product':product
+    })
+
 def remove_item_from_wishlist(request, product_id):
     product = Product.objects.get(id=product_id)
     wishlist, created = Wishlist.objects.get_or_create(user=request.user)

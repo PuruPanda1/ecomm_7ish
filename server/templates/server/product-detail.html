@@ -72,11 +72,7 @@
                                             {% else %}
                                             <a id="add-to-cart-btn" href="javascript:void(0);" class="tf-btn btn-fill justify-content-center fw-6 fs-16 flex-grow-1 animate-hover-btn btn-add-to-cart"><span>Add to cart -&nbsp;</span><span class="tf-qty-price total-price">{{product_variant.discount_price}}</span></a>
                                             {% endif %}
-                                            <a href="javascript:void(0);" class="tf-product-btn-wishlist hover-tooltip box-icon bg_white wishlist btn-icon-action">
-                                                <span class="icon icon-heart"></span>
-                                                <span class="tooltip">Add to Wishlist</span>
-                                                <span class="icon icon-delete"></span>
-                                            </a>
+                                           {% include 'server/components/product_page/add-to-wishlist.html' %}
                                             <div class="w-100">
                                                 <a href="#" class="btns-full">Buy now </a>
                                             </div>
