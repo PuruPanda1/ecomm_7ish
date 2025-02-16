@@ -28,15 +28,15 @@
     </fieldset>
     <div class="box-field group-2">
       <fieldset>
-        <input type="text" placeholder="Your Name (Public)" name="name" value="{{ request.user.first_name }} {{ request.user.last_name }}" required />
+        <input type="text" placeholder="Your Name (Public)" name="name" value="{{ request.user.first_name }} {{ request.user.last_name }}" readonly />
       </fieldset>
       <fieldset>
-        <input type="email" placeholder="Your email (private)" name="email" value="{{ request.user.email }}" required />
+        <input type="email" placeholder="Your email (private)" name="email" value="{{ request.user.email }}" readonly />
       </fieldset>
     </div>
   </div>
 
   <div class="button-submit">
-    <button class="tf-btn btn-fill animate-hover-btn" type="submit">Submit Reviews</button>
+    <button class="tf-btn btn-fill animate-hover-btn" type="submit">Submit Review</button>
   </div>
 </form>
