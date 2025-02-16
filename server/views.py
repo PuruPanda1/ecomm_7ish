@@ -267,14 +267,17 @@ def product_detail(request, product_id):
     selected_color = colors.first()
     images = product.images.filter(color__iexact=selected_color)
     people_also_bought = Product.objects.filter(is_active=True, tags__name='Best Seller')[:5]
+    reviews = Review.objects.filter(product=product, is_active=True).order_by('-created_at')
     return render(request, 'server/product-detail.html', {
         'product': product,
         'product_variant': product_variant,
         'sizes': sizes,
+        'colors': colors,
         'selected_size': selected_size,
         'selected_color': selected_color,
         'people_also_bought': people_also_bought,
-        'images': images
+        'images': images,
+        'reviews': reviews
     })
 
 
@@ -327,4 +330,20 @@ def update_quantity(request, product_variant_id, option, quantity):
         'total_price': total_price,
         'product_variant': product_variant,
         'error': error
+    })
+
+def sort_reviews(request, product_id, sort_by):
+    product = Product.objects.get(id=product_id)
+    reviews = Review.objects.filter(product=product, is_active=True)
+
+
+    if sort_by == 'most_recent':
+        reviews = reviews.order_by('-created_at')
+    elif sort_by == 'oldest':
+        reviews = reviews.order_by('created_at')
+    elif sort_by == 'most_popular':
+        reviews = reviews.order_by('-rating')
+
+    return render(request, 'server/components/product_page/reviews-list.html', {
+        'reviews': reviews
     })

@@ -42,6 +42,8 @@ class Product(models.Model):
     name = models.CharField(max_length=255)
     brand_name = models.CharField(max_length=255)
     description = models.TextField()
+    features = models.TextField(help_text="Enter each feature on a new line.", default='')
+    materials_care = models.TextField(help_text="Enter each material/care instruction on a new line.", default='')
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     sub_category = models.ForeignKey(SubCategory, on_delete=models.CASCADE)
     tags = models.ManyToManyField(Tag, related_name='tag', default=None)
@@ -52,6 +54,14 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+    
+    def get_features_list(self):
+        return [feature.strip() for feature in self.features.split("\n") if feature.strip()]
+
+    def get_materials_care_list(self):
+        return [material.strip() for material in self.materials_care.split("\n") if material.strip()]
+
+
 
 
 class ProductVariant(models.Model):

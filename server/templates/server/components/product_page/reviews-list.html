@@ -1,0 +1,18 @@
+{% load static %}
+{% load custom-filters %}
+<div class="reply-comment-wrap" id="reviews-list">
+  {% for review in reviews %}
+    <div class="reply-comment-item">
+      <div class="user">
+        <div class="image">
+          <img src="https://ui-avatars.com/api/?name={{ review.user.first_name }}+{{ review.user.last_name }}&background=random" alt="" />
+        </div>
+        <div>
+          <h6>{{ review.title }}</h6>
+          <div class="day text_black-2">{{ review.created_at|timesince }} ago</div>
+        </div>
+      </div>
+      <p class="text_black-2">{{ review.review }}</p>
+    </div>
+  {% endfor %}
+</div>

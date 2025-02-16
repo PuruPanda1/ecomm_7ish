@@ -26,54 +26,21 @@
           <div class="widget-content-tab">
             <div class="widget-content-inner active">
               <div class="">
-                <p class="mb_30">Button-up shirt sleeves and a relaxed silhouette. It’s tailored with drapey, crinkle-texture fabric that’s made from LENZING™ ECOVERO™ Viscose — responsibly sourced wood-based fibres produced through a process that reduces impact on forests, biodiversity and water supply.</p>
+                <p class="mb_30">{{product.description}}</p>
                 <div class="tf-product-des-demo">
                   <div class="right">
                     <h3 class="fs-16 fw-5">Features</h3>
                     <ul>
-                      <li>Front button placket</li>
-                      <li>Adjustable sleeve tabs</li>
-                      <li>Babaton embroidered crest at placket and hem</li>
+                      {% for feature in product.get_features_list %}
+                      <li>{{feature}}</li>
+                      {% endfor %}
                     </ul>
                     <h3 class="fs-16 fw-5">Materials Care</h3>
                     <ul class="mb-0">
-                      <li>Content: 100% LENZING™ ECOVERO™ Viscose</li>
-                      <li>Care: Hand wash</li>
-                      <li>Imported</li>
+                      {% for material in product.get_materials_care_list %}
+                      <li>{{material}}</li>
+                      {% endfor %}
                     </ul>
-                  </div>
-                  <div class="left">
-                    <h3 class="fs-16 fw-5">Materials Care</h3>
-                    <div class="d-flex gap-10 mb_15 align-items-center">
-                      <div class="icon">
-                        <i class="icon-machine"></i>
-                      </div>
-                      <span>Machine wash max. 30ºC. Short spin.</span>
-                    </div>
-                    <div class="d-flex gap-10 mb_15 align-items-center">
-                      <div class="icon">
-                        <i class="icon-iron"></i>
-                      </div>
-                      <span>Iron maximum 110ºC.</span>
-                    </div>
-                    <div class="d-flex gap-10 mb_15 align-items-center">
-                      <div class="icon">
-                        <i class="icon-bleach"></i>
-                      </div>
-                      <span>Do not bleach/bleach.</span>
-                    </div>
-                    <div class="d-flex gap-10 mb_15 align-items-center">
-                      <div class="icon">
-                        <i class="icon-dry-clean"></i>
-                      </div>
-                      <span>Do not dry clean.</span>
-                    </div>
-                    <div class="d-flex gap-10 align-items-center">
-                      <div class="icon">
-                        <i class="icon-tumble-dry"></i>
-                      </div>
-                      <span>Tumble dry, medium hear.</span>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -84,13 +51,21 @@
                   <tr class="tf-attr-pa-color">
                     <th class="tf-attr-label">Color</th>
                     <td class="tf-attr-value">
-                      <p>White, Pink, Black</p>
+                      <p>
+                      {% for color in colors %}
+                      {{color|capfirst}} {% if not forloop.last %}, {% endif %}
+                      {% endfor %}
+                      </p>
                     </td>
                   </tr>
                   <tr class="tf-attr-pa-size">
                     <th class="tf-attr-label">Size</th>
                     <td class="tf-attr-value">
-                      <p>S, M, L, XL</p>
+                      <p>
+                      {% for size in sizes %}
+                      {{size|capfirst}} {% if not forloop.last %}, {% endif %}
+                      {% endfor %}
+                      </p>
                     </td>
                   </tr>
                 </tbody>
@@ -101,58 +76,30 @@
                 <div class="tab-reviews-heading">
                   <div class="top">
                     <div class="text-center">
-                      <h1 class="number fw-6">4.8</h1>
+                      <h1 class="number fw-6">{{reviews|get_average_rating|floatformat:1}}</h1>
                       <div class="list-star">
-                        <i class="icon icon-star"></i>
-                        <i class="icon icon-star"></i>
-                        <i class="icon icon-star"></i>
-                        <i class="icon icon-star"></i>
-                        <i class="icon icon-star"></i>
+                        {% with reviews|get_average_rating|floatformat:1 as rating %}
+                          {% for i in rating|floatformat:0|make_list %}
+                            <i class="icon icon-star"></i>
+                          {% endfor %}
+                        {% endwith %}                    
                       </div>
-                      <p>(168 Ratings)</p>
+                      <p>({{reviews|get_reviews_count}} Ratings)</p>
                     </div>
+                    {% with reviews|rating_distribution as rating_percentages %}
                     <div class="rating-score">
+                      {% for rating, data in rating_percentages.items %}
                       <div class="item">
-                        <div class="number-1 text-caption-1">5</div>
+                        <div class="number-1 text-caption-1">{{rating}}</div>
                         <i class="icon icon-star"></i>
                         <div class="line-bg">
-                          <div style="width: 94.67%;"></div>
+                          <div style="width: {{data.percentage}}%;"></div>
                         </div>
-                        <div class="number-2 text-caption-1">59</div>
+                        <div class="number-2 text-caption-1">{{data.count}}</div>
                       </div>
-                      <div class="item">
-                        <div class="number-1 text-caption-1">4</div>
-                        <i class="icon icon-star"></i>
-                        <div class="line-bg">
-                          <div style="width: 60%;"></div>
-                        </div>
-                        <div class="number-2 text-caption-1">46</div>
-                      </div>
-                      <div class="item">
-                        <div class="number-1 text-caption-1">3</div>
-                        <i class="icon icon-star"></i>
-                        <div class="line-bg">
-                          <div style="width: 0%;"></div>
-                        </div>
-                        <div class="number-2 text-caption-1">0</div>
-                      </div>
-                      <div class="item">
-                        <div class="number-1 text-caption-1">2</div>
-                        <i class="icon icon-star"></i>
-                        <div class="line-bg">
-                          <div style="width: 0%;"></div>
-                        </div>
-                        <div class="number-2 text-caption-1">0</div>
-                      </div>
-                      <div class="item">
-                        <div class="number-1 text-caption-1">1</div>
-                        <i class="icon icon-star"></i>
-                        <div class="line-bg">
-                          <div style="width: 0%;"></div>
-                        </div>
-                        <div class="number-2 text-caption-1">0</div>
-                      </div>
+                      {% endfor %}
                     </div>
+                    {% endwith %}
                   </div>
                   <div>
                     <div class="tf-btn btn-outline-dark fw-6 btn-comment-review btn-cancel-review">Cancel Review</div>
@@ -161,66 +108,10 @@
                 </div>
                 <div class="reply-comment cancel-review-wrap">
                   <div class="d-flex mb_24 gap-20 align-items-center justify-content-between flex-wrap">
-                    <h5 class="">03 Comments</h5>
-                    <div class="d-flex align-items-center gap-12">
-                      <div class="text-caption-1">Sort by:</div>
-                      <div class="tf-dropdown-sort" data-bs-toggle="dropdown">
-                        <div class="btn-select">
-                          <span class="text-sort-value">Most Recent</span>
-                          <span class="icon icon-arrow-down"></span>
-                        </div>
-                        <div class="dropdown-menu">
-                          <div class="select-item active">
-                            <span class="text-value-item">Most Recent</span>
-                          </div>
-                          <div class="select-item">
-                            <span class="text-value-item">Oldest</span>
-                          </div>
-                          <div class="select-item">
-                            <span class="text-value-item">Most Popular</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                    <h5 class="">{{reviews|get_reviews_count}} Comments</h5>
+                    {% include 'server/components/product_page/reviews-sorting.html' %}
                   </div>
-                  <div class="reply-comment-wrap">
-                    <div class="reply-comment-item">
-                      <div class="user">
-                        <div class="image">
-                          <img src="images/collections/collection-circle-9.jpg" alt="" />
-                        </div>
-                        <div>
-                          <h6><a href="#" class="link">Superb quality apparel that exceeds expectations</a></h6>
-                          <div class="day text_black-2">1 days ago</div>
-                        </div>
-                      </div>
-                      <p class="text_black-2">Great theme - we were looking for a theme with lots of built in features and flexibility and this was perfect. We expected to need to employ a developer to add a few finishing touches. But we actually managed to do everything ourselves. We did have one small query and the support given was swift and helpful.</p>
-                    </div>
-                    <div class="reply-comment-item type-reply">
-                      <div class="user">
-                        <div class="image">
-                          <img src="images/collections/collection-circle-10.jpg" alt="" />
-                        </div>
-                        <div>
-                          <h6><a href="#" class="link">Reply from Modave</a></h6>
-                          <div class="day text_black-2">1 days ago</div>
-                        </div>
-                      </div>
-                      <p class="text_black-2">We love to hear it! Part of what we love most about Modave is how much it empowers store owners like yourself to build a beautiful website without having to hire a developer :) Thank you for this fantastic review!</p>
-                    </div>
-                    <div class="reply-comment-item">
-                      <div class="user">
-                        <div class="image">
-                          <img src="images/collections/collection-circle-9.jpg" alt="" />
-                        </div>
-                        <div>
-                          <h6><a href="#" class="link">Superb quality apparel that exceeds expectations</a></h6>
-                          <div class="day text_black-2">1 days ago</div>
-                        </div>
-                      </div>
-                      <p class="text_black-2">Great theme - we were looking for a theme with lots of built in features and flexibility and this was perfect. We expected to need to employ a developer to add a few finishing touches. But we actually managed to do everything ourselves. We did have one small query and the support given was swift and helpful.</p>
-                    </div>
-                  </div>
+                  {% include 'server/components/product_page/reviews-list.html' %}
                 </div>
                 <form class="form-write-review write-review-wrap">
                   <div class="heading">

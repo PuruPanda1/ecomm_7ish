@@ -1,4 +1,7 @@
 from django import template
+from reviews.models import Review
+from django.db.models import Avg
+from collections import Counter
 
 register = template.Library()
 
@@ -49,3 +52,43 @@ def get_product_variants(product):
     print(list(color_variants.values()))
 
     return list(color_variants.values())  # Convert dict to list for template use
+
+
+@register.filter
+def get_average_rating(reviews):
+    if reviews.count() > 0:
+        return reviews.aggregate(Avg('rating'))['rating__avg']
+    return 0
+
+
+@register.filter
+def get_reviews_count(reviews):
+    return reviews.count()
+
+
+
+@register.filter
+def rating_distribution(reviews):
+    if not reviews:
+        return {}
+
+    # Count occurrences of each rating
+    ratings_count = Counter([review.rating for review in reviews])
+
+    # Total number of reviews
+    total_reviews = sum(ratings_count.values())
+
+    # Ensure total_reviews is not zero before division
+    if total_reviews == 0:
+        return {}
+
+    # Prepare the dictionary with rating and percentage
+    distribution = {
+        i: {
+            'count': ratings_count.get(i, 0),
+            'percentage': round((ratings_count.get(i, 0) / total_reviews) * 100, 2)
+        }
+        for i in range(5, 0, -1)  # Iterate from 5-star to 1-star
+    }
+
+    return distribution 
