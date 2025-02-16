@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from product.models import Product, Tag, Category, SubCategory, Sale, ProductVariant
 from banner.models import WomenBanner, WomenCollection, WomenMidBanner, MenBanner, MenCountdown, MenMidBanner, MenCollection, MenBarText, KidsBanner, KidsCollection, KidsMidBanner, KidBarText
 from reviews.models import Review
@@ -347,3 +347,24 @@ def sort_reviews(request, product_id, sort_by):
     return render(request, 'server/components/product_page/reviews-list.html', {
         'reviews': reviews
     })
+
+def submit_review(request, product_id):
+    
+    if request.method == 'POST':
+        product = Product.objects.get(id=product_id)
+        rating = request.POST.get('rate')
+        review = request.POST.get('review')
+        title = request.POST.get('title')
+        user = request.user
+
+
+    review = Review.objects.create(
+        user=user,
+        product=product,
+        title=title,
+        review=review,
+        rating=rating,
+    )
+
+
+    return redirect(request.META.get("HTTP_REFERER", "/")) 

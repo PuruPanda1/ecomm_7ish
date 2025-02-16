@@ -49,7 +49,6 @@ def get_product_variants(product):
 
         color_variants[color].add_variant(variant.size, variant.discount_price)
 
-    print(list(color_variants.values()))
 
     return list(color_variants.values())  # Convert dict to list for template use
 
