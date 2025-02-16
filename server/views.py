@@ -442,4 +442,4 @@ def remove_item_from_wishlist(request, product_id):
 
     # updated_count_html = render_to_string("server/partials/wishlist/wishlist-count.html")
 
-    return HttpResponse('')
+    return HttpResponse('',status=200)
