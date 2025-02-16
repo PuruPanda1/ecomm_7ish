@@ -111,6 +111,13 @@ def home_kids(request):
 
 # normal redirect without any category or tag   
 def shop(request):
+    # header tags
+    men_tags =  Tag.objects.filter(category__name='Men', is_active=True)    
+    women_tags =  Tag.objects.filter(category__name='Women', is_active=True)    
+    kids_tags =  Tag.objects.filter(category__name='Kids', is_active=True)    
+    header_products = Product.objects.filter(is_active=True, tags__name='Best Seller')[:2]
+    current_tab = ''
+    # specific page context
     categories = Category.objects.filter()
     selected_category = Category.objects.get(id=1)
     sub_categories = SubCategory.objects.filter(category=selected_category)
@@ -128,6 +135,11 @@ def shop(request):
     colors = products.values_list('variants__color', flat=True).distinct()
 
     return render(request, 'server/shop.html', {
+        'men_tags': men_tags,
+        'women_tags': women_tags,
+        'kids_tags': kids_tags,
+        'header_products': header_products,
+        'current_tab': current_tab,
         'title': 'New Arrivals',
         'products': products,
         'categories': categories,
@@ -143,6 +155,12 @@ def shop(request):
 
 # using category - (Men | Women | Kids) and subcategory - (T-shirt | Jeans | Shorts | etc) to show the products
 def shop_category(request, category, subcategory):
+    # header tags
+    men_tags =  Tag.objects.filter(category__name='Men', is_active=True)    
+    women_tags =  Tag.objects.filter(category__name='Women', is_active=True)    
+    kids_tags =  Tag.objects.filter(category__name='Kids', is_active=True)    
+    header_products = Product.objects.filter(is_active=True, tags__name='Best Seller')[:2]
+    current_tab = ''
     if subcategory == 'none':
         selected_category = Category.objects.get(name=category)
         products = Product.objects.filter(category=selected_category, is_active=True)
@@ -154,6 +172,11 @@ def shop_category(request, category, subcategory):
         categories = Category.objects.filter()
         sub_categories = SubCategory.objects.filter(category__name=category)
     return render(request, 'server/shop.html', {
+        'men_tags': men_tags,
+        'women_tags': women_tags,
+        'kids_tags': kids_tags,
+        'header_products': header_products,
+        'current_tab': current_tab,
         'title': subcategory,
         'products': products,
         'categories': categories,
@@ -259,6 +282,13 @@ def filter_products(request, category_id):
 
 
 def product_detail(request, product_id):
+    # header tags
+    men_tags =  Tag.objects.filter(category__name='Men', is_active=True)    
+    women_tags =  Tag.objects.filter(category__name='Women', is_active=True)    
+    kids_tags =  Tag.objects.filter(category__name='Kids', is_active=True)    
+    header_products = Product.objects.filter(is_active=True, tags__name='Best Seller')[:2]
+    current_tab = ''
+    # specific page context
     product = Product.objects.get(id=product_id)
     product_variant = product.variants.first()
     sizes = product.variants.values_list('size', flat=True).distinct()
@@ -269,6 +299,11 @@ def product_detail(request, product_id):
     people_also_bought = Product.objects.filter(is_active=True, tags__name='Best Seller')[:5]
     reviews = Review.objects.filter(product=product, is_active=True).order_by('-created_at')
     return render(request, 'server/product-detail.html', {
+        'men_tags': men_tags,
+        'women_tags': women_tags,
+        'kids_tags': kids_tags,
+        'header_products': header_products,
+        'current_tab': current_tab,
         'product': product,
         'product_variant': product_variant,
         'sizes': sizes,
