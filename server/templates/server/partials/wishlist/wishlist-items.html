@@ -16,7 +16,7 @@
            hx-delete="{% url 'server:remove-item-from-wishlist' product.id %}"
            hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
            hx-target="#card-product-{{product.id}}"
-           hx-swap='outerHTML'
+           hx-swap='delete'
             >
             <span class="tooltip">Remove from Wishlist</span>
             <span class="icon icon-delete" style="display: block !important;"></span>

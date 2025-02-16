@@ -441,5 +441,4 @@ def remove_item_from_wishlist(request, product_id):
         wishlist_item.delete()
 
     # updated_count_html = render_to_string("server/partials/wishlist/wishlist-count.html")
-
-    return HttpResponse('',status=200)
+    return render(request, 'server/partials/wishlist/wishlist-count.html')
