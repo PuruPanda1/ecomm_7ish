@@ -1,0 +1,17 @@
+{% load custom-filters %}
+<div id="icon-wishlist-{{product.id}}">
+  {% if product|in_wishlist:request.user %}
+    <a href="javascript:void(0);"  class="box-icon bg_white wishlist btn-icon-action" hx-get="{% url 'server:add-remove-wishlist-item' product.id %}" hx-target="#icon-wishlist-{{product.id}}" hx-swap="innerHTML">
+      <span class="tooltip">Remove from Wishlist</span>
+      <span class="icon icon-delete" style="display: block !important;"></span>
+    </a>
+  {% else %}
+    <a href="javascript:void(0);"  class="box-icon bg_white wishlist btn-icon-action" hx-get="{% url 'server:add-remove-wishlist-item' product.id %}" hx-target="#icon-wishlist-{{product.id}}" hx-swap="innerHTML">
+      <span class="tooltip">Add to Wishlist</span>
+      <span class="icon icon-heart" style="display: block !important;"></span>
+    </a>
+  {% endif %}
+</div>
+
+{% comment %} update wishlist count {% endcomment %}
+{% include 'server/partials/wishlist/wishlist-count.html' %}

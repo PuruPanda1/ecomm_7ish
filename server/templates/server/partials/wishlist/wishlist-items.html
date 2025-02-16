@@ -1,7 +1,7 @@
 {% load static %}
 {% load custom-filters %}
 {% for product in products %}
-  <div class="card-product grid fade-in-animation" data-availability="In stock" data-brand="Ecomus">
+  <div id="card-product-{{product.id}}" class="card-product grid fade-in-animation" data-availability="In stock" data-brand="Ecomus">
     <div class="card-product-wrapper">
       <a href="{% url 'server:product-detail' product.id %}" class="product-img">
         <img class="lazyload img-product" data-src="{{ product.variants.first.get_images.first.image.url }}" src="{{ product.variants.first.get_images.first.image.url }}" alt="{{ product.name }}" />
@@ -12,19 +12,10 @@
           <span class="icon icon-bag"></span>
           <span class="tooltip">Quick Add</span>
         </a>
-        <div id="icon-wishlist-{{product.id}}">
-          {% if product|in_wishlist:request.user %}
-          <a href="javascript:void(0);" class="box-icon bg_white wishlist btn-icon-action" hx-get="{% url 'server:add-remove-wishlist-item' product.id %}" hx-target="#icon-wishlist-{{product.id}}" hx-swap="innerHTML">
+          <a href="javascript:void(0);" class="box-icon bg_white wishlist btn-icon-action" hx-get="{% url 'server:remove-item-from-wishlist' product.id %}" hx-target="#card-product-{{product.id}}" hx-swap="innerHTML">
             <span class="tooltip">Remove from Wishlist</span>
             <span class="icon icon-delete" style="display: block !important;"></span>
           </a>
-          {% else %}
-          <a href="javascript:void(0);" class="box-icon bg_white wishlist btn-icon-action" hx-get="{% url 'server:add-remove-wishlist-item' product.id %}" hx-target="#icon-wishlist-{{product.id}}" hx-swap="innerHTML">
-            <span class="tooltip">Add to Wishlist</span>
-            <span class="icon icon-heart" style="display: block !important;"></span>
-          </a>
-          {% endif %}
-        </div>
         <a href="#compare" data-bs-toggle="offcanvas" aria-controls="offcanvasLeft" class="box-icon bg_white compare btn-icon-action">
           <span class="icon icon-compare"></span>
           <span class="tooltip">Add to Compare</span>
@@ -47,6 +38,7 @@
             <li class="list-color-item color-swatch {% if forloop.first %}active{% endif %}">
               <span class="tooltip">{{ image.color }}</span>
               <span class="swatch-value bg_{% if image.color|lower == 'black' %}dark{% else %}{{ image.color|lower }}{% endif %}">
+
               </span>
               <img class="lazyload" data-src="{{ image.image.url }}" src="{{ image.image.url }}" alt="{{ product.name }} - {{ image.color }}" />
             </li>

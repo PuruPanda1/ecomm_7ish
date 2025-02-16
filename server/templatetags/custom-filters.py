@@ -1,5 +1,6 @@
 from django import template
 from reviews.models import Review
+from wishlist.models import WishlistItem, Wishlist
 from django.db.models import Avg
 from collections import Counter
 
@@ -91,3 +92,13 @@ def rating_distribution(reviews):
     }
 
     return distribution 
+
+
+@register.filter
+def in_wishlist(product, user):
+    return WishlistItem.objects.filter(wishlist__user=user, product=product).exists()
+
+@register.filter
+def get_wishlist_count(user):
+    wishlist, created  = Wishlist.objects.get_or_create(user=user)
+    return wishlist.wishlist_items.count() if wishlist else 0

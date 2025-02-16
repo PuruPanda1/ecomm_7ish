@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect
+from django.template.loader import render_to_string
+from wishlist.models import Wishlist, WishlistItem
 from product.models import Product, Tag, Category, SubCategory, Sale, ProductVariant
 from banner.models import WomenBanner, WomenCollection, WomenMidBanner, MenBanner, MenCountdown, MenMidBanner, MenCollection, MenBarText, KidsBanner, KidsCollection, KidsMidBanner, KidBarText
 from reviews.models import Review
 from collaboration.models import Collaboration
-from django.http import HttpResponseBadRequest, HttpResponseNotFound
+from django.http import HttpResponseBadRequest, HttpResponseNotFound, HttpResponse
 from django.db import models
 import time
 # home view for women
@@ -403,3 +405,41 @@ def submit_review(request, product_id):
 
 
     return redirect(request.META.get("HTTP_REFERER", "/")) 
+
+# wishlist views
+
+def wishlist_page(request):
+    
+    wishlist, created = Wishlist.objects.get_or_create(user=request.user)
+
+    wishlist_items = WishlistItem.objects.filter(wishlist=wishlist)
+    products_list = [item.product for item in wishlist_items]
+
+    return render(request, 'server/wishlist.html', {'products': products_list})
+
+
+def add_remove_wishlist_item(request, product_id):
+    product = Product.objects.get(id=product_id)
+    wishlist, created = Wishlist.objects.get_or_create(user=request.user)
+    wishlist_item, created = WishlistItem.objects.get_or_create(wishlist=wishlist, product=product)
+    in_wishlist = True
+    # if item is already in wishlist, remove it
+    if not created:
+        wishlist_item.delete()
+        in_wishlist = False
+
+    return render(request, 'server/partials/wishlist/heart-icon.html', {
+        'in_wishlist': in_wishlist,
+        'product':product
+    })
+    
+def remove_item_from_wishlist(request, product_id):
+    product = Product.objects.get(id=product_id)
+    wishlist, created = Wishlist.objects.get_or_create(user=request.user)
+    wishlist_item = WishlistItem.objects.filter(wishlist=wishlist, product=product)
+    if wishlist_item:
+        wishlist_item.delete()
+
+    # updated_count_html = render_to_string("server/partials/wishlist/wishlist-count.html")
+
+    return HttpResponse('')

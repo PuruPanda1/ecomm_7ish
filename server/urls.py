@@ -22,4 +22,9 @@ urlpatterns = [
     path('sort-reviews/<int:product_id>/<str:sort_by>/', sort_reviews, name='sort-reviews'),
     path('submit-review/<int:product_id>/', submit_review, name='submit-review'),
 
+    # wishlist url
+    path('wishlist/', wishlist_page, name='wishlist'),
+    path('add-remove-wishlist-item/<int:product_id>/', add_remove_wishlist_item, name='add-remove-wishlist-item'),
+    path('remove-item-from-wishlist/<int:product_id>/', remove_item_from_wishlist, name='remove-item-from-wishlist'),
+
 ]
