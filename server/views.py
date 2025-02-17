@@ -533,8 +533,18 @@ def update_cart_count(request):
     cart_count =  cart.cart_items.count() if cart else 0
     return HttpResponse(str(cart_count))  # Return the cart count as a plain text response
 
+def update_cart_sub_total(request):
+    if not request.user.is_authenticated:
+        return 0
+    
+    cart, _ = Cart.objects.get_or_create(user=request.user)
 
-def add_cart_item(request, product_id):
+    sub_total = cart.total_price_pre_tax
+    
+    return HttpResponse(str(sub_total))  # Return the cart count as a plain text response
+
+
+def add_cart_item(request, product_id, quantity):
     product = Product.objects.get(id=product_id)
     
     selected_size = request.GET.get('size')
@@ -543,25 +553,22 @@ def add_cart_item(request, product_id):
     default_color = request.GET.get('selected_color')
     default_size = request.GET.get('selected_size')
     
-    quantity = 1
-    
-    if request.GET.get('quantity'):
-        quantity = request.GET.get('quantity')
+    print(f"Quantity is {quantity}")
     
     variant_color = selected_color or default_color
     variant_size = selected_size or default_size
     product_variant = ProductVariant.objects.filter(product=product,color__iexact=variant_color, size__iexact=variant_size).first()
     
     cart, _ = Cart.objects.get_or_create(user=request.user)
+    # creating cart item
     cart_item, created = CartItem.objects.get_or_create(cart=cart, product_variant=product_variant)
-    in_cart = True
-    # if item is already in wishlist, remove it
+    
     if not created:
-        # Re adding to cart increases the quantity
-        cart_item.quantity += 1
-        # cart_item.delete()
-        in_cart = False
+        cart_item.quantity += quantity  # Increase quantity if item already exists
+    else:
+        cart_item.quantity = quantity 
 
+    cart_item.save()
     # show go to cart and update the cart list
     varaint = {"details": product_variant, "quantity": quantity}
     time.sleep(1)

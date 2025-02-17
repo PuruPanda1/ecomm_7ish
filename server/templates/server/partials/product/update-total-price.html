@@ -2,7 +2,7 @@
   <div class="quantity-title fw-6">Quantity</div>
   <div class="wg-quantity">
     <span class="btn-quantity btn-decrease" hx-get="{% url 'server:update-quantity' product_variant.id 'decrease' quantity|default:1 %}" hx-target="#quantity-product-div" hx-trigger="click" hx-swap="innerHTML" hx-swap-oob="true">-</span>
-    <input type="text" class="quantity-product" id="quantity-product" name="number" value="{{ quantity|default:1 }}" />
+    <input type="text" class="quantity-product" id="quantity-product" name="quantity" value="{{ quantity|default:1 }}" />
     <span class="btn-quantity btn-increase" hx-get="{% url 'server:update-quantity' product_variant.id 'increase' quantity|default:1 %}" hx-target="#quantity-product-div" hx-trigger="click" hx-swap="innerHTML" hx-swap-oob="true">+</span>
   </div>
 </div>
@@ -10,6 +10,6 @@
   {% if error %}
     {% include 'server/partials/product/add-to-cart-btn.html' with value=error %}
   {% else %}
-  {% include 'server/partials/product/add-to-cart-btn.html' with value=total_price  %}
+  {% include 'server/partials/product/add-to-cart-btn.html' with value=total_price quantity=quantity %}
   {% endif %}
 {% endif %}

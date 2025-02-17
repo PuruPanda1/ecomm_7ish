@@ -35,6 +35,7 @@ urlpatterns = [
 
     # cart urls
     path('update-cart-count/', update_cart_count, name='update-cart-count'),
-    path('add-cart-item/<int:product_id>/', add_cart_item, name='add-cart-item'),
+    path('update-cart-sub-total/', update_cart_sub_total, name='update-cart-sub-total'),
+    path('add-cart-item/<int:product_id>/<int:quantity>', add_cart_item, name='add-cart-item'),
     path('remove-cart-item/<int:product_varaint_id>/', remove_cart_item, name='remove-cart-item'),
 ]

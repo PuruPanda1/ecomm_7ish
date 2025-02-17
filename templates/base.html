@@ -1938,6 +1938,20 @@
           updateCartCount();
       });
   
+      function updateCartSubTotal() {
+        // Fetch the updated cart count from the server (you may have an endpoint like '/cart-count/')
+        fetch('{% url "server:update-cart-sub-total" %}')
+            .then(response => response.text())  // Assuming it returns a plain text count
+            .then(cartSubTotal => {
+                // Update the cart count element with the new count
+                document.getElementById('cart_sub_total').innerText = "Rs. "+ cartSubTotal;
+            })
+            .catch(error => {
+                console.error('Error fetching cart sub total:', error);
+            });
+      }
+
+   
 
   </script>
 
