@@ -521,29 +521,34 @@ def remove_item_from_wishlist(request, product_id):
 
 # cart views
 # TODO CHANGE WISHLIST TO CART with minimal changes
+# No need of cart - page as we are using custom filters
 def cart_page(request):
     
     cart, created = Cart.objects.get_or_create(user=request.user)
 
     cart_items = CartItem.objects.filter(cart=cart)
-    products_list = [item.product for item in cart_items]
+    product_variant_list = [
+    {"variant": item.product_variant, "quantity": item.quantity} 
+    for item in cart_items
+    ]
 
-    return render(request, 'server/cart.html', {'products': products_list})
+    return render(request, 'server/components/cart/cart.html', {'products': product_variant_list})
 
-# def add_remove_wishlist_item(request, product_id):
-#     product = Product.objects.get(id=product_id)
-#     wishlist, created = Wishlist.objects.get_or_create(user=request.user)
-#     wishlist_item, created = WishlistItem.objects.get_or_create(wishlist=wishlist, product=product)
-#     in_wishlist = True
-#     # if item is already in wishlist, remove it
-#     if not created:
-#         wishlist_item.delete()
-#         in_wishlist = False
+def add_remove_cart_item(request, product_variant_id):
+    product_variant = ProductVariant.objects.get(id=product_variant_id)
+    cart, created = Cart.objects.get_or_create(user=request.user)
+    cart_item, created = WishlistItem.objects.get_or_create(cart=cart, product_variant=product_variant)
+    in_cart = True
+    # if item is already in wishlist, remove it
+    if not created:
+        cart_item.delete()
+        in_cart = False
 
-#     return render(request, 'server/partials/wishlist/wishlist-icon.html', {
-#         'in_wishlist': in_wishlist,
-#         'product':product
-#     })
+    # Create a partial of product card in card and use beforeend to add in the cart item
+    return render(request, 'server/partials/wishlist/wishlist-icon.html', {
+        'in_cart': in_cart ,
+        'product_variant':product_variant
+    })
     
 # def add_remove_wishlist_item_product_page(request, product_id):
 #     product = Product.objects.get(id=product_id)

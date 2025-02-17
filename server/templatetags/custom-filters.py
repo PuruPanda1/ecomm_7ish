@@ -1,8 +1,10 @@
 from django import template
 from reviews.models import Review
 from wishlist.models import WishlistItem, Wishlist
+from cart.models import Cart, CartItem
 from django.db.models import Avg
 from collections import Counter
+from product.models import Product
 
 register = template.Library()
 
@@ -106,3 +108,34 @@ def get_wishlist_count(user):
         return 0
     wishlist, created  = Wishlist.objects.get_or_create(user=user)
     return wishlist.wishlist_items.count() if wishlist else 0
+
+# cart filters
+
+@register.filter
+def get_cart_count(user):
+    if not user.is_authenticated:
+        return 0
+    cart, created  = Cart.objects.get_or_create(user=user)
+    return cart.cart_items.count() if cart else 0
+
+@register.filter
+def get_cart_items(user):
+    if not user.is_authenticated:
+        return ''
+   
+    cart, created = Cart.objects.get_or_create(user=user)
+
+    cart_items = CartItem.objects.filter(cart=cart)
+    product_variant_list = [
+        {"details": item.product_variant, "quantity": item.quantity} 
+        for item in cart_items
+    ]
+    
+    return product_variant_list
+
+
+@register.filter
+def get_suggestion(user):
+    products_list = Product.objects.filter(tags__name__iexact ='Best Seller')
+    print("Product List is --> ",products_list)
+    return products_list

@@ -1,0 +1,21 @@
+<div class="tf-mini-cart-item">
+    <div class="tf-mini-cart-image">
+    <a href="{% url 'server:product-detail' varaint.details.product.id %}">
+        <img src="{{ varaint.details.get_images.first.image.url }}" alt="" />
+    </a>
+    </div>
+    <div class="tf-mini-cart-info">
+    <a class="title link" href="{% url 'server:product-detail' varaint.details.product.id %}">{{varaint.details.product.name}}</a
+    >
+    <div class="meta-variant">{{varaint.color}}</div>
+    <div class="price fw-6">Rs. {{varaint.details.discount_price}}</div>
+    <div class="tf-mini-cart-btns">
+        <div class="wg-quantity small">
+        <span class="btn-quantity minus-btn">-</span>
+        <input type="text" name="number" value="{{varaint.quantity}}" />
+        <span class="btn-quantity plus-btn">+</span>
+        </div>
+        <div class="tf-mini-cart-remove">Remove</div>
+    </div>
+    </div>
+</div>
