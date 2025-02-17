@@ -378,6 +378,7 @@ def product_varaint_detail(request, product_id):
 def update_quantity(request, product_variant_id, option, quantity):
     product_variant = ProductVariant.objects.get(id=product_variant_id)
     error = ''
+    product = product_variant.product
 
     if option == 'increase':
         quantity += 1
@@ -398,6 +399,7 @@ def update_quantity(request, product_variant_id, option, quantity):
         'quantity': quantity,
         'total_price': total_price,
         'product_variant': product_variant,
+        'product':product,
         'error': error
     })
 
@@ -511,19 +513,6 @@ def remove_item_from_wishlist(request, product_id):
     return render(request, 'server/partials/wishlist/wishlist-count.html')
 
 # cart views
-# TODO CHANGE WISHLIST TO CART with minimal changes
-# No need of cart - page as we are using custom filters
-def cart_page(request):
-    
-    cart, created = Cart.objects.get_or_create(user=request.user)
-
-    cart_items = CartItem.objects.filter(cart=cart)
-    product_variant_list = [
-    {"variant": item.product_variant, "quantity": item.quantity} 
-    for item in cart_items
-    ]
-
-    return render(request, 'server/components/cart/cart.html', {'products': product_variant_list})
 
 def remove_cart_item(request, product_varaint_id):
     product_variant = ProductVariant.objects.filter(id=product_varaint_id).first()
@@ -533,11 +522,8 @@ def remove_cart_item(request, product_varaint_id):
     cart_item, _ = CartItem.objects.get_or_create(cart=cart, product_variant=product_variant)
     cart_item.delete()
     
-    # send HX-Trigger:newContact header for update
-    response = HttpResponse(status=200)  # No Content response
-    response["HX-Trigger"] = "cartUpdated"
     time.sleep(1)
-    return response
+    return render(request, 'server/partials/cart/update-cart-sub-total.html')
 
 def update_cart_count(request):
     if not request.user.is_authenticated:
@@ -580,6 +566,7 @@ def add_cart_item(request, product_id):
     varaint = {"details": product_variant, "quantity": quantity}
     time.sleep(1)
     return render(request, 'server/partials/shop/update-cart.html', {
+        'product': product,
         'varaint': varaint,
     })
     

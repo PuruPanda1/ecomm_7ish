@@ -51,6 +51,7 @@
                                         <div class="liveview-count">{{product_variant.stock}}</div>
                                         <p class="fw-6">People are viewing this right now</p>
                                     </div>
+                                    {% if product.sale.first.time_left > 0 %}
                                     <div class="tf-product-info-countdown">
                                         <div class="countdown-wrap">
                                             <div class="countdown-title">
@@ -62,22 +63,16 @@
                                             </div>
                                         </div>
                                     </div>
+                                    {% endif %}
                                     {% include 'server/components/product_page/variant-picker.html' %}
 
                                     {% include 'server/partials/product/update-total-price.html' %}
                                     <div class="tf-product-info-buy-button">
                                         <form class="">
                                             {% if product_variant.stock == 0 %}
-                                            <a id="add-to-cart-btn" href="javascript:void(0);" class="tf-btn btn-fill justify-content-center fw-6 fs-16 flex-grow-1 animate-hover-btn btn-add-to-cart"><span>Out of Stock</span></a>
-                                            {% else %}
-                                            <a id="add-to-cart-btn" href="javascript:void(0);" class="tf-btn btn-fill justify-content-center fw-6 fs-16 flex-grow-1 animate-hover-btn btn-add-to-cart" 
-                                            hx-get="{% url 'server:add-cart-item' product.id %}"
-                                            hx-include="#product-variant-form"
-                                            hx-trigger="click"
-                                            hx-target="#cart-list"
-                                            hx-swap="beforeend"
-                                            >
-                                            <span>Add to cart -&nbsp;</span><span class="tf-qty-price total-price">{{product_variant.discount_price}}</span></a>
+                                                {% include 'server/partials/product/add-to-cart-btn.html' %}
+                                            {%else%}
+                                                {% include 'server/partials/product/add-to-cart-btn.html' with value=product_variant.discount_price %}
                                             {% endif %}
                                            {% include 'server/components/product_page/add-to-wishlist.html' %}
                                             <div class="w-100">

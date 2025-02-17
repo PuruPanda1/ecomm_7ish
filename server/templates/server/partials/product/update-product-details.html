@@ -19,8 +19,7 @@
 
 {% comment %}ADD TO CART BTN ---> variant is in stock OR out of stock{% endcomment %}
 {% if product_variant.stock == 0 %}
-  <a id="add-to-cart-btn" hx-swap-oob="true" href="javascript:void(0);" class="tf-btn btn-fill justify-content-center fw-6 fs-16 flex-grow-1 animate-hover-btn btn-add-to-cart"><span>Out of Stock</span></a>
+  {% include 'server/partials/product/add-to-cart-btn.html' %}
 {% else %}
-  <a id="add-to-cart-btn" hx-swap-oob="true" href="javascript:void(0);" class="tf-btn btn-fill justify-content-center fw-6 fs-16 flex-grow-1 animate-hover-btn btn-add-to-cart" hx-get="{% url 'server:add-cart-item' product.id %}" hx-include="#product-variant-form" hx-trigger="click" hx-target="#add-to-cart-btn" hx-swap="outerHTML">
-    <span>Add to cart -&nbsp;</span><span class="tf-qty-price total-price">{{ product_variant.discount_price }}</span></a>
+  {% include 'server/partials/product/add-to-cart-btn.html' with value=product_variant.discount_price %}
 {% endif %}

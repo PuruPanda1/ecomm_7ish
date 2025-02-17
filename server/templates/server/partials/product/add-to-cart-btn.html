@@ -1,0 +1,21 @@
+
+{% if value %}
+
+<a id="add-to-cart-btn" href="javascript:void(0);" class="tf-btn btn-fill justify-content-center fw-6 fs-16 flex-grow-1 animate-hover-btn btn-add-to-cart" 
+hx-get="{% url 'server:add-cart-item' product.id %}"
+hx-include="#product-variant-form"
+hx-trigger="click"
+hx-target="#cart-list"
+hx-swap="beforeend"
+hx-swap-oob="true"
+>
+<span>Add to cart -&nbsp;</span><span class="tf-qty-price total-price">{{value}}</span></a>
+
+{% else %}
+
+<a id="add-to-cart-btn" href="javascript:void(0);" class="tf-btn btn-fill justify-content-center fw-6 fs-16 flex-grow-1 animate-hover-btn btn-add-to-cart"
+hx-swap-oob="true"
+>
+<span>Out of Stock</span></a>
+
+{% endif %}

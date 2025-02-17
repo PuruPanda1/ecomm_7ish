@@ -1,10 +1,13 @@
 {% load custom-filters %}
 
+{% comment %} add item to the list {% endcomment %}
+{% include 'server/components/cart/product.html' %}
+
 {% comment %} change add to cart button --> go to cart {% endcomment %}
-<a id="add-to-cart-btn" hx-swap-oob="true" href="javascript:void(0);" class="tf-btn btn-fill justify-content-center fw-6 fs-16 flex-grow-1 animate-hover-btn btn-add-to-cart"><span>Show cart</span></a>
+{% include 'server/partials/product/add-to-cart-btn.html' with value='Show cart' %}
 
 {% comment %} update the count {% endcomment %}
 <span class="count-box" id="cart-count" hx-swap-oob="true">{{request.user|get_cart_count}}</span>
 
-{% comment %} add item to the list {% endcomment %}
-{% include 'server/components/cart/product.html' %}
+
+<div id="cart_sub_total" class="tf-totals-total-value fw-6" hx-swap-oob="true">Rs. {{request.user|get_cart_sub_total}}</div>

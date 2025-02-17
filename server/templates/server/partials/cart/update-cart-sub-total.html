@@ -1,0 +1,3 @@
+{% comment %} update the count {% endcomment %}
+{% load custom-filters %}
+<div id="cart_sub_total" class="tf-totals-total-value fw-6" hx-swap-oob="true">Rs. {{request.user|get_cart_sub_total}}</div>

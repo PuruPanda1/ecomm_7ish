@@ -15,7 +15,7 @@
         <input type="text" name="number" value="{{varaint.quantity}}" />
         <span class="btn-quantity plus-btn">+</span>
         </div>
-        <div class="tf-mini-cart-remove"
+        <div class="tf-mini-cart-remove cursor-pointer"
         hx-delete="{% url 'server:remove-cart-item' varaint.details.id %}"
         hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
         hx-target="closest div"
