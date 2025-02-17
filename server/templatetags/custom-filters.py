@@ -147,5 +147,4 @@ def get_cart_sub_total(user):
 @register.filter
 def get_suggestion(user):
     products_list = Product.objects.filter(tags__name__iexact ='Best Seller')
-    print("Product List is --> ",products_list)
     return products_list

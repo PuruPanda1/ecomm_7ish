@@ -242,7 +242,6 @@ def update_category(request, category_id):
         min_price = min(prices)
         max_price = max(prices)
 
-        print(f'Min Price = {min_price} and Max Price = {max_price}')
         
         return render(request, 'server/partials/update-categories.html', {
             'products': products,
@@ -296,7 +295,6 @@ def filter_products(request, category_id):
     max_price = request.GET.get("max_price")
     min_price = request.GET.get("min_price")
 
-    print(f'Min Price = {min_price} and Max Price = {max_price}')
 
     if selected_sub_categories:
         products = products.filter(sub_category__id__in=selected_sub_categories)
@@ -391,7 +389,6 @@ def update_quantity(request, product_variant_id, option, quantity):
 
     if quantity < 1:
         error = 'Quantity cannot be less than 1'
-        print(error)
 
     
 
@@ -445,10 +442,8 @@ def submit_review(request, product_id):
 
 def wishlist_page(request):
 
-    print(f"User: {request.user}, Authenticated: {request.user.is_authenticated}")
     
     if not request.user.is_authenticated:
-        print("User is not authenticated, redirecting...")
         return redirect("server:login")
     
     wishlist, created = Wishlist.objects.get_or_create(user=request.user)
@@ -459,7 +454,6 @@ def wishlist_page(request):
     return render(request, 'server/wishlist.html', {'products': products_list})
 
 def add_remove_wishlist_item(request, product_id):
-    print(f"User: {request.user}, Authenticated: {request.user.is_authenticated}")
     
     if not request.user.is_authenticated:
         response = HttpResponse()
@@ -481,7 +475,6 @@ def add_remove_wishlist_item(request, product_id):
     })
 
 def add_remove_wishlist_item_product_page(request, product_id):
-    print(f"User: {request.user}, Authenticated: {request.user.is_authenticated}")
     
     if not request.user.is_authenticated:
         response = HttpResponse()
@@ -503,7 +496,6 @@ def add_remove_wishlist_item_product_page(request, product_id):
     })
 
 def remove_item_from_wishlist(request, product_id):
-    print(f"User: {request.user}, Authenticated: {request.user.is_authenticated}")
     
     if not request.user.is_authenticated:
         response = HttpResponse()
@@ -560,12 +552,16 @@ def add_cart_item(request, product_id):
 
     default_color = request.GET.get('selected_color')
     default_size = request.GET.get('selected_size')
-
+    
+    quantity = 1
+    
+    if request.GET.get('quantity'):
+        quantity = request.GET.get('quantity')
+    
     variant_color = selected_color or default_color
     variant_size = selected_size or default_size
-    print(f"Variant size = {variant_size} and Variant color = {variant_color}")
     product_variant = ProductVariant.objects.filter(product=product,color__iexact=variant_color, size__iexact=variant_size).first()
-    print(f"Product Variant = {product_variant}")
+    
     cart, _ = Cart.objects.get_or_create(user=request.user)
     cart_item, created = CartItem.objects.get_or_create(cart=cart, product_variant=product_variant)
     in_cart = True
@@ -577,8 +573,11 @@ def add_cart_item(request, product_id):
         in_cart = False
 
     # show go to cart and update the cart list
+    varaint = {"details": product_variant, "quantity": quantity}
     time.sleep(1)
-    return render(request, 'server/partials/shop/update-cart.html')
+    return render(request, 'server/partials/shop/update-cart.html', {
+        'varaint': varaint,
+    })
     
     
 # def add_remove_wishlist_item_product_page(request, product_id):

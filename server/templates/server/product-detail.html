@@ -74,8 +74,8 @@
                                             hx-get="{% url 'server:add-cart-item' product.id %}"
                                             hx-include="#product-variant-form"
                                             hx-trigger="click"
-                                            hx-target="#add-to-cart-btn"
-                                            hx-swap="outerHTML"
+                                            hx-target="#cart-list"
+                                            hx-swap="beforeend"
                                             >
                                             <span>Add to cart -&nbsp;</span><span class="tf-qty-price total-price">{{product_variant.discount_price}}</span></a>
                                             {% endif %}

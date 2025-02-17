@@ -19,7 +19,7 @@
           <div class="tf-mini-cart-wrap">
             <div class="tf-mini-cart-main">
               <div class="tf-mini-cart-sroll">
-                <div class="tf-mini-cart-items">
+                <div class="tf-mini-cart-items" id="cart-list">
                   {% with product_varaints=request.user|get_cart_items %}
                     {% if product_varaints|length == 0 %}
                       <div class="empty-cart-message">
