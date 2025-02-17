@@ -1,29 +1,26 @@
-{% comment %} image update {% endcomment %}
+{% comment %}image update{% endcomment %}
 
 {% include 'server/partials/product/product-image-swipper.html' %}
 
-{% comment %} price update {% endcomment %}
+{% comment %}price update{% endcomment %}
 
 {% include 'server/partials/product/product-price.html' %}
 
-{% comment %} add to cart btn {% endcomment %}
-
-<a id="add-to-cart-btn" hx-swap-oob="true" href="javascript:void(0);" class="tf-btn btn-fill justify-content-center fw-6 fs-16 flex-grow-1 animate-hover-btn btn-add-to-cart"><span>Add to cart -&nbsp;</span><span class="tf-qty-price total-price">{{product_variant.discount_price}}</span></a>
-
-{% comment %} size update {% endcomment %}
+{% comment %}size update{% endcomment %}
 
 <div class="variant-picker-label" id="current-size" hx-swap-oob="true">
-    Size: <span class="fw-6 variant-picker-label-value">{{product_variant.size}}</span>
+  Size: <span class="fw-6 variant-picker-label-value">{{ product_variant.size }}</span>
 </div>
 
-{% comment %} update the quantity {% endcomment %}
+{% comment %}update the quantity{% endcomment %}
 {% with quantity=1 %}
-    {% include 'server/partials/product/update-total-price.html' %}
+  {% include 'server/partials/product/update-total-price.html' %}
 {% endwith %}
 
-{% comment %} variant is in stock OR out of stock {% endcomment %}
+{% comment %}ADD TO CART BTN ---> variant is in stock OR out of stock{% endcomment %}
 {% if product_variant.stock == 0 %}
-    <a id="add-to-cart-btn" hx-swap-oob="true" href="javascript:void(0);" class="tf-btn btn-fill justify-content-center fw-6 fs-16 flex-grow-1 animate-hover-btn btn-add-to-cart"><span>Out of Stock</span></a>
+  <a id="add-to-cart-btn" hx-swap-oob="true" href="javascript:void(0);" class="tf-btn btn-fill justify-content-center fw-6 fs-16 flex-grow-1 animate-hover-btn btn-add-to-cart"><span>Out of Stock</span></a>
 {% else %}
-    <a id="add-to-cart-btn" hx-swap-oob="true" href="javascript:void(0);" class="tf-btn btn-fill justify-content-center fw-6 fs-16 flex-grow-1 animate-hover-btn btn-add-to-cart"><span>Add to cart -&nbsp;</span><span class="tf-qty-price total-price">{{product_variant.discount_price}}</span></a>
+  <a id="add-to-cart-btn" hx-swap-oob="true" href="javascript:void(0);" class="tf-btn btn-fill justify-content-center fw-6 fs-16 flex-grow-1 animate-hover-btn btn-add-to-cart" hx-get="{% url 'server:add-cart-item' product.id %}" hx-include="#product-variant-form" hx-trigger="click" hx-target="#add-to-cart-btn" hx-swap="outerHTML">
+    <span>Add to cart -&nbsp;</span><span class="tf-qty-price total-price">{{ product_variant.discount_price }}</span></a>
 {% endif %}

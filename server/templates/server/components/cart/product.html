@@ -1,11 +1,11 @@
-<div class="tf-mini-cart-item">
+<div class="tf-mini-cart-item" id="cart-item-{{varaint.details.id}}" >
     <div class="tf-mini-cart-image">
     <a href="{% url 'server:product-detail' varaint.details.product.id %}">
         <img src="{{ varaint.details.get_images.first.image.url }}" alt="" />
     </a>
     </div>
     <div class="tf-mini-cart-info">
-    <a class="title link" href="{% url 'server:product-detail' varaint.details.product.id %}">{{varaint.details.product.name}}</a
+    <a class="title link" href="{% url 'server:product-detail' varaint.details.product.id %}">{{varaint.details.product.name}} - {{varaint.details.size}}</a
     >
     <div class="meta-variant">{{varaint.color}}</div>
     <div class="price fw-6">Rs. {{varaint.details.discount_price}}</div>
@@ -15,7 +15,14 @@
         <input type="text" name="number" value="{{varaint.quantity}}" />
         <span class="btn-quantity plus-btn">+</span>
         </div>
-        <div class="tf-mini-cart-remove">Remove</div>
+        <div class="tf-mini-cart-remove"
+        hx-delete="{% url 'server:remove-cart-item' varaint.details.id %}"
+        hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+        hx-target="closest div"
+        hx-on::after-request="
+        document.getElementById('loadingOverlay').style.display = 'none'
+        "
+        >Remove</div>
     </div>
     </div>
 </div>

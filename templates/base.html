@@ -1907,11 +1907,11 @@
           document.getElementById("loadingOverlay").style.display = "flex";
       });
 
-      document.body.addEventListener("htmx:afterRequest", function () {
-          setTimeout(function () {
-              document.getElementById("loadingOverlay").style.display = "none";
-          }, 500); // Waits 1 second before hiding the loader
-      });
+    document.body.addEventListener("htmx:afterOnLoad", function () {
+      setTimeout(function () {
+          document.getElementById("loadingOverlay").style.display = "none";
+      }, 500);
+      }); 
 
       document.body.addEventListener("htmx:responseError", function () {
           document.getElementById("loadingOverlay").style.display = "none";

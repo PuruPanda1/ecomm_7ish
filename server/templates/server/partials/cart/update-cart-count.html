@@ -1,0 +1,3 @@
+{% comment %} update the count {% endcomment %}
+{% load custom-filters %}
+<span class="count-box" id="cart-count">{{request.user|get_cart_count}}</span>

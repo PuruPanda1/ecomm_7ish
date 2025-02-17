@@ -70,7 +70,14 @@
                                             {% if product_variant.stock == 0 %}
                                             <a id="add-to-cart-btn" href="javascript:void(0);" class="tf-btn btn-fill justify-content-center fw-6 fs-16 flex-grow-1 animate-hover-btn btn-add-to-cart"><span>Out of Stock</span></a>
                                             {% else %}
-                                            <a id="add-to-cart-btn" href="javascript:void(0);" class="tf-btn btn-fill justify-content-center fw-6 fs-16 flex-grow-1 animate-hover-btn btn-add-to-cart"><span>Add to cart -&nbsp;</span><span class="tf-qty-price total-price">{{product_variant.discount_price}}</span></a>
+                                            <a id="add-to-cart-btn" href="javascript:void(0);" class="tf-btn btn-fill justify-content-center fw-6 fs-16 flex-grow-1 animate-hover-btn btn-add-to-cart" 
+                                            hx-get="{% url 'server:add-cart-item' product.id %}"
+                                            hx-include="#product-variant-form"
+                                            hx-trigger="click"
+                                            hx-target="#add-to-cart-btn"
+                                            hx-swap="outerHTML"
+                                            >
+                                            <span>Add to cart -&nbsp;</span><span class="tf-qty-price total-price">{{product_variant.discount_price}}</span></a>
                                             {% endif %}
                                            {% include 'server/components/product_page/add-to-wishlist.html' %}
                                             <div class="w-100">

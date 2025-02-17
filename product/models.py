@@ -101,7 +101,7 @@ class ProductVariant(models.Model):
     def get_images(self):
         color = self.get_color()
         if color:
-            return self.product.images.filter(color=color)
+            return self.product.images.filter(color__iexact=color)
         else:
             return self.product.images.filter(color__isnull=True)
 

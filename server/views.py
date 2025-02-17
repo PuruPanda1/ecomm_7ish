@@ -371,8 +371,8 @@ def product_varaint_detail(request, product_id):
     images = product.images.filter(color__iexact=variant_color)
 
 
-    time.sleep(1)
     return render(request, 'server/partials/product/update-product-details.html', {
+        'product': product,
         'product_variant': product_variant,
         'images': images
     })
@@ -516,7 +516,6 @@ def remove_item_from_wishlist(request, product_id):
     if wishlist_item:
         wishlist_item.delete()
 
-    # updated_count_html = render_to_string("server/partials/wishlist/wishlist-count.html")
     return render(request, 'server/partials/wishlist/wishlist-count.html')
 
 # cart views
@@ -534,21 +533,53 @@ def cart_page(request):
 
     return render(request, 'server/components/cart/cart.html', {'products': product_variant_list})
 
-def add_remove_cart_item(request, product_variant_id):
-    product_variant = ProductVariant.objects.get(id=product_variant_id)
-    cart, created = Cart.objects.get_or_create(user=request.user)
-    cart_item, created = WishlistItem.objects.get_or_create(cart=cart, product_variant=product_variant)
+def remove_cart_item(request, product_varaint_id):
+    product_variant = ProductVariant.objects.filter(id=product_varaint_id).first()
+    
+    cart, _ = Cart.objects.get_or_create(user=request.user)
+    
+    cart_item, _ = CartItem.objects.get_or_create(cart=cart, product_variant=product_variant)
+    cart_item.delete()
+    
+    # send HX-Trigger:newContact header for update
+    response = HttpResponse(status=200)  # No Content response
+    response["HX-Trigger"] = "cartUpdated"
+    time.sleep(1)
+    return response
+
+def update_cart_count(request):
+    if not request.user.is_authenticated:
+        return 0
+    return render(request, 'server/partials/cart/update-cart-count.html')
+
+def add_cart_item(request, product_id):
+    product = Product.objects.get(id=product_id)
+    
+    selected_size = request.GET.get('size')
+    selected_color = request.GET.get('color')
+
+    default_color = request.GET.get('selected_color')
+    default_size = request.GET.get('selected_size')
+
+    variant_color = selected_color or default_color
+    variant_size = selected_size or default_size
+    print(f"Variant size = {variant_size} and Variant color = {variant_color}")
+    product_variant = ProductVariant.objects.filter(product=product,color__iexact=variant_color, size__iexact=variant_size).first()
+    print(f"Product Variant = {product_variant}")
+    cart, _ = Cart.objects.get_or_create(user=request.user)
+    cart_item, created = CartItem.objects.get_or_create(cart=cart, product_variant=product_variant)
     in_cart = True
     # if item is already in wishlist, remove it
     if not created:
-        cart_item.delete()
+        # Re adding to cart increases the quantity
+        cart_item.quantity += 1
+        # cart_item.delete()
         in_cart = False
 
-    # Create a partial of product card in card and use beforeend to add in the cart item
-    return render(request, 'server/partials/wishlist/wishlist-icon.html', {
-        'in_cart': in_cart ,
-        'product_variant':product_variant
-    })
+    # show go to cart and update the cart list
+    time.sleep(1)
+    return render(request, 'server/partials/shop/update-cart.html')
+    
     
 # def add_remove_wishlist_item_product_page(request, product_id):
 #     product = Product.objects.get(id=product_id)

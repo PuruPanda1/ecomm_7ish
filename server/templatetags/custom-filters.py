@@ -123,7 +123,7 @@ def get_cart_items(user):
     if not user.is_authenticated:
         return ''
    
-    cart, created = Cart.objects.get_or_create(user=user)
+    cart, _ = Cart.objects.get_or_create(user=user)
 
     cart_items = CartItem.objects.filter(cart=cart)
     product_variant_list = [
@@ -133,6 +133,16 @@ def get_cart_items(user):
     
     return product_variant_list
 
+@register.filter
+def get_cart_sub_total(user):
+    if not user.is_authenticated:
+        return ''
+   
+    cart, created = Cart.objects.get_or_create(user=user)
+
+    sub_total = cart.total_price_pre_tax
+    
+    return sub_total
 
 @register.filter
 def get_suggestion(user):
