@@ -4,6 +4,11 @@ from .views import *
 app_name = 'server'
 
 urlpatterns = [
+    # authentication
+     path("signup/", signup_view, name="signup"),
+    path("login/", login_view, name="login"),
+    path("logout/", logout_view, name="logout"),
+
     path('', home_women, name='home-women'),
     path('home/men/', home_men, name='home-men'),
     path('home/kids/', home_kids, name='home-kids'),

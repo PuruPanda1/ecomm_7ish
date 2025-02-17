@@ -96,9 +96,13 @@ def rating_distribution(reviews):
 
 @register.filter
 def in_wishlist(product, user):
+    if not user.is_authenticated:
+        return False
     return WishlistItem.objects.filter(wishlist__user=user, product=product).exists()
 
 @register.filter
 def get_wishlist_count(user):
+    if not user.is_authenticated:
+        return 0
     wishlist, created  = Wishlist.objects.get_or_create(user=user)
     return wishlist.wishlist_items.count() if wishlist else 0

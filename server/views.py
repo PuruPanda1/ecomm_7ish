@@ -1,13 +1,48 @@
 from django.shortcuts import render, redirect
-from django.template.loader import render_to_string
 from wishlist.models import Wishlist, WishlistItem
+from cart.models import Cart, CartItem
 from product.models import Product, Tag, Category, SubCategory, Sale, ProductVariant
 from banner.models import WomenBanner, WomenCollection, WomenMidBanner, MenBanner, MenCountdown, MenMidBanner, MenCollection, MenBarText, KidsBanner, KidsCollection, KidsMidBanner, KidBarText
 from reviews.models import Review
 from collaboration.models import Collaboration
+from users.forms import SignupForm, LoginForm
 from django.http import HttpResponseBadRequest, HttpResponseNotFound, HttpResponse
 from django.db import models
 import time
+from django.contrib.auth import login, authenticate, logout
+from django.contrib import messages
+
+def signup_view(request):
+    if request.method == "POST":
+        form = SignupForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)  # Log in the new user
+            return redirect("sever:home-women")  # Redirect to home page
+    else:
+        form = SignupForm()
+    return render(request, "server/users/signup.html", {"form": form})
+
+def login_view(request):
+    if request.method == "POST":
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data["email"]
+            password = form.cleaned_data["password"]
+            user = authenticate(request, username=email, password=password)
+            if user:
+                login(request, user)
+                return redirect("server:home-women")  # Redirect to home page
+            else:
+                messages.error(request, "Invalid username or password")
+    else:
+        form = LoginForm()
+    return render(request, "server/users/login.html", {"form": form})
+
+def logout_view(request):
+    logout(request)
+    return redirect("login")
+
 # home view for women
 def home_women(request):
     # header tags
@@ -409,6 +444,12 @@ def submit_review(request, product_id):
 # wishlist views
 
 def wishlist_page(request):
+
+    print(f"User: {request.user}, Authenticated: {request.user.is_authenticated}")
+    
+    if not request.user.is_authenticated:
+        print("User is not authenticated, redirecting...")
+        return redirect("server:login")
     
     wishlist, created = Wishlist.objects.get_or_create(user=request.user)
 
@@ -417,8 +458,14 @@ def wishlist_page(request):
 
     return render(request, 'server/wishlist.html', {'products': products_list})
 
-
 def add_remove_wishlist_item(request, product_id):
+    print(f"User: {request.user}, Authenticated: {request.user.is_authenticated}")
+    
+    if not request.user.is_authenticated:
+        response = HttpResponse()
+        response["HX-Redirect"] = "/login/"  # Redirect to login if not authenticated
+        return response
+    
     product = Product.objects.get(id=product_id)
     wishlist, created = Wishlist.objects.get_or_create(user=request.user)
     wishlist_item, created = WishlistItem.objects.get_or_create(wishlist=wishlist, product=product)
@@ -432,8 +479,15 @@ def add_remove_wishlist_item(request, product_id):
         'in_wishlist': in_wishlist,
         'product':product
     })
-    
+
 def add_remove_wishlist_item_product_page(request, product_id):
+    print(f"User: {request.user}, Authenticated: {request.user.is_authenticated}")
+    
+    if not request.user.is_authenticated:
+        response = HttpResponse()
+        response["HX-Redirect"] = "/login/"  # Redirect to login if not authenticated
+        return response
+
     product = Product.objects.get(id=product_id)
     wishlist, created = Wishlist.objects.get_or_create(user=request.user)
     wishlist_item, created = WishlistItem.objects.get_or_create(wishlist=wishlist, product=product)
@@ -449,6 +503,13 @@ def add_remove_wishlist_item_product_page(request, product_id):
     })
 
 def remove_item_from_wishlist(request, product_id):
+    print(f"User: {request.user}, Authenticated: {request.user.is_authenticated}")
+    
+    if not request.user.is_authenticated:
+        response = HttpResponse()
+        response["HX-Redirect"] = "/login/"  # Redirect to login if not authenticated
+        return response
+    
     product = Product.objects.get(id=product_id)
     wishlist, created = Wishlist.objects.get_or_create(user=request.user)
     wishlist_item = WishlistItem.objects.filter(wishlist=wishlist, product=product)
@@ -457,3 +518,44 @@ def remove_item_from_wishlist(request, product_id):
 
     # updated_count_html = render_to_string("server/partials/wishlist/wishlist-count.html")
     return render(request, 'server/partials/wishlist/wishlist-count.html')
+
+# cart views
+# TODO CHANGE WISHLIST TO CART with minimal changes
+def cart_page(request):
+    
+    cart, created = Cart.objects.get_or_create(user=request.user)
+
+    cart_items = CartItem.objects.filter(cart=cart)
+    products_list = [item.product for item in cart_items]
+
+    return render(request, 'server/cart.html', {'products': products_list})
+
+# def add_remove_wishlist_item(request, product_id):
+#     product = Product.objects.get(id=product_id)
+#     wishlist, created = Wishlist.objects.get_or_create(user=request.user)
+#     wishlist_item, created = WishlistItem.objects.get_or_create(wishlist=wishlist, product=product)
+#     in_wishlist = True
+#     # if item is already in wishlist, remove it
+#     if not created:
+#         wishlist_item.delete()
+#         in_wishlist = False
+
+#     return render(request, 'server/partials/wishlist/wishlist-icon.html', {
+#         'in_wishlist': in_wishlist,
+#         'product':product
+#     })
+    
+# def add_remove_wishlist_item_product_page(request, product_id):
+#     product = Product.objects.get(id=product_id)
+#     wishlist, created = Wishlist.objects.get_or_create(user=request.user)
+#     wishlist_item, created = WishlistItem.objects.get_or_create(wishlist=wishlist, product=product)
+#     in_wishlist = True
+#     # if item is already in wishlist, remove it
+#     if not created:
+#         wishlist_item.delete()
+#         in_wishlist = False
+
+#     return render(request, 'server/partials/product/wishlist-icon.html', {
+#         'in_wishlist': in_wishlist,
+#         'product':product
+#     })

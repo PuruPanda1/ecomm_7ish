@@ -61,11 +61,7 @@
                                         <img class="lazyload img-hover" data-src="{{ product.images.first.image.url }}" src="{{ product.images.first.image.url }}" alt="image-product">
                                     </a>
                                     <div class="list-product-btn absolute-2">
-                                        <a href="javascript:void(0);" class="box-icon bg_white wishlist btn-icon-action">
-                                            <span class="icon icon-heart"></span>
-                                            <span class="tooltip">Add to Wishlist</span>
-                                            <span class="icon icon-delete"></span>
-                                        </a>
+                                        {% include 'server/components/shop/add-to-wishlist.html' %}
                                         <a href="#compare" data-bs-toggle="offcanvas" aria-controls="offcanvasLeft" class="box-icon bg_white compare btn-icon-action">
                                             <span class="icon icon-compare"></span>
                                             <span class="tooltip">Add to Compare</span>
