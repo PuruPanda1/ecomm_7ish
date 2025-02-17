@@ -542,7 +542,11 @@ def remove_cart_item(request, product_varaint_id):
 def update_cart_count(request):
     if not request.user.is_authenticated:
         return 0
-    return render(request, 'server/partials/cart/update-cart-count.html')
+    
+    cart, _  = Cart.objects.get_or_create(user=request.user)    
+    cart_count =  cart.cart_items.count() if cart else 0
+    return HttpResponse(str(cart_count))  # Return the cart count as a plain text response
+
 
 def add_cart_item(request, product_id):
     product = Product.objects.get(id=product_id)

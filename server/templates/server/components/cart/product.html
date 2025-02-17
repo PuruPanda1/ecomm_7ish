@@ -20,7 +20,8 @@
         hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
         hx-target="closest div"
         hx-on::after-request="
-        document.getElementById('loadingOverlay').style.display = 'none'
+        document.getElementById('loadingOverlay').style.display = 'none';
+        updateCartCount();
         "
         >Remove</div>
     </div>
