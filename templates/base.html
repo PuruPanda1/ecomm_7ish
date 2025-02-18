@@ -1363,7 +1363,7 @@
     <!-- /modal login -->
 
     <!-- shoppingCart -->
-    {% include 'server/components/cart/cart.html' %}
+    {% include 'server/components/cart/sidebar-cart.html' %}
     <!-- /shoppingCart -->
 
     <!-- modal compare -->
@@ -1921,7 +1921,6 @@
 
       // Function to update cart count
       function updateCartCount() {
-          // Fetch the updated cart count from the server (you may have an endpoint like '/cart-count/')
           fetch('{% url "server:update-cart-count" %}')
               .then(response => response.text())  // Assuming it returns a plain text count
               .then(cartCount => {
@@ -1933,13 +1932,8 @@
               });
       }
   
-      // Call the function on page load
-      document.addEventListener("DOMContentLoaded", function() {
-          updateCartCount();
-      });
-  
+      // Function to update cart sub total
       function updateCartSubTotal() {
-        // Fetch the updated cart count from the server (you may have an endpoint like '/cart-count/')
         fetch('{% url "server:update-cart-sub-total" %}')
             .then(response => response.text())  // Assuming it returns a plain text count
             .then(cartSubTotal => {

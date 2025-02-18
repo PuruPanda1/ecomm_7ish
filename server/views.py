@@ -572,7 +572,7 @@ def add_cart_item(request, product_id, quantity):
     # show go to cart and update the cart list
     varaint = {"details": product_variant, "quantity": quantity}
     time.sleep(1)
-    return render(request, 'server/partials/shop/update-cart.html', {
+    return render(request, 'server/partials/shop/update-sidebar-cart.html', {
         'product': product,
         'varaint': varaint,
     })
