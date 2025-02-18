@@ -8,7 +8,6 @@
             hx-target="#cart-list"
             hx-swap="afterbegin"
             hx-swap-oob="true"
-            hx-on::after-request="document.getElementById('shoppingCart').classList.add('show')"
         >
             <span>Add to cart -&nbsp;</span><span class="tf-qty-price total-price">{{value}}</span>
         </a>
@@ -21,3 +20,10 @@
         <span>Out of Stock - Decrease Quantity</span></a>
 
 {% endif %}
+
+<script>
+    document.addEventListener("htmx:afterRequest", function() {
+      document.getElementById("shoppingCart")?.classList.add("show");
+    });
+  </script>
+  

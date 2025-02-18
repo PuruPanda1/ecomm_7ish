@@ -15,7 +15,7 @@
 {% comment %} update the progress message {% endcomment %}
 <div class="tf-progress-msg" id="shipping-progress-msg" hx-swap-oob="true">
     {% if cart.free_shipping_remaining > 0%}
-        Buy <span class="price fw-6" hx-swap-oob="true">Rs. {{cart.free_shipping_remaining}}</span> more to enjoy <span class="fw-6">Free Shipping</span>
+        Buy products worth <span class="price fw-6" hx-swap-oob="true">Rs. {{cart.free_shipping_remaining}}</span> more to enjoy <span class="fw-6">Free Shipping</span>
     {% else %}
         Enjoy <span class="fw-6"hx-swap-oob="true">Free Shipping</span>
     {% endif %}

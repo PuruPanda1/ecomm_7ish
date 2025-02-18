@@ -36,6 +36,7 @@ urlpatterns = [
     # cart urls
     path('cart/', cart_page, name='cart'),
     path('remove-cart-item/<int:product_varaint_id>/', remove_cart_item, name='remove-cart-item'),
+    path('cart-update-quantity/<int:product_varaint_id>/<str:option>/', cart_update_quantity, name='cart-update-quantity'),
 
     # sidebar cart urls
     path('update-cart-count/', update_cart_count, name='update-cart-count'),

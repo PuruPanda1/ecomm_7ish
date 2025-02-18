@@ -616,3 +616,35 @@ def remove_cart_item(request, product_varaint_id):
     return render(request, 'server/partials/cart/update-cart-sub-total.html',{
         'cart': cart
     })
+
+def cart_update_quantity(request, product_varaint_id, option):
+    product_variant = ProductVariant.objects.filter(id=product_varaint_id).first()
+    error = ''
+    cart = Cart.objects.get(user=request.user)
+    cart_item = CartItem.objects.filter(cart=cart, product_variant=product_variant).first()
+
+    quantity = cart_item.quantity
+
+    if option == 'increase':
+        cart_item.quantity += 1
+    elif option == 'decrease':
+        cart_item.quantity -= 1
+
+    if quantity > product_variant.stock:
+        error = 'Out of Stock - Decrease Quantity'
+
+    if quantity < 1:
+        error = 'Quantity cannot be less than 1'
+
+    if not error:
+        cart_item.save()
+    
+    if error:
+        print(f"Error is {error}")
+
+    print(f"Cart Updated == {cart_item.quantity}")
+    return render(request, 'server/partials/cart/update-cart-item-quantity.html', {
+        'item': cart_item,
+        'cart': cart,
+        'error': error
+    })

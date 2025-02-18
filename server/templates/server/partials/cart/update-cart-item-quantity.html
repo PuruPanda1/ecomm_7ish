@@ -1,0 +1,27 @@
+{% comment %} item = cart_item -- {% endcomment %}
+
+
+{% comment %} show the decrease btn if quantity is greater than 1 {% endcomment %}
+{% if item.quantity > 1 %}
+<span class="btn-quantity btn-decrease" id="quantity-decrease-{{item.product_variant.id}}" 
+hx-get="{% url 'server:cart-update-quantity' item.product_variant.id 'decrease' %}" 
+hx-target="#quantity-product-{{item.product_variant.id}}" 
+hx-trigger="click" 
+hx-swap="outerHTML" 
+hx-swap-oob="true">
+    -
+</span>
+ {% else %}
+    <span class="btn-quantity btn-decrease" id="quantity-decrease-{{item.product_variant.id}}" 
+    hx-swap-oob="true">
+    </span>
+{% endif %} 
+
+{% comment %} updating the quantity {% endcomment %}
+<input hx-swap-oob="true" type="text" class="quantity-product" id="quantity-product-{{item.product_variant.id}}" name="quantity" value="{{ item.quantity }}" />
+
+{% comment %} udpate the item total {% endcomment %}
+<div class="cart-total price" id="cart-item-total-{{item.product_variant.id}}" hx-swap-oob="true">Rs. {{ item.total_price_pre_tax }}</div>
+
+{% comment %} update the cart sub total,shippinh progress bar and progress message {% endcomment %}
+{% include 'server/partials/cart/update-cart-sub-total.html' %}

@@ -48,7 +48,6 @@
                                                 <a href="{% url 'server:product-detail' item.product_variant.product.id %}" class="img-box">
                                                     <img src="{{ item.product_variant.get_images.first.image.url }}" alt="img-product">
                                                 </a>
-                                            {% comment %} TODO remove from cart {% endcomment %}
                                                 <div class="cart-info">
                                                     <a href="{% url 'server:product-detail' item.product_variant.product.id %}" class="cart-title link">{{ item.product_variant.product.name }}</a>
                                                     <div class="cart-meta-variant">{{ item.product_variant.product.category.name }} / {{ item.product_variant.product.sub_category.name }}</div>
@@ -66,19 +65,27 @@
                                         {% comment %} TODO implement the quantity update {% endcomment %}
                                             <td class="tf-cart-item_quantity" cart-data-title="Quantity">
                                                 <div class="cart-quantity">
+                                                    {% comment %} Quantity {% endcomment %}
                                                     <div class="wg-quantity">
-                                                        <span class="btn-quantity btndecrease">
-                                                            <svg class="d-inline-block" width="9" height="1" viewBox="0 0 9 1" fill="currentColor"><path d="M9 1H5.14286H3.85714H0V1.50201e-05H3.85714L5.14286 0L9 1.50201e-05V1Z"></path></svg>
-                                                        </span>
-                                                        <input type="text" name="number" value="{{ item.quantity }}">
-                                                        <span class="btn-quantity btnincrease">
-                                                            <svg class="d-inline-block" width="9" height="9" viewBox="0 0 9 9" fill="currentColor"><path d="M9 5.14286H5.14286V9H3.85714V5.14286H0V3.85714H3.85714V0H5.14286V3.85714H9V5.14286Z"></path></svg>
-                                                        </span>
+                                                            {% if item.quantity > 1 %}
+                                                            <span class="btn-quantity btn-decrease" id="quantity-decrease-{{item.product_variant.id}}" 
+                                                            hx-get="{% url 'server:cart-update-quantity' item.product_variant.id 'decrease' %}" 
+                                                            hx-target="#quantity-product-{{item.product_variant.id}}" 
+                                                            hx-trigger="click" 
+                                                            hx-swap="outerHTML" 
+                                                            hx-swap-oob="true">
+                                                                -
+                                                            </span>
+                                                            {% else %}
+                                                            <span class="btn-quantity btn-decrease" id="quantity-decrease-{{item.product_variant.id}}" hx-swap-oob="true"></span>
+                                                            {% endif %}
+                                                            <input type="text" class="quantity-product" id="quantity-product-{{item.product_variant.id}}" name="quantity" value="{{ item.quantity }}" />
+                                                            <span class="btn-quantity btn-increase" hx-get="{% url 'server:cart-update-quantity' item.product_variant.id 'increase' %}" hx-target="#quantity-product-{{item.product_variant.id}}" hx-trigger="click" hx-swap="outerHTML">+</span>
                                                     </div>
                                                 </div>
                                             </td>
                                             <td class="tf-cart-item_total tf-variant-item-total" cart-data-title="Total">
-                                                <div class="cart-total price">Rs. {{ item.total_price_pre_tax }}</div>
+                                                <div class="cart-total price" id="cart-item-total-{{item.product_variant.id}}" hx-swap-oob="true">Rs. {{ item.total_price_pre_tax }}</div>
                                             </td>
                                         </tr>
                                     {% endfor %}
@@ -106,7 +113,7 @@
                             </div>
                             <div class="tf-progress-msg" id="shipping-progress-msg" hx-swap-oob="true">
                                 {% if cart.free_shipping_remaining > 0%}
-                                    Buy <span class="price fw-6">Rs. {{cart.free_shipping_remaining}}</span> more to enjoy <span class="fw-6">Free Shipping</span>
+                                    Buy products worth <span class="price fw-6">Rs. {{cart.free_shipping_remaining}}</span> more to enjoy <span class="fw-6">Free Shipping</span>
                                 {% else %}
                                     Enjoy <span class="fw-6">Free Shipping</span>
                                 {% endif %}
