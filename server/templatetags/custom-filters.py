@@ -152,3 +152,15 @@ def get_suggestion(user):
 @register.filter
 def product_price(discount_price, quantity):
     return (discount_price * quantity)
+
+@register.filter
+def shipping_progress_bar(price):
+    min_price = 999
+    if not price:
+        price = 0
+    percentage = min(100, (price / min_price) * 100)
+    return percentage
+
+@register.filter(name='range')
+def filter_range(start, end):
+    return range(start, end)

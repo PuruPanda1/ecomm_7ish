@@ -514,7 +514,7 @@ def remove_item_from_wishlist(request, product_id):
 
 # cart views
 
-def remove_cart_item(request, product_varaint_id):
+def remove_sidebar_cart_item(request, product_varaint_id):
     product_variant = ProductVariant.objects.filter(id=product_varaint_id).first()
     
     cart, _ = Cart.objects.get_or_create(user=request.user)
@@ -522,8 +522,7 @@ def remove_cart_item(request, product_varaint_id):
     cart_item, _ = CartItem.objects.get_or_create(cart=cart, product_variant=product_variant)
     cart_item.delete()
     
-    time.sleep(1)
-    return render(request, 'server/partials/cart/update-cart-sub-total.html')
+    return render(request, 'server/partials/cart/update-sidebar-cart-sub-total.html')
 
 def update_cart_count(request):
     if not request.user.is_authenticated:
@@ -580,17 +579,40 @@ def add_cart_item(request, product_id, quantity):
     })
     
     
-# def add_remove_wishlist_item_product_page(request, product_id):
-#     product = Product.objects.get(id=product_id)
-#     wishlist, created = Wishlist.objects.get_or_create(user=request.user)
-#     wishlist_item, created = WishlistItem.objects.get_or_create(wishlist=wishlist, product=product)
-#     in_wishlist = True
-#     # if item is already in wishlist, remove it
-#     if not created:
-#         wishlist_item.delete()
-#         in_wishlist = False
+def cart_page(request):
+    # header tags
+    men_tags =  Tag.objects.filter(category__name='Men', is_active=True)    
+    women_tags =  Tag.objects.filter(category__name='Women', is_active=True)    
+    kids_tags =  Tag.objects.filter(category__name='Kids', is_active=True)    
+    header_products = Product.objects.filter(is_active=True, tags__name='Best Seller')[:2]
+    current_tab = ''
+    # context data
+    cart, _ = Cart.objects.get_or_create(user=request.user)
+    cart_items = cart.cart_items.all().order_by('-id')  
+    reviews = Review.objects.filter(user=request.user)[:4]
+    people_also_bought = Product.objects.filter(is_active=True, tags__name='Best Seller')[:5]
+    print(reviews)
+    return render(request, 'server/cart.html', 
+    {
+        'men_tags': men_tags,
+        'women_tags': women_tags,
+        'kids_tags': kids_tags,
+        'header_products': header_products,
+        'current_tab': current_tab,
+        'cart_items': cart_items,
+        'cart': cart,
+        'reviews': reviews,
+        'people_also_bought': people_also_bought
+    })
 
-#     return render(request, 'server/partials/product/wishlist-icon.html', {
-#         'in_wishlist': in_wishlist,
-#         'product':product
-#     })
+def remove_cart_item(request, product_varaint_id):
+    product_variant = ProductVariant.objects.filter(id=product_varaint_id).first()
+    
+    cart, _ = Cart.objects.get_or_create(user=request.user)
+    
+    cart_item, _ = CartItem.objects.get_or_create(cart=cart, product_variant=product_variant)
+    cart_item.delete()
+    
+    return render(request, 'server/partials/cart/update-cart-sub-total.html',{
+        'cart': cart
+    })

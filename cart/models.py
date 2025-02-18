@@ -9,6 +9,10 @@ class Cart(models.Model):
     def total_price_pre_tax(self):
         return sum(item.total_price_pre_tax for item in self.cart_items.all())
     
+    @property
+    def free_shipping_remaining(self):
+        return 999 - self.total_price_pre_tax
+    
     @property 
     def total_tax(self):
         return sum(item.total_tax for item in self.cart_items.all())
@@ -16,7 +20,7 @@ class Cart(models.Model):
     @property
     def cart_total(self):
         return self.total_price_pre_tax + self.total_tax
-
+    
     def __str__(self):
         return f"{self.user.email}"
     

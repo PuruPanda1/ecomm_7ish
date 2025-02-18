@@ -34,8 +34,12 @@ urlpatterns = [
     path('remove-item-from-wishlist/<int:product_id>/', remove_item_from_wishlist, name='remove-item-from-wishlist'),
 
     # cart urls
+    path('cart/', cart_page, name='cart'),
+    path('remove-cart-item/<int:product_varaint_id>/', remove_cart_item, name='remove-cart-item'),
+
+    # sidebar cart urls
     path('update-cart-count/', update_cart_count, name='update-cart-count'),
     path('update-cart-sub-total/', update_cart_sub_total, name='update-cart-sub-total'),
     path('add-cart-item/<int:product_id>/<int:quantity>', add_cart_item, name='add-cart-item'),
-    path('remove-cart-item/<int:product_varaint_id>/', remove_cart_item, name='remove-cart-item'),
+    path('remove-sidebar-cart-item/<int:product_varaint_id>/', remove_sidebar_cart_item, name='remove-sidebar-cart-item'),
 ]
