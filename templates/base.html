@@ -1917,12 +1917,11 @@
                                     });
 
 
-      // Function to update cart count
+                                    // Function to update cart count
                                     function updateCartCount() {
                                       fetch('{% url "server:update-cart-count" %}')
-                                        .then(response => response.text())  // Assuming it returns a plain text count
+                                        .then(response => response.text())  
                                         .then(cartCount => {
-                  // Update the cart count element with the new count
                                           document.getElementById('cart-count').innerText = cartCount;
                                         })
                                         .catch(error => {
@@ -1930,20 +1929,17 @@
                                         });
                                     }
 
-      // Function to update cart sub total
+                                    // Function to update cart sub total
                                     function updateCartSubTotal() {
                                       fetch('{% url "server:update-cart-sub-total" %}')
                                         .then(response => response.text())  // Assuming it returns a plain text count
                                         .then(cartSubTotal => {
-                // Update the cart count element with the new count
                                           document.getElementById('cart_sub_total').innerText = "Rs. "+ cartSubTotal;
                                         })
                                         .catch(error => {
                                           console.error('Error fetching cart sub total:', error);
                                         });
                                     }
-
-
 
                                   </script>
 

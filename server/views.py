@@ -565,8 +565,10 @@ def add_cart_item(request, product_id, quantity):
     
     if not created:
         cart_item.quantity += quantity  # Increase quantity if item already exists
+        print(f"Cart Updated == {cart_item.quantity}")
     else:
         cart_item.quantity = quantity 
+        print("Cart not udpated!")
 
     cart_item.save()
     # show go to cart and update the cart list

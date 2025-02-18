@@ -4,7 +4,7 @@
 {% include 'server/components/cart/product.html' %}
 
 {% comment %} change add to cart button --> go to cart {% endcomment %}
-{% include 'server/partials/product/add-to-cart-btn.html' with value='Show cart' %}
+{% include 'server/partials/product/add-to-cart-btn.html' with value=varaint.details.discount_price %}
 
 {% comment %} update the count {% endcomment %}
 <span class="count-box" id="cart-count" hx-swap-oob="true">{{request.user|get_cart_count}}</span>
