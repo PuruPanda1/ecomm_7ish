@@ -1,26 +1,26 @@
 
 {% if value %}
-{% with qty=quantity|default:1 %}
-<a id="add-to-cart-btn" href="javascript:void(0);" class="tf-btn btn-fill justify-content-center fw-6 fs-16 flex-grow-1 animate-hover-btn btn-add-to-cart" 
-hx-get="{% url 'server:add-cart-item' product.id qty %}"
-hx-include="#product-variant-form"
-hx-trigger="click"
-hx-target="#cart-list"
-hx-swap="beforeend"
-hx-swap-oob="true"
->
-{% if value|lower == "show cart" %}
-<span>{{value}}</span>
-{% else %}
-<span>Add to cart -&nbsp;</span><span class="tf-qty-price total-price">{{value}}</span>
-{% endif %}
-</a>
-{% endwith %}
+    {% with qty=quantity|default:1 %}
+        <a id="add-to-cart-btn" href="javascript:void(0);" class="tf-btn btn-fill justify-content-center fw-6 fs-16 flex-grow-1 animate-hover-btn btn-add-to-cart"
+           hx-get="{% url 'server:add-cart-item' product.id qty %}"
+           hx-include="#product-variant-form"
+           hx-trigger="click"
+           hx-target="#cart-list"
+           hx-swap="beforeend"
+           hx-swap-oob="true"
+        >
+            {% if value|lower == "show cart" %}
+                <span>{{value}}</span>
+            {% else %}
+                <span>Add to cart -&nbsp;</span><span class="tf-qty-price total-price">{{value}}</span>
+            {% endif %}
+        </a>
+    {% endwith %}
 {% else %}
 
-<a id="add-to-cart-btn" href="javascript:void(0);" class="tf-btn btn-fill justify-content-center fw-6 fs-16 flex-grow-1 animate-hover-btn btn-add-to-cart"
-hx-swap-oob="true"
->
-<span>Out of Stock - Decrease Quantity</span></a>
+    <a id="add-to-cart-btn" href="javascript:void(0);" class="tf-btn btn-fill justify-content-center fw-6 fs-16 flex-grow-1 animate-hover-btn btn-add-to-cart"
+       hx-swap-oob="true"
+    >
+        <span>Out of Stock - Decrease Quantity</span></a>
 
 {% endif %}

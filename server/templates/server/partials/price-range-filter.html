@@ -1,14 +1,14 @@
 <div class="widget-facet wd-categories" hx-swap-oob="true">
     <div class="facet-title" data-bs-target="#price-range" data-bs-toggle="collapse" aria-expanded="true" aria-controls="price-range">
-      <span>Price</span>
-      <span class="icon icon-arrow-up"></span>
+        <span>Price</span>
+        <span class="icon icon-arrow-up"></span>
     </div>
     <div class="container" id="price-range">
         <input type="hidden" name="min_price" value="{{min_price}}">
-        <input 
-            type="range" 
-            min="{{min_price}}" 
-            max="{{max_price}}" 
+        <input
+            type="range"
+            min="{{min_price}}"
+            max="{{max_price}}"
             value="{{max_price}}"
             hx-trigger="input changed delay:200ms"
             hx-get="{% url 'server:filter-products' category_id=selected_category.id %}"
@@ -25,7 +25,7 @@
                 outline: none;
                 border: none;
             }
-            
+
             .accent::-webkit-slider-thumb {
                 -webkit-appearance: none;
                 appearance: none;
@@ -37,11 +37,11 @@
                 border: none;
                 transition: transform 0.2s ease;
             }
-            
+
             .accent::-webkit-slider-thumb:hover {
                 transform: scale(1.1);
             }
-            
+
             .accent::-moz-range-thumb {
                 width: 28px;
                 height: 28px;
@@ -52,7 +52,7 @@
                 outline: none;
                 transition: transform 0.2s ease;
             }
-            
+
             .accent::-moz-range-thumb:hover {
                 transform: scale(1.1);
             }

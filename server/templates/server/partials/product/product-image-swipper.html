@@ -1,11 +1,11 @@
 <div dir="ltr" class="swiper tf-product-media-main" id="gallery-swiper-started" hx-swap-oob="true">
     <div class="swiper-wrapper" id="product-image-swiper" >
         {% for image in images %}
-        <div class="swiper-slide" data-color="{{image.color}}">
-            <a href="{{image.image.url}}" target="_blank" class="item" data-pswp-width="770px" data-pswp-height="1075px">
-                <img class="tf-image-zoom lazyload" data-zoom="{{image.image.url}}" data-src="{{image.image.url}}" src="{{image.image.url}}" alt="">
-            </a>
-        </div>
+            <div class="swiper-slide" data-color="{{image.color}}">
+                <a href="{{image.image.url}}" target="_blank" class="item" data-pswp-width="770px" data-pswp-height="1075px">
+                    <img class="tf-image-zoom lazyload" data-zoom="{{image.image.url}}" data-src="{{image.image.url}}" src="{{image.image.url}}" alt="">
+                </a>
+            </div>
         {% endfor %}
     </div>
     <div class="swiper-button-next button-style-arrow thumbs-next"></div>

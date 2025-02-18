@@ -4,24 +4,24 @@
 
 {%block head%}
 <!-- font -->
-<link rel="stylesheet" href="{% static 'fonts/fonts.css' %}">
+    <link rel="stylesheet" href="{% static 'fonts/fonts.css' %}">
 <!-- Icons -->
-<link rel="stylesheet" href="{% static 'fonts/font-icons.css' %}">
-<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-<link rel="stylesheet" href="{% static 'css/swiper-bundle.min.css' %}">
-<link rel="stylesheet" href="{% static 'css/animate.css' %}">
-<link rel="stylesheet" href="{% static 'css/sib-styles.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'fonts/font-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/swiper-bundle.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/animate.css' %}">
+    <link rel="stylesheet" href="{% static 'css/sib-styles.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
 
 {% endblock %}
 
 {% block body %}
 
         <!-- slider -->
-        <div class="tf-slideshow slideshow-men slider-effect-fade position-relative">
-            <div dir="ltr" class="swiper tf-sw-slideshow" data-preview="1" data-tablet="1" data-mobile="1" data-centered="false" data-space="0" data-loop="false" data-auto-play="false" data-delay="2000" data-speed="1000">
-                <div class="swiper-wrapper">
-                    {% for banner in banners %}
+    <div class="tf-slideshow slideshow-men slider-effect-fade position-relative">
+        <div dir="ltr" class="swiper tf-sw-slideshow" data-preview="1" data-tablet="1" data-mobile="1" data-centered="false" data-space="0" data-loop="false" data-auto-play="false" data-delay="2000" data-speed="1000">
+            <div class="swiper-wrapper">
+                {% for banner in banners %}
                     <div class="swiper-slide" lazy="true">
                         <div class="wrap-slider">
                             <img class="lazyload" data-src="{{ banner.image.url }}" src="{{ banner.image.url }}" alt="men-slideshow-01" >
@@ -50,38 +50,38 @@
                                             </ul>
                                         </div>
                                     </div>
-                                </div>                             
+                                </div>
                             </div>
                         </div>
                     </div>
-                    {% endfor %}
-                </div>
+                {% endfor %}
             </div>
-            <div class="wrap-pagination text-center">
-                <div class="container">
-                    <div class="box-nav-pagination justify-content-center">
-                        <div class="nav-arr-default nav-next-slider navigation-next-slider">
-                            <span class="icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="7" height="11" viewBox="0 0 7 11" fill="currentColor">
-                                    <path d="M5.5 11L0 5.5L5.5 0L6.47625 0.97625L1.9525 5.5L6.47625 10.0238L5.5 11Z"></path>
-                                  </svg>
-                            </span>
-                        </div>
-                        <div class="dots-default sw-pagination-slider"></div>
-                        <div class="nav-arr-default nav-prev-slider navigation-prev-slider">
-                            <span class="icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="7" height="11" viewBox="0 0 7 11" fill="currentColor">
-                                    <path d="M1.5 11L7 5.5L1.5 0L0.52375 0.97625L5.0475 5.5L0.52375 10.0238L1.5 11Z"></path>
-                                </svg>
-                            </span>
-                        </div>
+        </div>
+        <div class="wrap-pagination text-center">
+            <div class="container">
+                <div class="box-nav-pagination justify-content-center">
+                    <div class="nav-arr-default nav-next-slider navigation-next-slider">
+                        <span class="icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="7" height="11" viewBox="0 0 7 11" fill="currentColor">
+                                <path d="M5.5 11L0 5.5L5.5 0L6.47625 0.97625L1.9525 5.5L6.47625 10.0238L5.5 11Z"></path>
+                            </svg>
+                        </span>
+                    </div>
+                    <div class="dots-default sw-pagination-slider"></div>
+                    <div class="nav-arr-default nav-prev-slider navigation-prev-slider">
+                        <span class="icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="7" height="11" viewBox="0 0 7 11" fill="currentColor">
+                                <path d="M1.5 11L7 5.5L1.5 0L0.52375 0.97625L5.0475 5.5L0.52375 10.0238L1.5 11Z"></path>
+                            </svg>
+                        </span>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
         <!-- /slider -->
         <!-- Countdown -->
-         {% if countdown.is_active %}
+    {% if countdown.is_active %}
         <section class="flat-spacing-10 bg_dark">
             <div class="container">
                 <div class="tf-grid-layout md-col-2 align-items-center flat-wrap-countdown countdown-black">
@@ -97,212 +97,212 @@
                 </div>
             </div>
         </section>
-        {% endif %}
+    {% endif %}
         <!-- /Countdown -->
         <!-- Collection -->
-        <section class="flat-spacing-18">
-            <div class="container">
-                <div class="masonry-layout-v3 wow fadeInUp" data-wow-delay="0s">
-                    <div class="item-1 collection-item style-2 hover-img">
-                        <div class="collection-inner">
-                            <a href="{% url 'server:shop-category' 'Men' firstC.sub_category.name %}" class="collection-image img-style">
-                                <img class="lazyload" data-src="{{ firstC.image.url }}" src="{{ firstC.image.url }}" alt="collection-img">
-                            </a>
-                            <div class="collection-content">
-                                <a href="{% url 'server:shop-category' 'Men' firstC.sub_category.name %}" class="tf-btn collection-title hover-icon fs-15 rounded-full"><span>{{ firstC.title }}</span><i class="icon icon-arrow1-top-left"></i></a>
-                            </div>
+    <section class="flat-spacing-18">
+        <div class="container">
+            <div class="masonry-layout-v3 wow fadeInUp" data-wow-delay="0s">
+                <div class="item-1 collection-item style-2 hover-img">
+                    <div class="collection-inner">
+                        <a href="{% url 'server:shop-category' 'Men' firstC.sub_category.name %}" class="collection-image img-style">
+                            <img class="lazyload" data-src="{{ firstC.image.url }}" src="{{ firstC.image.url }}" alt="collection-img">
+                        </a>
+                        <div class="collection-content">
+                            <a href="{% url 'server:shop-category' 'Men' firstC.sub_category.name %}" class="tf-btn collection-title hover-icon fs-15 rounded-full"><span>{{ firstC.title }}</span><i class="icon icon-arrow1-top-left"></i></a>
                         </div>
                     </div>
-                    <div class="item-2 collection-item style-2 hover-img">
-                        <div class="collection-inner">
-                            <a href="{% url 'server:shop-category' 'Men' secondC.sub_category.name %}" class="collection-image img-style">
-                                <img class="lazyload" data-src="{{ secondC.image.url }}" src="{{ secondC.image.url }}" alt="collection-img">
-                            </a>
-                            <div class="collection-content">
-                                <a href="{% url 'server:shop-category' 'Men' secondC.sub_category.name %}" class="tf-btn collection-title hover-icon fs-15 rounded-full"><span>{{ secondC.title }}</span><i class="icon icon-arrow1-top-left"></i></a>
-                            </div>
+                </div>
+                <div class="item-2 collection-item style-2 hover-img">
+                    <div class="collection-inner">
+                        <a href="{% url 'server:shop-category' 'Men' secondC.sub_category.name %}" class="collection-image img-style">
+                            <img class="lazyload" data-src="{{ secondC.image.url }}" src="{{ secondC.image.url }}" alt="collection-img">
+                        </a>
+                        <div class="collection-content">
+                            <a href="{% url 'server:shop-category' 'Men' secondC.sub_category.name %}" class="tf-btn collection-title hover-icon fs-15 rounded-full"><span>{{ secondC.title }}</span><i class="icon icon-arrow1-top-left"></i></a>
                         </div>
                     </div>
-                    <div class="item-3 collection-item style-2 hover-img">
-                        <div class="collection-inner">
-                            <a href="{% url 'server:shop-category' 'Men' thirdC.sub_category.name %}" class="collection-image img-style">
-                                <img class="lazyload" data-src="{{ thirdC.image.url }}" src="{{ thirdC.image.url }}" alt="collection-img">
-                            </a>
-                            <div class="collection-content">
-                                <a href="{% url 'server:shop-category' 'Men' thirdC.sub_category.name %}" class="tf-btn collection-title hover-icon fs-15 rounded-full"><span>{{ thirdC.title }}</span><i class="icon icon-arrow1-top-left"></i></a>
-                            </div>
+                </div>
+                <div class="item-3 collection-item style-2 hover-img">
+                    <div class="collection-inner">
+                        <a href="{% url 'server:shop-category' 'Men' thirdC.sub_category.name %}" class="collection-image img-style">
+                            <img class="lazyload" data-src="{{ thirdC.image.url }}" src="{{ thirdC.image.url }}" alt="collection-img">
+                        </a>
+                        <div class="collection-content">
+                            <a href="{% url 'server:shop-category' 'Men' thirdC.sub_category.name %}" class="tf-btn collection-title hover-icon fs-15 rounded-full"><span>{{ thirdC.title }}</span><i class="icon icon-arrow1-top-left"></i></a>
                         </div>
                     </div>
-                    <div class="item-4 collection-item style-2 hover-img">
-                        <div class="collection-inner">
-                            <a href="{% url 'server:shop-category' 'Men' fourthC.sub_category.name %}" class="collection-image img-style">
-                                <img class="lazyload" data-src="{{ fourthC.image.url }}" src="{{ fourthC.image.url }}" alt="collection-img">
-                            </a>
-                            <div class="collection-content">
-                                <a href="{% url 'server:shop-category' 'Men' fourthC.sub_category.name %}" class="tf-btn collection-title hover-icon fs-15 rounded-full"><span>{{ fourthC.title }}</span><i class="icon icon-arrow1-top-left"></i></a>
-                            </div>
+                </div>
+                <div class="item-4 collection-item style-2 hover-img">
+                    <div class="collection-inner">
+                        <a href="{% url 'server:shop-category' 'Men' fourthC.sub_category.name %}" class="collection-image img-style">
+                            <img class="lazyload" data-src="{{ fourthC.image.url }}" src="{{ fourthC.image.url }}" alt="collection-img">
+                        </a>
+                        <div class="collection-content">
+                            <a href="{% url 'server:shop-category' 'Men' fourthC.sub_category.name %}" class="tf-btn collection-title hover-icon fs-15 rounded-full"><span>{{ fourthC.title }}</span><i class="icon icon-arrow1-top-left"></i></a>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
         <!-- /Collection -->
         <!-- Banner men collection -->
-        <section class="banner-hero-collection-wrap">
-            <a href="{% url 'server:shop-category' 'Men' mid_banner.tag.name %}" class="img-wrap">
-                <img class="lazyload" data-src="{{ mid_banner.image.url }}" src="{{ mid_banner.image.url }}" alt="fashion-slideshow">
-            </a>
-            <div class="box-content">
-                <div class="container">
-                    <a href="{% url 'server:shop-category' 'Men' mid_banner.tag.name %}" class="card-box">
-                        <h3 class="heading">{{ mid_banner.title }}</h3>
-                        <p class="text">{{ mid_banner.sub_title }}</p>
-                        <div class="wow fadeInUp" data-wow-delay="0s">
-                            <button class="tf-btn style-2 btn-fill rounded-full animate-hover-btn"><span>{{ mid_banner.button_text }}</span></button>   
-                        </div>
-                    </a>  
-                </div>
+    <section class="banner-hero-collection-wrap">
+        <a href="{% url 'server:shop-category' 'Men' mid_banner.tag.name %}" class="img-wrap">
+            <img class="lazyload" data-src="{{ mid_banner.image.url }}" src="{{ mid_banner.image.url }}" alt="fashion-slideshow">
+        </a>
+        <div class="box-content">
+            <div class="container">
+                <a href="{% url 'server:shop-category' 'Men' mid_banner.tag.name %}" class="card-box">
+                    <h3 class="heading">{{ mid_banner.title }}</h3>
+                    <p class="text">{{ mid_banner.sub_title }}</p>
+                    <div class="wow fadeInUp" data-wow-delay="0s">
+                        <button class="tf-btn style-2 btn-fill rounded-full animate-hover-btn"><span>{{ mid_banner.button_text }}</span></button>
+                    </div>
+                </a>
             </div>
-        </section>
+        </div>
+    </section>
         <!-- /Banner men collection -->
         <!-- Sale Product -->
-        <section class="flat-spacing-17">
-            <div class="container">
-                <div class="flat-animate-tab">
-                    <ul class="widget-tab-3 style-2 d-flex justify-content-center wow fadeInUp" data-wow-delay="0s" role="tablist">
-                        <li class="nav-tab-item" role="presentation">   
-                            <a href="#bestSeller" class="active" data-bs-toggle="tab">Best Sellers</a>
-                        </li>
-                        <li class="nav-tab-item" role="presentation">
-                            <a href="#sale"  data-bs-toggle="tab">Sale</a>
-                        </li>
-                        <li class="nav-tab-item" role="presentation">
-                            <a href="#new_arrivals" data-bs-toggle="tab">New Arrivals</a>
-                        </li>
-                    </ul>
-                    <div class="tab-content">
-                        <div class="tab-pane active show" id="bestSeller" role="tabpanel">
-                            <div class="grid-layout loadmore-item" data-grid="grid-4">
-                              {% include 'server/partials/product-grid.html' with products=best_seller %}
-                            </div>
-                            <div class="tf-pagination-wrap view-more-button text-center">
+    <section class="flat-spacing-17">
+        <div class="container">
+            <div class="flat-animate-tab">
+                <ul class="widget-tab-3 style-2 d-flex justify-content-center wow fadeInUp" data-wow-delay="0s" role="tablist">
+                    <li class="nav-tab-item" role="presentation">
+                        <a href="#bestSeller" class="active" data-bs-toggle="tab">Best Sellers</a>
+                    </li>
+                    <li class="nav-tab-item" role="presentation">
+                        <a href="#sale"  data-bs-toggle="tab">Sale</a>
+                    </li>
+                    <li class="nav-tab-item" role="presentation">
+                        <a href="#new_arrivals" data-bs-toggle="tab">New Arrivals</a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active show" id="bestSeller" role="tabpanel">
+                        <div class="grid-layout loadmore-item" data-grid="grid-4">
+                            {% include 'server/partials/product-grid.html' with products=best_seller %}
+                        </div>
+                        <div class="tf-pagination-wrap view-more-button text-center">
                             <a href="{% url 'server:shop-category' 'Men' 'Best Seller' %}" >
                                 <button class="tf-btn-loading tf-loading-default style-2"><span class="text">  Shop Now </span></button>
                             </a>
-                            </div>
                         </div>
-                        <div class="tab-pane" id="sale" role="tabpanel">
-                            <div class="grid-layout loadmore-item" data-grid="grid-4">
-                                {% include 'server/partials/product-grid.html' with products=sale %}
-                            </div>
-                            <div class="tf-pagination-wrap view-more-button text-center">
+                    </div>
+                    <div class="tab-pane" id="sale" role="tabpanel">
+                        <div class="grid-layout loadmore-item" data-grid="grid-4">
+                            {% include 'server/partials/product-grid.html' with products=sale %}
+                        </div>
+                        <div class="tf-pagination-wrap view-more-button text-center">
                             <a href="{% url 'server:shop-category' 'Men' 'Sale' %}" >
                                 <button class="tf-btn-loading tf-loading-default style-2"><span class="text">  Shop Now </span></button>
                             </a>
-                            </div>
                         </div>
-                        <div class="tab-pane" id="new_arrivals" role="tabpanel">
-                            <div class="grid-layout loadmore-item" data-grid="grid-4">
-                              {% include 'server/partials/product-grid.html' with products=new_arrivals %}
+                    </div>
+                    <div class="tab-pane" id="new_arrivals" role="tabpanel">
+                        <div class="grid-layout loadmore-item" data-grid="grid-4">
+                            {% include 'server/partials/product-grid.html' with products=new_arrivals %}
 
-                            </div>
-                            <div class="tf-pagination-wrap view-more-button text-center">
+                        </div>
+                        <div class="tf-pagination-wrap view-more-button text-center">
                             <a href="{% url 'server:shop-category' 'Men' 'New Arrivals' %}" >
                                 <button class="tf-btn-loading tf-loading-default style-2"><span class="text">  Shop Now </span></button>
                             </a>
-                            </div>
-                           
                         </div>
+
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
         <!-- /Sale Product -->
         <!-- Shop Collection -->
-        <section>
-            <div class="container">
-                <div class="tf-grid-layout md-col-2 tf-img-with-text style-5 bg_f5f6f0">
-                    <div class="tf-image-wrap wow fadeInUp" data-wow-delay="0s">
-                        <img class="lazyload" data-src="{{ countdown2.image.url }}" src="{{ countdown2.image.url }}" alt="collection-img">
-                    </div>
-                    <div class="tf-content-wrap wow fadeInUp" data-wow-delay="0s">
-                        <div class="sub-heading fw-7">GET YOUR FASHION FIX HERE</div>
-                        <div class="heading">{{ countdown.title }}</div>
-                        <p class="description text_black-2">{{ countdown2.sub_title }}</p>
-                        <div class="count-down">
-                            <div class="description"><strong>Hungry up ! </strong>Deals end in :</div>
-                            <div class="tf-countdown-v2">
-                                <div class="js-countdown" data-timer="{{ countdown2.time_left }}" data-labels="Days,Hours,Mins,Secs"></div>
-                            </div>
+    <section>
+        <div class="container">
+            <div class="tf-grid-layout md-col-2 tf-img-with-text style-5 bg_f5f6f0">
+                <div class="tf-image-wrap wow fadeInUp" data-wow-delay="0s">
+                    <img class="lazyload" data-src="{{ countdown2.image.url }}" src="{{ countdown2.image.url }}" alt="collection-img">
+                </div>
+                <div class="tf-content-wrap wow fadeInUp" data-wow-delay="0s">
+                    <div class="sub-heading fw-7">GET YOUR FASHION FIX HERE</div>
+                    <div class="heading">{{ countdown.title }}</div>
+                    <p class="description text_black-2">{{ countdown2.sub_title }}</p>
+                    <div class="count-down">
+                        <div class="description"><strong>Hungry up ! </strong>Deals end in :</div>
+                        <div class="tf-countdown-v2">
+                            <div class="js-countdown" data-timer="{{ countdown2.time_left }}" data-labels="Days,Hours,Mins,Secs"></div>
                         </div>
-                        <a href="{% url 'server:shop-category' 'Men' countdown.tag.name %}" class="tf-btn style-2 btn-fill rounded-full animate-hover-btn">{{countdown2.button_text}}</a>
                     </div>
+                    <a href="{% url 'server:shop-category' 'Men' countdown.tag.name %}" class="tf-btn style-2 btn-fill rounded-full animate-hover-btn">{{countdown2.button_text}}</a>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
         <!-- /Shop Collection -->
         <!-- Icon box -->
-        <section class="flat-spacing-1 flat-iconbox wow fadeInUp line" data-wow-delay="0s">
-            <div class="container">
-                <div class="wrap-carousel wrap-mobile">
-                    <div dir="ltr" class="swiper tf-sw-mobile" data-preview="1" data-space="15">
-                        <div class="swiper-wrapper wrap-iconbox">
-                            <div class="swiper-slide">
-                                <div class="tf-icon-box style-row">
-                                    <div class="icon">
-                                        <i class="icon-shipping"></i>
-                                    </div>
-                                    <div class="content">
-                                        <div class="title fw-4">Free Shipping</div>
-                                        <p>Free shipping over order $120</p>
-                                    </div>
+    <section class="flat-spacing-1 flat-iconbox wow fadeInUp line" data-wow-delay="0s">
+        <div class="container">
+            <div class="wrap-carousel wrap-mobile">
+                <div dir="ltr" class="swiper tf-sw-mobile" data-preview="1" data-space="15">
+                    <div class="swiper-wrapper wrap-iconbox">
+                        <div class="swiper-slide">
+                            <div class="tf-icon-box style-row">
+                                <div class="icon">
+                                    <i class="icon-shipping"></i>
                                 </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="tf-icon-box style-row">
-                                    <div class="icon">
-                                        <i class="icon-payment fs-22"></i>
-                                    </div>
-                                    <div class="content">
-                                        <div class="title fw-4">Flexible Payment</div>
-                                        <p>Pay with Multiple Credit Cards</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="tf-icon-box style-row">
-                                    <div class="icon">
-                                        <i class="icon-return fs-20"></i>
-                                    </div>
-                                    <div class="content">
-                                        <div class="title fw-4">14 Day Returns</div>
-                                        <p>Within 30 days for an exchange</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="tf-icon-box style-row">
-                                    <div class="icon">
-                                        <i class="icon-suport"></i>
-                                    </div>
-                                    <div class="content">
-                                        <div class="title fw-4">Premium Support</div>
-                                        <p>Outstanding premium support</p>
-                                    </div>
+                                <div class="content">
+                                    <div class="title fw-4">Free Shipping</div>
+                                    <p>Free shipping over order $120</p>
                                 </div>
                             </div>
                         </div>
-    
+                        <div class="swiper-slide">
+                            <div class="tf-icon-box style-row">
+                                <div class="icon">
+                                    <i class="icon-payment fs-22"></i>
+                                </div>
+                                <div class="content">
+                                    <div class="title fw-4">Flexible Payment</div>
+                                    <p>Pay with Multiple Credit Cards</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="tf-icon-box style-row">
+                                <div class="icon">
+                                    <i class="icon-return fs-20"></i>
+                                </div>
+                                <div class="content">
+                                    <div class="title fw-4">14 Day Returns</div>
+                                    <p>Within 30 days for an exchange</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="tf-icon-box style-row">
+                                <div class="icon">
+                                    <i class="icon-suport"></i>
+                                </div>
+                                <div class="content">
+                                    <div class="title fw-4">Premium Support</div>
+                                    <p>Outstanding premium support</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="sw-dots style-2 sw-pagination-mb justify-content-center"></div>
+
                 </div>
+                <div class="sw-dots style-2 sw-pagination-mb justify-content-center"></div>
             </div>
-        </section>
+        </div>
+    </section>
         <!-- /Icon box -->
         <!-- Marquee -->
-        <div class="tf-marquee marquee-lg style-2 not-hover">
-            <div class="wrap-marquee">
-                {% for text in men_bar_texts %}
+    <div class="tf-marquee marquee-lg style-2 not-hover">
+        <div class="wrap-marquee">
+            {% for text in men_bar_texts %}
                 <div class="marquee-item">
                     <svg xmlns="http://www.w3.org/2000/svg" width="40" height="43" viewBox="0 0 40 43" fill="none">
                         <path d="M39.3055 20.7282C34.9409 20.7138 30.3593 19.8216 26.911 16.9761C24.0125 14.584 22.2908 11.1888 21.4565 7.57174C20.9356 5.31468 20.7475 3.00458 20.762 0.694478C20.762 0.212202 20.3762 0 20 0C19.6238 0 19.238 0.212202 19.238 0.694478C19.2573 4.63468 18.7027 8.70991 16.8652 12.2498C15.1145 15.6209 12.2305 18.1722 8.65686 19.4695C6.10562 20.3955 3.39523 20.7234 0.694478 20.7331C0.212202 20.7331 0 21.1237 0 21.4999C0 21.8761 0.212202 22.2667 0.694478 22.2667C5.05908 22.2812 9.6407 23.1734 13.089 26.0188C15.9875 28.4109 17.7092 31.8061 18.5435 35.4232C19.0644 37.6802 19.2476 39.9904 19.238 42.3005C19.238 42.7827 19.6238 42.9949 20 42.9949C20.3762 42.9949 20.762 42.7827 20.762 42.3005C20.7427 38.3603 21.2973 34.285 23.1348 30.7451C24.8855 27.374 27.7695 24.8228 31.3431 23.5254C33.8944 22.5995 36.6048 22.2715 39.3055 22.2619C39.7878 22.2619 40 21.8712 40 21.4951C40 21.1189 39.7878 20.7282 39.3055 20.7282ZM26.0381 24.8662C22.8985 27.3885 20.9838 31.0924 20.0772 34.965C20.0482 35.0808 20.0289 35.2014 20 35.3171C19.5901 33.4555 18.9727 31.647 18.0854 29.9542C16.1659 26.2889 12.9829 23.5785 9.1102 22.1558C8.37714 21.8857 7.62479 21.6687 6.86279 21.4902C9.42368 20.8777 11.8544 19.8119 13.9571 18.1239C17.0967 15.6016 19.0113 11.8978 19.918 8.02508C19.947 7.90933 19.9662 7.78876 19.9952 7.67302C20.4051 9.5346 21.0224 11.3431 21.9098 13.0359C23.8293 16.7012 27.0123 19.4116 30.885 20.8343C31.618 21.1044 32.3704 21.3214 33.1324 21.4999C30.5715 22.1172 28.1408 23.1782 26.0381 24.8662Z" fill="black"></path>
@@ -311,9 +311,9 @@
                         {{text.text|upper}}
                     </p>
                 </div>
-                {%endfor%}                
-            </div>
+            {%endfor%}
         </div>
+    </div>
         <!-- /Marquee -->
 {% endblock %}
 

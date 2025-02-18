@@ -12,15 +12,15 @@
           <span class="icon icon-bag"></span>
           <span class="tooltip">Quick Add</span>
         </a>
-          <a href="javascript:void(0);" class="box-icon bg_white wishlist btn-icon-action"
+        <a href="javascript:void(0);" class="box-icon bg_white wishlist btn-icon-action"
            hx-delete="{% url 'server:remove-item-from-wishlist' product.id %}"
            hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
            hx-target="#card-product-{{product.id}}"
            hx-swap='delete'
-            >
-            <span class="tooltip">Remove from Wishlist</span>
-            <span class="icon icon-delete" style="display: block !important;"></span>
-          </a>
+        >
+          <span class="tooltip">Remove from Wishlist</span>
+          <span class="icon icon-delete" style="display: block !important;"></span>
+        </a>
         <a href="#compare" data-bs-toggle="offcanvas" aria-controls="offcanvasLeft" class="box-icon bg_white compare btn-icon-action">
           <span class="icon icon-compare"></span>
           <span class="tooltip">Add to Compare</span>

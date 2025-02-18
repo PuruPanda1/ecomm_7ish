@@ -32,13 +32,13 @@
                     <h3 class="fs-16 fw-5">Features</h3>
                     <ul>
                       {% for feature in product.get_features_list %}
-                      <li>{{feature}}</li>
+                        <li>{{feature}}</li>
                       {% endfor %}
                     </ul>
                     <h3 class="fs-16 fw-5">Materials Care</h3>
                     <ul class="mb-0">
                       {% for material in product.get_materials_care_list %}
-                      <li>{{material}}</li>
+                        <li>{{material}}</li>
                       {% endfor %}
                     </ul>
                   </div>
@@ -52,9 +52,9 @@
                     <th class="tf-attr-label">Color</th>
                     <td class="tf-attr-value">
                       <p>
-                      {% for color in colors %}
-                      {{color|capfirst}} {% if not forloop.last %}, {% endif %}
-                      {% endfor %}
+                        {% for color in colors %}
+                          {{color|capfirst}} {% if not forloop.last %}, {% endif %}
+                        {% endfor %}
                       </p>
                     </td>
                   </tr>
@@ -62,9 +62,9 @@
                     <th class="tf-attr-label">Size</th>
                     <td class="tf-attr-value">
                       <p>
-                      {% for size in sizes %}
-                      {{size|capfirst}} {% if not forloop.last %}, {% endif %}
-                      {% endfor %}
+                        {% for size in sizes %}
+                          {{size|capfirst}} {% if not forloop.last %}, {% endif %}
+                        {% endfor %}
                       </p>
                     </td>
                   </tr>
@@ -82,23 +82,23 @@
                           {% for i in rating|floatformat:0|make_list %}
                             <i class="icon icon-star"></i>
                           {% endfor %}
-                        {% endwith %}                    
+                        {% endwith %}
                       </div>
                       <p>({{reviews|get_reviews_count}} Ratings)</p>
                     </div>
                     {% with reviews|rating_distribution as rating_percentages %}
-                    <div class="rating-score">
-                      {% for rating, data in rating_percentages.items %}
-                      <div class="item">
-                        <div class="number-1 text-caption-1">{{rating}}</div>
-                        <i class="icon icon-star"></i>
-                        <div class="line-bg">
-                          <div style="width: {{data.percentage}}%;"></div>
-                        </div>
-                        <div class="number-2 text-caption-1">{{data.count}}</div>
+                      <div class="rating-score">
+                        {% for rating, data in rating_percentages.items %}
+                          <div class="item">
+                            <div class="number-1 text-caption-1">{{rating}}</div>
+                            <i class="icon icon-star"></i>
+                            <div class="line-bg">
+                              <div style="width: {{data.percentage}}%;"></div>
+                            </div>
+                            <div class="number-2 text-caption-1">{{data.count}}</div>
+                          </div>
+                        {% endfor %}
                       </div>
-                      {% endfor %}
-                    </div>
                     {% endwith %}
                   </div>
                   <div>
@@ -120,20 +120,20 @@
               <div class="tf-page-privacy-policy">
                 <div class="title">Shipping Policy</div>
                 <p>At 7ish: Make Your Wish, we strive to deliver your orders swiftly and securely. All orders are processed within 1-2 business days (excluding weekends and holidays). Once your order has been shipped, you will receive a confirmation email with tracking details so you can follow your package’s journey.</p>
-               <p>We offer standard and expedited shipping options. Standard shipping typically takes 5-7 business days, while expedited shipping arrives within 2-3 business days. Shipping charges are calculated at checkout based on your location and chosen delivery method.</p>
-               <p>Currently, we ship within [your country/regions] and do not deliver to P.O. boxes or APO/FPO addresses. If your order is delayed beyond the expected timeframe, feel free to contact us at [your email], and we will assist you in tracking your package.</p>
-               <p>If your shipment is lost or damaged in transit, we will work with the carrier to resolve the issue. For international orders (if applicable), customs duties and taxes may apply, which are the customer’s responsibility.</p>
-               <p>For any shipping-related inquiries, please reach out to us at [your email]. Thank you for choosing 7ish: Make Your Wish—where your wishes turn into reality!</p>
+                <p>We offer standard and expedited shipping options. Standard shipping typically takes 5-7 business days, while expedited shipping arrives within 2-3 business days. Shipping charges are calculated at checkout based on your location and chosen delivery method.</p>
+                <p>Currently, we ship within [your country/regions] and do not deliver to P.O. boxes or APO/FPO addresses. If your order is delayed beyond the expected timeframe, feel free to contact us at [your email], and we will assist you in tracking your package.</p>
+                <p>If your shipment is lost or damaged in transit, we will work with the carrier to resolve the issue. For international orders (if applicable), customs duties and taxes may apply, which are the customer’s responsibility.</p>
+                <p>For any shipping-related inquiries, please reach out to us at [your email]. Thank you for choosing 7ish: Make Your Wish—where your wishes turn into reality!</p>
               </div>
             </div>
             <div class="widget-content-inner">
               <div class="tf-page-privacy-policy">
                 <div class="title">Return Policy</div>
                 <p>At 7ish: Make Your Wish, we want you to be completely satisfied with your purchase. If you are not happy with your order, you may request a return within [X] days of receiving your item, provided it meets our return conditions.</p>
-               <p>To be eligible for a return, the item must be unused, in its original packaging, and in the same condition as received. Certain items, such as personalized products, perishable goods, and gift cards, are non-returnable. To initiate a return, please contact us at [your email], and we will guide you through the process.</p>
-               <p>Once we receive your returned item, our team will inspect it, and if approved, we will process your refund or exchange. Refunds will be issued to the original payment method within [X] business days. Please note that shipping fees are non-refundable, and return shipping costs are the customer’s responsibility unless the item was defective or incorrect.</p>
-               <p>If you receive a damaged or incorrect item, please reach out to us within 7 days with photos of the issue, and we will arrange a replacement or refund at no additional cost.</p>
-               <p>For any questions regarding returns, feel free to contact us at [your email]. Thank you for shopping with 7ish: Make Your Wish—your satisfaction is our priority!</p>
+                <p>To be eligible for a return, the item must be unused, in its original packaging, and in the same condition as received. Certain items, such as personalized products, perishable goods, and gift cards, are non-returnable. To initiate a return, please contact us at [your email], and we will guide you through the process.</p>
+                <p>Once we receive your returned item, our team will inspect it, and if approved, we will process your refund or exchange. Refunds will be issued to the original payment method within [X] business days. Please note that shipping fees are non-refundable, and return shipping costs are the customer’s responsibility unless the item was defective or incorrect.</p>
+                <p>If you receive a damaged or incorrect item, please reach out to us within 7 days with photos of the issue, and we will arrange a replacement or refund at no additional cost.</p>
+                <p>For any questions regarding returns, feel free to contact us at [your email]. Thank you for shopping with 7ish: Make Your Wish—your satisfaction is our priority!</p>
               </div>
             </div>
           </div>

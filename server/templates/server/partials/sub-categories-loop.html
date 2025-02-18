@@ -1,31 +1,31 @@
-  <div class="widget-facet wd-categories">
+<div class="widget-facet wd-categories">
     <div class="facet-title" data-bs-target="#sub-categories" data-bs-toggle="collapse" aria-expanded="true" aria-controls="sub-categories">
-      <span>Sub Categories</span>
-      <span class="icon icon-arrow-up"></span>
+        <span>Sub Categories</span>
+        <span class="icon icon-arrow-up"></span>
     </div>
-  <div id="sub-categories" hx-swap-oob="true">
-      <div class="collapse show">
-          <ul class="tf-filter-group current-scrollbar mb_36">
-              {% for sub_category in sub_categories %}
-                  <li class="list-item d-flex gap-12 align-items-center">
-                      <input type="checkbox" 
-                             name="sub_category" 
-                             class="tf-check"
-                             id="sub_{{ sub_category.id }}"
-                             value="{{ sub_category.id }}"
-                             hx-get="{% url 'server:filter-products' category_id=selected_category.id %}"
-                             hx-trigger="change"
-                             hx-include="#filter-form"
-                             hx-target="#gridLayout"
-                             hx-swap="innerHTML"
-                      />
-                      <label for="sub_{{ sub_category.id }}" class="label">
-                          <span>{{ sub_category.name }}</span>&nbsp;
-                          <span>({{ sub_category.product_set.count }})</span>
-                      </label>
-                  </li>
-              {% endfor %}
-          </ul>
-      </div>
-  </div>
+    <div id="sub-categories" hx-swap-oob="true">
+        <div class="collapse show">
+            <ul class="tf-filter-group current-scrollbar mb_36">
+                {% for sub_category in sub_categories %}
+                    <li class="list-item d-flex gap-12 align-items-center">
+                        <input type="checkbox"
+                               name="sub_category"
+                               class="tf-check"
+                               id="sub_{{ sub_category.id }}"
+                               value="{{ sub_category.id }}"
+                               hx-get="{% url 'server:filter-products' category_id=selected_category.id %}"
+                               hx-trigger="change"
+                               hx-include="#filter-form"
+                               hx-target="#gridLayout"
+                               hx-swap="innerHTML"
+                        />
+                        <label for="sub_{{ sub_category.id }}" class="label">
+                            <span>{{ sub_category.name }}</span>&nbsp;
+                            <span>({{ sub_category.product_set.count }})</span>
+                        </label>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
 </div>

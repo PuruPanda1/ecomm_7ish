@@ -19,19 +19,19 @@
         <div dir="ltr" class="swiper tf-sw-slideshow" data-preview="1" data-tablet="1" data-mobile="1" data-centered="false" data-space="0" data-loop="true" data-auto-play="true" data-delay="2000" data-speed="1000">
             <div class="swiper-wrapper">
                 {% for banner in banners %}
-                <div class="swiper-slide" lazy="true">
-                    <div class="wrap-slider">
-                        <img class="lazyload" data-src="{{ banner.image.url }}" src="{{ banner.image.url }}" alt="kid-slideshow">
-                        <div class="box-content text-center">
-                            <div class="container">
-                                <h1 class="fade-item fade-item-1 text-white heading">{{ banner.title }}</h1>
-                                <p class="fade-item fade-item-2 text-white">{{ banner.sub_title }}</p>
-                                <a href="{% url 'server:shop-category' 'Kids' banner.tag.name %}" class="fade-item fade-item-3 tf-btn btn-primary animate-hover-btn btn-xl radius-60"><span>{{ banner.button_text }}</span><i class="icon icon-arrow-right"></i></a>
+                    <div class="swiper-slide" lazy="true">
+                        <div class="wrap-slider">
+                            <img class="lazyload" data-src="{{ banner.image.url }}" src="{{ banner.image.url }}" alt="kid-slideshow">
+                            <div class="box-content text-center">
+                                <div class="container">
+                                    <h1 class="fade-item fade-item-1 text-white heading">{{ banner.title }}</h1>
+                                    <p class="fade-item fade-item-2 text-white">{{ banner.sub_title }}</p>
+                                    <a href="{% url 'server:shop-category' 'Kids' banner.tag.name %}" class="fade-item fade-item-3 tf-btn btn-primary animate-hover-btn btn-xl radius-60"><span>{{ banner.button_text }}</span><i class="icon icon-arrow-right"></i></a>
+                                </div>
+
                             </div>
-                            
                         </div>
                     </div>
-                </div>
                 {% endfor %}
             </div>
         </div>
@@ -53,47 +53,47 @@
                 <div dir="ltr" class="swiper tf-sw-product-sell" data-preview="4" data-tablet="2" data-mobile="1" data-space-lg="30" data-space-md="15" data-pagination="1" data-pagination-md="1" data-pagination-lg="1">
                     <div class="swiper-wrapper">
                         {% for product in flash_sale_products %}
-                        <div class="swiper-slide" lazy="true">
-                            <div class="card-product style-8">
-                                <div class="card-product-wrapper">
-                                    <a href="{% url 'server:product-detail' product.id %}" class="product-img">
-                                        <img class="lazyload img-product" data-src="{{ product.images.first.image.url }}" src="{{ product.images.first.image.url }}" alt="image-product">
-                                        <img class="lazyload img-hover" data-src="{{ product.images.first.image.url }}" src="{{ product.images.first.image.url }}" alt="image-product">
-                                    </a>
-                                    <div class="list-product-btn absolute-2">
-                                        {% include 'server/components/shop/add-to-wishlist.html' %}
-                                        <a href="#compare" data-bs-toggle="offcanvas" aria-controls="offcanvasLeft" class="box-icon bg_white compare btn-icon-action">
-                                            <span class="icon icon-compare"></span>
-                                            <span class="tooltip">Add to Compare</span>
-                                            <span class="icon icon-check"></span>
+                            <div class="swiper-slide" lazy="true">
+                                <div class="card-product style-8">
+                                    <div class="card-product-wrapper">
+                                        <a href="{% url 'server:product-detail' product.id %}" class="product-img">
+                                            <img class="lazyload img-product" data-src="{{ product.images.first.image.url }}" src="{{ product.images.first.image.url }}" alt="image-product">
+                                            <img class="lazyload img-hover" data-src="{{ product.images.first.image.url }}" src="{{ product.images.first.image.url }}" alt="image-product">
                                         </a>
-                                        <a href="#quick_view" data-bs-toggle="modal" class="box-icon bg_white quickview tf-btn-loading">
-                                            <span class="icon icon-view"></span>
-                                            <span class="tooltip">Quick View</span>
-                                        </a>
-                                    </div>
-                                    
-                                </div>
-                                <div class="card-product-info">
-                                    <a href="product-detail.html" class="title link">{{ product.name }}</a>
-                                    <span class="price">${{ product.variants.first.discount_price }}</span>
-                                    <div class="pr-stock">
-                                        <div class="progress">
-                                            <div class="progress-bar" role="progressbar" style="width: 3%" aria-valuenow="3" aria-valuemin="0" aria-valuemax="100"></div>
+                                        <div class="list-product-btn absolute-2">
+                                            {% include 'server/components/shop/add-to-wishlist.html' %}
+                                            <a href="#compare" data-bs-toggle="offcanvas" aria-controls="offcanvasLeft" class="box-icon bg_white compare btn-icon-action">
+                                                <span class="icon icon-compare"></span>
+                                                <span class="tooltip">Add to Compare</span>
+                                                <span class="icon icon-check"></span>
+                                            </a>
+                                            <a href="#quick_view" data-bs-toggle="modal" class="box-icon bg_white quickview tf-btn-loading">
+                                                <span class="icon icon-view"></span>
+                                                <span class="tooltip">Quick View</span>
+                                            </a>
                                         </div>
-                                        <div class="pr-stock-status d-flex justify-content-between align-items-center">
-                                            <div class="pr-stock-available">
-                                                <span class="pr-stock-label">Available: </span>
-                                                <span class="pr-stock-value">{{ product.variants.first.stock }} </span>
+
+                                    </div>
+                                    <div class="card-product-info">
+                                        <a href="product-detail.html" class="title link">{{ product.name }}</a>
+                                        <span class="price">${{ product.variants.first.discount_price }}</span>
+                                        <div class="pr-stock">
+                                            <div class="progress">
+                                                <div class="progress-bar" role="progressbar" style="width: 3%" aria-valuenow="3" aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+                                            <div class="pr-stock-status d-flex justify-content-between align-items-center">
+                                                <div class="pr-stock-available">
+                                                    <span class="pr-stock-label">Available: </span>
+                                                    <span class="pr-stock-value">{{ product.variants.first.stock }} </span>
+                                                </div>
                                             </div>
                                         </div>
+                                        <a href="#shoppingCart" data-bs-toggle="modal" class="tf-btn tf-btn-loading">
+                                            ADD TO CART
+                                        </a>
                                     </div>
-                                    <a href="#shoppingCart" data-bs-toggle="modal" class="tf-btn tf-btn-loading">
-                                        ADD TO CART
-                                    </a>
                                 </div>
                             </div>
-                        </div>
                         {% endfor %}
                     </div>
                 </div>
@@ -109,24 +109,24 @@
             <div dir="ltr" class="swiper tf-sw-recent" data-preview="3" data-tablet="3" data-mobile="1.3" data-space-lg="30" data-space-md="15" data-space="30" data-pagination="1" data-pagination-md="1" data-pagination-lg="1">
                 <div class="swiper-wrapper">
                     {% for collection in collections %}
-                    <div class="swiper-slide" lazy="true">
-                        <div class="collection-item-v2 hover-img">
-                            <a href="{% url 'server:shop-category' 'Kids' collection.tag.name %}" class="collection-inner">
-                                <div class="collection-image radius-10 img-style">
-                                    <img class="lazyload" data-src="{{ collection.image.url }}" src="{{ collection.image.url }}" alt="collection-img">
-                                </div>
-                                <div class="collection-content">
-                                    <div class="top wow fadeInUp" data-wow-delay="0s">
-                                        <h5 class="heading">{{ collection.title }}</h5>
-                                        <p class="subheading">{{ collection.sub_title }}</p>
+                        <div class="swiper-slide" lazy="true">
+                            <div class="collection-item-v2 hover-img">
+                                <a href="{% url 'server:shop-category' 'Kids' collection.tag.name %}" class="collection-inner">
+                                    <div class="collection-image radius-10 img-style">
+                                        <img class="lazyload" data-src="{{ collection.image.url }}" src="{{ collection.image.url }}" alt="collection-img">
                                     </div>
-                                    <div class="bottom wow fadeInUp" data-wow-delay="0s">
-                                        <button class="tf-btn btn-line collection-other-link fw-6"><span>{{ collection.button_text }}</span><i class="icon icon-arrow1-top-left"></i></button>
+                                    <div class="collection-content">
+                                        <div class="top wow fadeInUp" data-wow-delay="0s">
+                                            <h5 class="heading">{{ collection.title }}</h5>
+                                            <p class="subheading">{{ collection.sub_title }}</p>
+                                        </div>
+                                        <div class="bottom wow fadeInUp" data-wow-delay="0s">
+                                            <button class="tf-btn btn-line collection-other-link fw-6"><span>{{ collection.button_text }}</span><i class="icon icon-arrow1-top-left"></i></button>
+                                        </div>
                                     </div>
-                                </div>
-                            </a>
+                                </a>
+                            </div>
                         </div>
-                    </div>
                     {% endfor %}
                 </div>
             </div>
@@ -148,124 +148,124 @@
                     <div class="swiper-wrapper">
                         {% for product in favorites %}
                             <div class="swiper-slide" lazy="true">
-                            <div class="card-product style-2">
-                                <div class="card-product-wrapper">
-                                <a href="product-detail.html" class="product-img">
-                                    {% with first_image=product.variants.first.get_images.first %}
-                                    <img
-                                    class="lazyload img-product"
-                                    data-src="{{ first_image.image.url }}"
-                                    src="{{ first_image.image.url }}"
-                                    alt="{{ product.name }}"
-                                    />
-                                    {% endwith %}
-                                    {% with second_image=product.variants.first.get_images.last %}
-                                    <img
-                                    class="lazyload img-hover"
-                                    data-src="{{ second_image.image.url }}"
-                                    src="{{ second_image.image.url }}"
-                                    alt="{{ product.name }}"
-                                    />
-                                    {% endwith %}
-                                </a>
-                                <div class="list-product-btn column-left">
-                                    <a
-                                    href="javascript:void(0);"
-                                    class="box-icon wishlist bg_white btn-icon-action"
-                                    >
-                                    <span class="icon icon-heart"></span>
-                                    <span class="tooltip">Add to Wishlist</span>
-                                    <span class="icon icon-delete"></span>
-                                    </a>
-                                    <a
-                                    href="#compare"
-                                    data-bs-toggle="offcanvas"
-                                    aria-controls="offcanvasLeft"
-                                    class="box-icon bg_white compare btn-icon-action"
-                                    >
-                                    <span class="icon icon-compare"></span>
-                                    <span class="tooltip">Add to Compare</span>
-                                    <span class="icon icon-check"></span>
-                                    </a>
-                                </div>
-                                <div class="list-product-btn absolute-3">
-                                    <a
-                                    href="#quick_add"
-                                    data-bs-toggle="modal"
-                                    class="box-icon quick-add style-2"
-                                    >
-                                    <span class="icon icon-bag"></span>
-                                    <span class="text">QUICK ADD</span>
-                                    </a>
-                                    <a
-                                    href="#quick_view"
-                                    data-bs-toggle="modal"
-                                    class="box-icon quickview style-2"
-                                    >
-                                    <span class="icon icon-view"></span>
-                                    <span class="text">QUICK VIEW</span>
-                                    </a>
-                                </div>
-                                <div class="size-list style-2">
-                                    {% with first_variant=product.variants.first %}
-                                    {% with color=first_variant.get_color %}
-                                    {% if color %}
-                                        {% for variant in product.variants.all %}
-                                        {% if variant.get_color == color %}
-                                            {% with size=variant.attributes.filter.first %}
-                                            <span>{{ size.value }}</span>
+                                <div class="card-product style-2">
+                                    <div class="card-product-wrapper">
+                                        <a href="product-detail.html" class="product-img">
+                                            {% with first_image=product.variants.first.get_images.first %}
+                                                <img
+                                                    class="lazyload img-product"
+                                                    data-src="{{ first_image.image.url }}"
+                                                    src="{{ first_image.image.url }}"
+                                                    alt="{{ product.name }}"
+                                                />
                                             {% endwith %}
-                                        {% endif %}
-                                        {% endfor %}
-                                    {% endif %}
-                                    {% endwith %}
-                                    {% endwith %}
-                                </div>
-                                {% with first_variant=product.variants.first %}
-                                {% if first_variant.discount_percentage > 0 %}
-                                <div class="on-sale-wrap text-end">
-                                    <div class="on-sale-item">
-                                    -{{ first_variant.discount_percentage }}%
+                                            {% with second_image=product.variants.first.get_images.last %}
+                                                <img
+                                                    class="lazyload img-hover"
+                                                    data-src="{{ second_image.image.url }}"
+                                                    src="{{ second_image.image.url }}"
+                                                    alt="{{ product.name }}"
+                                                />
+                                            {% endwith %}
+                                        </a>
+                                        <div class="list-product-btn column-left">
+                                            <a
+                                                href="javascript:void(0);"
+                                                class="box-icon wishlist bg_white btn-icon-action"
+                                            >
+                                                <span class="icon icon-heart"></span>
+                                                <span class="tooltip">Add to Wishlist</span>
+                                                <span class="icon icon-delete"></span>
+                                            </a>
+                                            <a
+                                                href="#compare"
+                                                data-bs-toggle="offcanvas"
+                                                aria-controls="offcanvasLeft"
+                                                class="box-icon bg_white compare btn-icon-action"
+                                            >
+                                                <span class="icon icon-compare"></span>
+                                                <span class="tooltip">Add to Compare</span>
+                                                <span class="icon icon-check"></span>
+                                            </a>
+                                        </div>
+                                        <div class="list-product-btn absolute-3">
+                                            <a
+                                                href="#quick_add"
+                                                data-bs-toggle="modal"
+                                                class="box-icon quick-add style-2"
+                                            >
+                                                <span class="icon icon-bag"></span>
+                                                <span class="text">QUICK ADD</span>
+                                            </a>
+                                            <a
+                                                href="#quick_view"
+                                                data-bs-toggle="modal"
+                                                class="box-icon quickview style-2"
+                                            >
+                                                <span class="icon icon-view"></span>
+                                                <span class="text">QUICK VIEW</span>
+                                            </a>
+                                        </div>
+                                        <div class="size-list style-2">
+                                            {% with first_variant=product.variants.first %}
+                                                {% with color=first_variant.get_color %}
+                                                    {% if color %}
+                                                        {% for variant in product.variants.all %}
+                                                            {% if variant.get_color == color %}
+                                                                {% with size=variant.attributes.filter.first %}
+                                                                    <span>{{ size.value }}</span>
+                                                                {% endwith %}
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    {% endif %}
+                                                {% endwith %}
+                                            {% endwith %}
+                                        </div>
+                                        {% with first_variant=product.variants.first %}
+                                            {% if first_variant.discount_percentage > 0 %}
+                                                <div class="on-sale-wrap text-end">
+                                                    <div class="on-sale-item">
+                                                        -{{ first_variant.discount_percentage }}%
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+                                        {% endwith %}
+                                        <div class="countdown-box">
+                                            <div
+                                                class="js-countdown"
+                                                data-timer="1007500"
+                                                data-labels="d :,h :,m :,s"
+                                            ></div>
+                                        </div>
+                                    </div>
+                                    <div class="card-product-info">
+                                        <a href="product-detail.html" class="title link"
+                                        >{{ product.name }}</a
+                                            >
+                                            {% with first_variant=product.variants.first %}
+                                                <span class="price">${{ first_variant.discount_price }}</span>
+                                            {% endwith %}
+                                            <ul class="list-color-product">
+                                                {% for image in product.images.all %}
+                                                    {% if image.color %}
+                                                        <li class="list-color-item color-swatch {% if forloop.first %}active{% endif %}">
+                                                            <span class="tooltip">{{ image.color.value }}</span>
+                                                            <span class="swatch-value bg_{% if image.color.value|lower == 'black' %}dark{% else %}{{ image.color.value|lower }}{% endif %}"></span>
+                                                            <img
+                                                                class="lazyload"
+                                                                data-src="{{ image.image.url }}"
+                                                                src="{{ image.image.url }}"
+                                                                alt="{{ product.name }} - {{ image.color.value }}"
+                                                            />
+                                                        </li>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
-                                {% endif %}
-                                {% endwith %}
-                                <div class="countdown-box">
-                                    <div
-                                    class="js-countdown"
-                                    data-timer="1007500"
-                                    data-labels="d :,h :,m :,s"
-                                    ></div>
-                                </div>
-                                </div>
-                                <div class="card-product-info">
-                                <a href="product-detail.html" class="title link"
-                                    >{{ product.name }}</a
-                                >
-                                {% with first_variant=product.variants.first %}
-                                <span class="price">${{ first_variant.discount_price }}</span>
-                                {% endwith %}
-                                <ul class="list-color-product">
-                                    {% for image in product.images.all %}
-                                    {% if image.color %}
-                                    <li class="list-color-item color-swatch {% if forloop.first %}active{% endif %}">
-                                    <span class="tooltip">{{ image.color.value }}</span>
-                                    <span class="swatch-value bg_{% if image.color.value|lower == 'black' %}dark{% else %}{{ image.color.value|lower }}{% endif %}"></span>
-                                    <img
-                                        class="lazyload"
-                                        data-src="{{ image.image.url }}"
-                                        src="{{ image.image.url }}"
-                                        alt="{{ product.name }} - {{ image.color.value }}"
-                                    />
-                                    </li>
-                                    {% endif %}
-                                    {% endfor %}
-                                </ul>
-                                </div>
-                            </div>
-                            </div>
                         {% endfor %}
-                        
+
                     </div>
                 </div>
                 <div class="nav-sw nav-next-sell-1 nav-next-slider box-icon w_46 round"><span class="icon icon-arrow-left"></span></div>
@@ -292,16 +292,16 @@
     <!-- /Shop Collection -->
     <!-- Marquee -->
     <div class="tf-marquee marquee-md style-2 not-hover">
-    <div class="wrap-marquee">
-        {% for text in kid_bar_texts %}
-        <div class="marquee-item">
-            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="43" viewBox="0 0 40 43" fill="none">
-                <path d="M39.3055 20.7331C34.9409 20.7187 30.3593 19.8264 26.911 16.981C24.0125 14.5889 22.2908 11.1937 21.4565 7.57662C20.9356 5.31957 20.7475 3.00946 20.762 0.699361C20.762 0.217084 20.3762 0.00488281 20 0.00488281C19.6238 0.00488281 19.238 0.217084 19.238 0.699361C19.2573 4.63956 18.7027 8.71479 16.8652 12.2547C15.1145 15.6258 12.2305 18.1771 8.65686 19.4744C6.10562 20.4003 3.39523 20.7283 0.694478 20.7379C0.212202 20.7379 0 21.1286 0 21.5048C0 21.8809 0.212202 22.2716 0.694478 22.2716C5.05908 22.286 9.6407 23.1783 13.089 26.0237C15.9875 28.4158 17.7092 31.811 18.5435 35.4281C19.0644 37.6851 19.2476 39.9952 19.238 42.3053C19.238 42.7876 19.6238 42.9998 20 42.9998C20.3762 42.9998 20.762 42.7876 20.762 42.3053C20.7427 38.3651 21.2973 34.2899 23.1348 30.75C24.8855 27.3789 27.7695 24.8276 31.3431 23.5303C33.8944 22.6044 36.6048 22.2764 39.3055 22.2668C39.7878 22.2668 40 21.8761 40 21.4999C40 21.1238 39.7878 20.7331 39.3055 20.7331ZM26.0381 24.871C22.8985 27.3934 20.9838 31.0972 20.0772 34.9699C20.0482 35.0857 20.0289 35.2062 20 35.322C19.5901 33.4604 18.9727 31.6519 18.0854 29.9591C16.1659 26.2938 12.9829 23.5834 9.1102 22.1607C8.37714 21.8906 7.62479 21.6736 6.86279 21.4951C9.42368 20.8826 11.8544 19.8168 13.9571 18.1288C17.0967 15.6065 19.0113 11.9026 19.918 8.02996C19.947 7.91421 19.9662 7.79365 19.9952 7.6779C20.4051 9.53949 21.0224 11.348 21.9098 13.0408C23.8293 16.7061 27.0123 19.4165 30.885 20.8392C31.618 21.1093 32.3704 21.3263 33.1324 21.5048C30.5715 22.1221 28.1408 23.1831 26.0381 24.871Z" fill="black"></path>
-            </svg>
-            <p>{{ text.text }}</p>
+        <div class="wrap-marquee">
+            {% for text in kid_bar_texts %}
+                <div class="marquee-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="43" viewBox="0 0 40 43" fill="none">
+                        <path d="M39.3055 20.7331C34.9409 20.7187 30.3593 19.8264 26.911 16.981C24.0125 14.5889 22.2908 11.1937 21.4565 7.57662C20.9356 5.31957 20.7475 3.00946 20.762 0.699361C20.762 0.217084 20.3762 0.00488281 20 0.00488281C19.6238 0.00488281 19.238 0.217084 19.238 0.699361C19.2573 4.63956 18.7027 8.71479 16.8652 12.2547C15.1145 15.6258 12.2305 18.1771 8.65686 19.4744C6.10562 20.4003 3.39523 20.7283 0.694478 20.7379C0.212202 20.7379 0 21.1286 0 21.5048C0 21.8809 0.212202 22.2716 0.694478 22.2716C5.05908 22.286 9.6407 23.1783 13.089 26.0237C15.9875 28.4158 17.7092 31.811 18.5435 35.4281C19.0644 37.6851 19.2476 39.9952 19.238 42.3053C19.238 42.7876 19.6238 42.9998 20 42.9998C20.3762 42.9998 20.762 42.7876 20.762 42.3053C20.7427 38.3651 21.2973 34.2899 23.1348 30.75C24.8855 27.3789 27.7695 24.8276 31.3431 23.5303C33.8944 22.6044 36.6048 22.2764 39.3055 22.2668C39.7878 22.2668 40 21.8761 40 21.4999C40 21.1238 39.7878 20.7331 39.3055 20.7331ZM26.0381 24.871C22.8985 27.3934 20.9838 31.0972 20.0772 34.9699C20.0482 35.0857 20.0289 35.2062 20 35.322C19.5901 33.4604 18.9727 31.6519 18.0854 29.9591C16.1659 26.2938 12.9829 23.5834 9.1102 22.1607C8.37714 21.8906 7.62479 21.6736 6.86279 21.4951C9.42368 20.8826 11.8544 19.8168 13.9571 18.1288C17.0967 15.6065 19.0113 11.9026 19.918 8.02996C19.947 7.91421 19.9662 7.79365 19.9952 7.6779C20.4051 9.53949 21.0224 11.348 21.9098 13.0408C23.8293 16.7061 27.0123 19.4165 30.885 20.8392C31.618 21.1093 32.3704 21.3263 33.1324 21.5048C30.5715 22.1221 28.1408 23.1831 26.0381 24.871Z" fill="black"></path>
+                    </svg>
+                    <p>{{ text.text }}</p>
+                </div>
+            {% endfor %}
         </div>
-        {% endfor %}
-    </div>
     </div>
     <!-- /Marquee -->
     <!-- Icon box -->
@@ -320,10 +320,10 @@
                                         </g>
                                         <defs>
                                             <clipPath id="clip0_10537_31">
-                                            <rect width="50" height="50" fill="white"></rect>
+                                                <rect width="50" height="50" fill="white"></rect>
                                             </clipPath>
                                         </defs>
-                                        </svg>
+                                    </svg>
                                 </div>
                                 <div class="content">
                                     <div class="title">Free Shipping</div>
@@ -356,10 +356,10 @@
                                         </g>
                                         <defs>
                                             <clipPath id="clip0_10537_36">
-                                            <rect width="50" height="50" fill="white"></rect>
+                                                <rect width="50" height="50" fill="white"></rect>
                                             </clipPath>
                                         </defs>
-                                        </svg>
+                                    </svg>
                                 </div>
                                 <div class="content">
                                     <div class="title">14 Day Returns</div>
@@ -367,7 +367,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                     </div>
 
                 </div>

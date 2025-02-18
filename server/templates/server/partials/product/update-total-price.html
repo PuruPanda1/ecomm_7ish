@@ -10,6 +10,6 @@
   {% if error %}
     {% include 'server/partials/product/add-to-cart-btn.html' %}
   {% else %}
-  {% include 'server/partials/product/add-to-cart-btn.html' with value=total_price quantity=quantity %}
+    {% include 'server/partials/product/add-to-cart-btn.html' with value=total_price quantity=quantity %}
   {% endif %}
 {% endif %}

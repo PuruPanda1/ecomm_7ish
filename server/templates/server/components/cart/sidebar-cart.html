@@ -21,11 +21,11 @@
               <div class="tf-mini-cart-sroll">
                 <div class="tf-mini-cart-items" id="cart-list">
                   {% with product_varaints=request.user|get_cart_items %}
-                      {% for varaint in product_varaints %}
+                    {% for varaint in product_varaints %}
                       <li>
                         {% include 'server/components/cart/product.html' %}
                       </li>
-                      {% endfor %}
+                    {% endfor %}
                   {% endwith %}
                 </div>
                 <div class="tf-minicart-recommendations">
@@ -41,11 +41,11 @@
                             <div class="tf-minicart-recommendations-item">
                               <div class="tf-minicart-recommendations-item-image">
                                 <a href="{% url 'server:product-detail' product.id %}">
-                                    <img src="{{product.images.first.image.url}}" alt="" />
+                                  <img src="{{product.images.first.image.url}}" alt="" />
                                 </a>
                               </div>
                               <div class="tf-minicart-recommendations-item-infos flex-grow-1">
-                                <a class="title" href="product-detail.html">{{product.name}}</a>
+                                <a class="title" href="{% url 'server:product-detail' product.id %}">{{product.name}}</a>
                                 <div class="price">Rs. {{product.variants.first.discount_price}}</div>
                               </div>
                             </div>
