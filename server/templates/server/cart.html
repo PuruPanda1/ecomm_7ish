@@ -17,7 +17,7 @@
 
 {% block body %}
 
-    <div id="floatingMessageContainer" >No errors exists</div> <
+    <div id="floatingMessageContainer" class="floating-message hide">No errors exists</div>
 
 
     <!-- page-title -->
@@ -148,17 +148,16 @@
                             <p class="tf-cart-tax">
                                 Taxes and <a href="shipping-delivery.html">shipping</a>  calculated at checkout
                             </p>
-                            <div class="cart-checkbox">
-                                <input type="checkbox" class="tf-check" id="check-agree">
-                                <label for="check-agree" class="fw-4">
-                                    I agree with the <a href="terms-conditions.html">terms and conditions</a>
-                                </label>
-                            </div>
-                            <div class="cart-checkout-btn">
-                                <a href="checkout.html" class="tf-btn w-100 btn-fill animate-hover-btn radius-3 justify-content-center">
+                            {% with cart_items|length as cart_item_length %}
+                            <div class="cart-checkout-btn" id="checkout-btn" hx-swap-oob="true">
+                                <a href="{% url 'server:checkout' %}" 
+                                   class="tf-btn w-100 btn-fill animate-hover-btn radius-3 justify-content-center {% if cart_item_length == 0 %}disabled{% endif %}"
+                                   {% if cart_item_length == 0 %}onclick="return false;"{% endif %}
+                                   style="{% if cart_item_length == 0 %}opacity: 0.5; cursor: not-allowed;{% endif %}">
                                     <span>Check out</span>
                                 </a>
                             </div>
+                            {% endwith %}
                             <div class="tf-page-cart_imgtrust">
                                 <p class="text-center fw-6">Guarantee Safe Checkout</p>
                                 <div class="cart-list-social">
@@ -287,6 +286,19 @@
         };
 
         var AUTOHIDE = Boolean(0);
+    </script>
+
+    <script>
+        document.getElementById("checkout-btn").addEventListener("click", function(event) {
+            let giftWrap = document.getElementById("cart-gift-checkbox").checked ? "1" : "0";
+            let orderNote = encodeURIComponent(document.getElementById("cart-note").value.trim());
+    
+            let checkoutUrl = "{% url 'server:checkout' %}";
+            let params = `?gift_wrap=${giftWrap}&note=${orderNote}`;
+    
+            event.preventDefault(); // Prevent default navigation
+            window.location.href = checkoutUrl + params;
+        });
     </script>
 
 {% endblock %}

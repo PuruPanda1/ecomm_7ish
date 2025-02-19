@@ -43,4 +43,8 @@ urlpatterns = [
     path('update-cart-sub-total/', update_cart_sub_total, name='update-cart-sub-total'),
     path('add-cart-item/<int:product_id>/<int:quantity>', add_cart_item, name='add-cart-item'),
     path('remove-sidebar-cart-item/<int:product_varaint_id>/', remove_sidebar_cart_item, name='remove-sidebar-cart-item'),
+
+    # checkout urls
+    path('checkout/', checkout_page, name='checkout'),
+
 ]

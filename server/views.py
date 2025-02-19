@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from users.models import UserAddress
 from wishlist.models import Wishlist, WishlistItem
 from cart.models import Cart, CartItem
 from product.models import Product, Tag, Category, SubCategory, Sale, ProductVariant
@@ -11,6 +12,8 @@ from django.db import models
 import time
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
+import math
+
 
 def signup_view(request):
     if request.method == "POST":
@@ -612,9 +615,12 @@ def remove_cart_item(request, product_varaint_id):
     
     cart_item, _ = CartItem.objects.get_or_create(cart=cart, product_variant=product_variant)
     cart_item.delete()
+
+    cart_item_length = CartItem.objects.filter(cart=cart).count()
     
     return render(request, 'server/partials/cart/update-cart-sub-total.html',{
-        'cart': cart
+        'cart': cart,
+        'cart_item_length': cart_item_length
     })
 
 def cart_update_quantity(request, product_varaint_id, option):
@@ -651,4 +657,35 @@ def cart_update_quantity(request, product_varaint_id, option):
         'item': cart_item,
         'cart': cart,
         'error': error
+    })
+
+def checkout_page(request):
+
+    user = request.user
+
+    if not user.is_authenticated:
+        return redirect("server:login")
+    
+    cart, _ = Cart.objects.get_or_create(user=user)
+    cart_items = CartItem.objects.filter(cart=cart)
+
+    if not cart_items.exists():
+        return redirect("server:cart")
+
+    need_gift_wrap = request.GET.get("gift_wrap", "0") == "1"
+    order_note = request.GET.get("note", "").strip()
+
+    cart_total = float(cart.cart_total) + (99.00 if need_gift_wrap else 0)
+
+    cart_total = f"{math.ceil(cart_total):.2f}"
+
+    user_addresses = UserAddress.objects.filter(user=user).first()
+    
+    return render(request, 'server/checkout.html',{
+        'cart_items': cart_items,
+        'cart': cart,
+        'need_gift_wrap': need_gift_wrap,
+        'order_note': order_note,
+        'cart_total': cart_total,
+        'user_addresses': user_addresses
     })

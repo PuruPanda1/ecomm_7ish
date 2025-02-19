@@ -20,3 +20,14 @@
         Enjoy <span class="fw-6"hx-swap-oob="true">Free Shipping</span>
     {% endif %}
 </div>
+
+{% comment %} change the checkout button to disable if cart item list is empty {% endcomment %}
+
+<div class="cart-checkout-btn" id="checkout-btn" hx-swap-oob="true">
+    <a href="{% url 'server:checkout' %}" 
+       class="tf-btn w-100 btn-fill animate-hover-btn radius-3 justify-content-center {% if cart_item_length == 0 %}disabled{% endif %}"
+       {% if cart_item_length == 0 %}onclick="return false;"{% endif %}
+       style="{% if cart_item_length == 0 %}opacity: 0.5; cursor: not-allowed;{% endif %}">
+        <span>Check out</span>
+    </a>
+</div>

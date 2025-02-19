@@ -1,25 +1,26 @@
 from django.db import models
 from users.models import CustomUser
 from product.models import ProductVariant
-
+import math
 
 class Cart(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     @property
     def total_price_pre_tax(self):
-        return sum(item.total_price_pre_tax for item in self.cart_items.all())
-    
+        return round(sum(item.total_price_pre_tax for item in self.cart_items.all()), 2)
+
     @property
     def free_shipping_remaining(self):
-        return 999 - self.total_price_pre_tax
-    
+        return round(999 - self.total_price_pre_tax, 2)
+
     @property 
     def total_tax(self):
-        return sum(item.total_tax for item in self.cart_items.all())
-        
+        return round(sum(item.total_tax for item in self.cart_items.all()), 2)
+
     @property
     def cart_total(self):
-        return self.total_price_pre_tax + self.total_tax
+        return f"{math.ceil(self.total_price_pre_tax + self.total_tax):.2f}"
+
     
     def __str__(self):
         return f"{self.user.email}"
