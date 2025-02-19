@@ -1941,6 +1941,24 @@
                                         });
                                     }
 
+                                    {% comment %} refresh website on going back {% endcomment %}
+                                    window.addEventListener("pageshow", function(event) {
+                                        if (event.persisted) {
+                                            location.reload(); // Reload only if coming from the cache
+                                        }
+                                    });
+
+                                    document.addEventListener("DOMContentLoaded", function() {
+                                      // Hide the loading animation after page fully loads
+                                      document.getElementById("loadingOverlay").style.display = "none";
+                                  });
+                              
+                                  // Show loading animation before page reloads
+                                  window.addEventListener("beforeunload", function() {
+                                      document.getElementById("loadingOverlay").style.display = "flex";
+                                  });
+                                  
+
                                   </script>
 
                                 </body>

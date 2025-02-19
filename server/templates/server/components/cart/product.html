@@ -11,15 +11,10 @@
             <div class="meta-variant">{{varaint.details.color}}</div>
             <div class="price fw-6">Rs. {{varaint.quantity|product_price:varaint.details.discount_price}}</div>
             <div class="tf-mini-cart-btns">
-                <div class="wg-quantity small">
-                    <span class="btn-quantity minus-btn">-</span>
-                    <input type="text" name="number" value="{{varaint.quantity}}" />
-                    <span class="btn-quantity plus-btn">+</span>
-                </div>
                 <div class="tf-mini-cart-remove cursor-pointer"
                      hx-delete="{% url 'server:remove-sidebar-cart-item' varaint.details.id %}"
                      hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
-                     hx-target="closest li"
+                     hx-target="#cart-item-{{varaint.details.id}}"
                      hx-swap="delete"
                      hx-on::after-request="
                                            document.getElementById('loadingOverlay').style.display = 'none';
