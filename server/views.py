@@ -626,9 +626,9 @@ def cart_update_quantity(request, product_varaint_id, option):
     quantity = cart_item.quantity
 
     if option == 'increase':
-        cart_item.quantity += 1
+        quantity += 1
     elif option == 'decrease':
-        cart_item.quantity -= 1
+        quantity -= 1
 
     if quantity > product_variant.stock:
         error = 'Out of Stock - Decrease Quantity'
@@ -637,10 +637,14 @@ def cart_update_quantity(request, product_varaint_id, option):
         error = 'Quantity cannot be less than 1'
 
     if not error:
+        cart_item.quantity = quantity
         cart_item.save()
     
     if error:
         print(f"Error is {error}")
+        return render(request, 'server/partials/cart/error-message.html', {
+            'error': error
+        })
 
     print(f"Cart Updated == {cart_item.quantity}")
     return render(request, 'server/partials/cart/update-cart-item-quantity.html', {

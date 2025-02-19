@@ -30,6 +30,9 @@ class CartItem(models.Model):
     quantity = models.IntegerField(default=1)
 
     @property
+    def in_stock(self):
+        return self.quantity <= self.product_variant.stock
+    @property
     def price(self):
         return self.product_variant.discount_price
     @property

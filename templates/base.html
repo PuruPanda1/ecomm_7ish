@@ -1958,6 +1958,17 @@
                                       document.getElementById("loadingOverlay").style.display = "flex";
                                   });
                                   
+                                  {% comment %} show error message {% endcomment %}
+                                  document.body.addEventListener("htmx:afterSwap", function(event) {
+                                    if (event.detail.target.id === "floatingMessageContainer") {
+                                      console.log("floatingMessageContainer is clicked");
+                                        setTimeout(() => {
+                                            let message = document.querySelector(".floating-message");
+                                            if (message) message.classList.add("hide");
+                                            setTimeout(() => { if (message) message.remove(); }, 300);
+                                        }, 3000);
+                                    }
+                                  });
 
                                   </script>
 
