@@ -24,4 +24,4 @@ hx-swap-oob="true">
 <div class="cart-total price" id="cart-item-total-{{item.product_variant.id}}" hx-swap-oob="true">Rs. {{ item.total_price_pre_tax }}</div>
 
 {% comment %} update the cart sub total,shippinh progress bar and progress message {% endcomment %}
-{% include 'server/partials/cart/update-cart-sub-total.html' %}
+{% include 'server/partials/cart/update-cart-sub-total.html' with sub_total=cart.total_price_pre_tax %}

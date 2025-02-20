@@ -14,22 +14,7 @@
    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
 
    <style>
-    .hidden{
-        display: none;
-    }
-    .address-card {
-        border: 2px solid #ddd;
-        padding: 15px;
-        margin: 10px;
-        border-radius: 8px;
-        background: #fff;
-        cursor: pointer;
-        transition: 0.3s;
-    }
-    .address-card.selected {
-        border-color: green;
-        background: #e8ffe8;
-    }
+    
     </style>
 
 {% endblock %}
@@ -37,6 +22,7 @@
 
 {% block body%}
 
+        <div id="floatingMessageContainer" class="floating-message hide">No errors exists</div>
         <!-- page-title -->
         <div class="tf-page-title">
             <div class="container-full">
@@ -141,29 +127,43 @@
                                 </ul>
                                 {% endfor %}
                                 <div class="coupon-box">
-                                    <input type="text" placeholder="Discount code">
-                                    <a href="#" class="tf-btn btn-sm radius-3 btn-fill btn-icon animate-hover-btn">Apply</a>
+                                    <input type="text" placeholder="Coupon code" name="coupon_code" id="coupon_code">
+                                    <a href="#" class="tf-btn btn-sm radius-3 btn-fill btn-icon animate-hover-btn"
+                                    hx-get="{% url 'server:apply-coupon-code' need_gift_wrap|yesno:'1,0' %}"
+                                    hx-target="#floatingMessageContainer"
+                                    hx-trigger="click"
+                                    hx-swap="outerHTML"
+                                    hx-include="#coupon_code"
+                                    >Apply
+                                </a>
                                 </div>
                                 <div class="d-flex justify-content-between line pb_20">
                                     <h6 class="fw-5">Sub-total</h6>
                                     <h6 class="total fw-5">Rs. {{cart.total_price_pre_tax}}</h6>
                                 </div>
-                                {% if need_gift_wrap %}
-                                <div class="d-flex justify-content-between line pb_20">
-                                    <h6 class="fw-5">Gift Wrap</h6>
-                                    <h6 class="total fw-5">Rs. 99.00</h6>
+                                <div id="checkout-prices" hx-swap-oob="true">
+                                    
+                                    {% if need_gift_wrap %}
+                                    <div class="d-flex justify-content-between line pb_20">
+                                        <h6 class="fw-5">Gift Wrap</h6>
+                                        <h6 class="total fw-5">Rs. 99.00</h6>
+                                    </div>
+                                    {% endif %}
+                                    <div class="d-flex justify-content-between line pb_20">
+                                        <h6 class="fw-5">Tax</h6>
+                                        <h6 class="total fw-5">Rs. {{cart.total_tax}}</h6>
+                                    </div>
+                                    <div class="d-flex justify-content-between line pb_20">
+                                        <h6 class="fw-5">Total</h6>
+                                        <h6 class="total fw-5">Rs. {{cart_total}}</h6>
+                                    </div>
                                 </div>
-                                {% endif %}
-                                <div class="d-flex justify-content-between line pb_20">
-                                    <h6 class="fw-5">Tax</h6>
-                                    <h6 class="total fw-5">Rs. {{cart.total_tax}}</h6>
-                                </div>
-                                <div class="d-flex justify-content-between line pb_20">
-                                    <h6 class="fw-5">Total</h6>
-                                    <h6 class="total fw-5">Rs. {{cart_total}}</h6>
-                                </div>
-                                <button class="tf-btn radius-3 btn-fill btn-icon animate-hover-btn justify-content-center">Place order</button>
-                            </form>
+                                <button class="tf-btn radius-3 btn-fill btn-icon animate-hover-btn justify-content-center"
+                               
+                                >
+                                Place order
+                                </button>
+                        </form>
                         </div>
                     </div>
                 </div>

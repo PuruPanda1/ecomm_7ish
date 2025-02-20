@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from users.models import UserAddress
 from wishlist.models import Wishlist, WishlistItem
 from cart.models import Cart, CartItem
-from product.models import Product, Tag, Category, SubCategory, Sale, ProductVariant
+from product.models import Product, Tag, Category, SubCategory, Sale, ProductVariant, Coupon
 from banner.models import WomenBanner, WomenCollection, WomenMidBanner, MenBanner, MenCountdown, MenMidBanner, MenCollection, MenBarText, KidsBanner, KidsCollection, KidsMidBanner, KidBarText
 from reviews.models import Review
 from collaboration.models import Collaboration
@@ -13,7 +13,7 @@ import time
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 import math
-
+from decimal import Decimal
 
 def signup_view(request):
     if request.method == "POST":
@@ -617,10 +617,14 @@ def remove_cart_item(request, product_varaint_id):
     cart_item.delete()
 
     cart_item_length = CartItem.objects.filter(cart=cart).count()
+    sub_total = cart.total_price_pre_tax
+    free_shipping_remaining = cart.free_shipping_remaining
     
     return render(request, 'server/partials/cart/update-cart-sub-total.html',{
         'cart': cart,
-        'cart_item_length': cart_item_length
+        'cart_item_length': cart_item_length,
+        'sub_total': sub_total,
+        'free_shipping_remaining': free_shipping_remaining
     })
 
 def cart_update_quantity(request, product_varaint_id, option):
@@ -656,7 +660,6 @@ def cart_update_quantity(request, product_varaint_id, option):
     return render(request, 'server/partials/cart/update-cart-item-quantity.html', {
         'item': cart_item,
         'cart': cart,
-        'error': error
     })
 
 def checkout_page(request):
@@ -718,3 +721,99 @@ def add_address(request):
     return render(request, 'server/partials/checkout/user-address.html', {
         'address': address
     })
+
+
+def apply_coupon_code(request, gift_wrap):
+    user = request.user
+    coupon_code = request.GET.get('coupon_code')
+    print(coupon_code)
+    gift_wrap = bool(gift_wrap)
+    print(gift_wrap)
+    coupon = Coupon.objects.filter(coupon_code=coupon_code).first()
+
+    if not coupon or coupon.is_active == False:
+        error = f"Coupon code is not valid"
+        return render(request, 'server/partials/cart/error-message.html', {
+            'error': error
+        })
+
+    cart = Cart.objects.get(user=user)
+    sub_total = cart.total_price_pre_tax
+
+    if sub_total < coupon.min_order_amount:
+        error = f"Minimum order value should be {coupon.min_order_amount}"
+        return render(request, 'server/partials/cart/error-message.html', {
+            'error': error
+        })
+    
+
+    flat_discount = coupon.discount_amount
+    discount_percent = coupon.discount_percentage
+
+    if flat_discount:
+        sub_total, tax, final_total = calculate_cart_total(cart, flat_discount).values()
+        if gift_wrap:
+            final_total = final_total + Decimal("99.00")
+        print(sub_total, tax, final_total)
+
+        return render(request, 'server/partials/checkout/update-checkout-prices.html',{
+        'sub_total': sub_total,
+        'tax':tax,
+        'final_total': final_total,
+        'gift_wrap': gift_wrap,
+        'discount': discount_amount
+        })
+
+    if discount_percent:
+        discount_amount = f"{math.ceil((discount_percent / 100) * sub_total):.2f}"
+        sub_total, tax, final_total = calculate_cart_total(cart, discount_amount).values()
+        if gift_wrap:
+            final_total = final_total + Decimal("99.00")
+        print(sub_total, tax, final_total)
+
+        return render(request, 'server/partials/checkout/update-checkout-prices.html',{
+        'sub_total': sub_total,
+        'tax':tax,
+        'final_total': final_total,
+        'gift_wrap': gift_wrap,
+        'discount': discount_amount
+        })
+
+
+# utils
+def calculate_cart_total(cart, discount):
+    items = CartItem.objects.filter(cart=cart)
+    
+    # Convert discount to Decimal for consistency
+    discount = Decimal(discount)
+
+    # Calculate total pre-tax amount
+    total_pre_tax = sum(Decimal(item.product_variant.discount_price) * item.quantity for item in items)
+
+    # Avoid division by zero
+    if total_pre_tax == 0:
+        return {"subtotal": Decimal("0.00"), "tax": Decimal("0.00"), "final_total": Decimal("0.00")}
+
+    # Apply Coupon Discount Proportionally
+    discounted_prices = {
+        item.id: (Decimal(item.product_variant.discount_price) * item.quantity) - (
+            (Decimal(item.product_variant.discount_price) * item.quantity / total_pre_tax) * discount
+        )
+        for item in items
+    }
+
+    # Calculate total tax (since tax rate is in decimal form, use it directly)
+    total_tax = sum(
+        discounted_prices[item.id] * Decimal(item.product_variant.product.tax_rate)
+        for item in items
+    )
+
+    # Final total after discount and tax
+    final_total = sum(discounted_prices.values()) + total_tax
+    print(f"The final total is = {final_total}")
+
+    return {
+        "subtotal": round(sum(discounted_prices.values()), 2),
+        "tax": round(total_tax, 2),
+        "final_total": round(final_total, 2)
+    }

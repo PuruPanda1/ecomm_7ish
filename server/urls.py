@@ -47,5 +47,7 @@ urlpatterns = [
     # checkout urls
     path('checkout/', checkout_page, name='checkout'),
     path('add-address/', add_address, name='add-address'),     
+    path('apply-coupon-code/<int:gift_wrap>/', apply_coupon_code, name='apply-coupon-code'),
+    
 
 ]
