@@ -679,7 +679,7 @@ def checkout_page(request):
 
     cart_total = f"{math.ceil(cart_total):.2f}"
 
-    user_addresses = UserAddress.objects.filter(user=user).first()
+    user_addresses = UserAddress.objects.filter(user=user)
     
     return render(request, 'server/checkout.html',{
         'cart_items': cart_items,
@@ -688,4 +688,33 @@ def checkout_page(request):
         'order_note': order_note,
         'cart_total': cart_total,
         'user_addresses': user_addresses
+    })
+
+def add_address(request):
+    print('working')
+    user = request.user
+    name = request.GET.get('name')
+    street_address = request.GET.get('street_address')
+    city = request.GET.get('city')
+    state = request.GET.get('state')
+    postal_code = request.GET.get('postal_code')
+    country = request.GET.get('country')
+    mobile_number = request.GET.get('mobile_number')
+    address_nickname = request.GET.get('address_nickname')
+    email = request.GET.get('email')
+    
+    address = UserAddress.objects.create(
+        user=user,
+        name=name,
+        street_address=street_address,
+        city=city,
+        state=state,
+        postal_code=postal_code,
+        country=country,
+        mobile_number=mobile_number,
+        address_nickname=address_nickname,
+        email=email
+    )
+    return render(request, 'server/partials/checkout/user-address.html', {
+        'address': address
     })

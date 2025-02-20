@@ -26,6 +26,9 @@ class UserAddress(models.Model):
     state = models.CharField(max_length=100)
     postal_code = models.CharField(max_length=20)
     country = models.CharField(max_length=100)
+    mobile_number = models.CharField(max_length=20, default='')
+    address_nickname = models.CharField(max_length=100, blank=True)
+    email = models.EmailField(max_length=254, blank=True)
     
     class Meta:
         unique_together = ['user', 'name']  # Ensures name uniqueness per user

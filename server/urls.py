@@ -46,5 +46,6 @@ urlpatterns = [
 
     # checkout urls
     path('checkout/', checkout_page, name='checkout'),
+    path('add-address/', add_address, name='add-address'),     
 
 ]

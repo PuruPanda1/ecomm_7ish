@@ -1,0 +1,12 @@
+<div class="address-card" onclick="selectAddress(this)">
+    <p><strong>
+        {% if address.nickname %}
+        {{address.nickname}}
+        {% else %}
+        {{address.name}}
+        {% endif %}
+    </strong></p>
+    <p>{{address.street_address}}, {{address.city}}, {{address.state}}, {{address.postal_code}}</p>
+    <p><strong>Email:</strong> {{address.email}}</p>
+    <p><strong>Phone:</strong> {{address.mobile_number}}</p>
+</div>
