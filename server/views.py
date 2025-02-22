@@ -766,6 +766,11 @@ def apply_coupon_code(request, gift_wrap):
 
     if discount_percent:
         discount_amount = f"{math.ceil((discount_percent / 100) * sub_total):.2f}"
+
+        if Decimal(discount_amount) > coupon.max_discount_amount:
+            discount_amount = f"{coupon.max_discount_amount:.2f}"
+
+
         sub_total, tax, final_total = calculate_cart_total(cart, discount_amount).values()
         if gift_wrap:
             final_total = final_total + Decimal("99.00")
