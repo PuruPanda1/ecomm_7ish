@@ -25,6 +25,13 @@ class ProductAdmin(ModelAdmin):
     list_display = ('name', 'brand_name', 'created_at', 'updated_at', 'is_active')
     search_fields = ('name', 'brand_name',)
 
+    class Media:
+        js = [
+            'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js',
+            'smart-selects/admin/js/chainedfk.js',
+            'smart-selects/admin/js/bindfields.js',
+        ]
+
 @admin.register(Category)
 class CategoryAdmin(ModelAdmin):
     list_filter = ('name',)

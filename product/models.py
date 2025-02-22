@@ -2,7 +2,7 @@ from django.db import models
 from django.utils import timezone
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from smart_selects.db_fields import ChainedForeignKey
+from smart_selects.db_fields import ChainedManyToManyField, GroupedForeignKey
 
 class Category(models.Model):
     name = models.CharField(max_length=255)
@@ -17,7 +17,7 @@ class Category(models.Model):
 class SubCategory(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='sub_categories')
     image = models.ImageField(upload_to='sub_categories/', default='sub_categories/default.jpg')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -46,10 +46,16 @@ class Product(models.Model):
     features = models.TextField(help_text="Enter each feature on a new line.", default='')
     materials_care = models.TextField(help_text="Enter each material/care instruction on a new line.", default='')
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    sub_category = ChainedForeignKey(SubCategory, chained_field="category", chained_model_field="category", show_all=False, auto_choose=True, sort=True) 
-    # tags = GroupedForeignKey(Tag, "category") 
-    # sub_category = models.ForeignKey(SubCategory, on_delete=models.CASCADE)
-    tags = models.ManyToManyField(Tag, related_name='tag', default=None)
+    sub_category = GroupedForeignKey(SubCategory, "category") 
+    tags = ChainedManyToManyField(
+        Tag, 
+        related_name='tag',
+        default=None,
+        horizontal=True,
+        verbose_name='tag',
+        chained_field="category",
+        chained_model_field="category",
+        )
     tax_rate = models.DecimalField(max_digits=10, decimal_places=2, default=0.1)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

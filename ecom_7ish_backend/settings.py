@@ -30,19 +30,20 @@ ALLOWED_HOSTS = []
 AUTH_USER_MODEL = 'users.CustomUser'
 
 # Enable JQuery
-USE_DJANGO_JQUERY = True
-
+SMART_SELECTS_JQUERY_URL = 'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js'
+USE_DJANGO_JQUERY = False
+JQUERY_URL = False
 # Application definition
 
 INSTALLED_APPS = [
     'unfold',
+    'smart_selects',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'smart_selects',
     'users',
     'product',
     'orders',
@@ -139,6 +140,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'  
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 STATICFILES_DIRS = [    
