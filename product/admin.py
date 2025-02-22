@@ -61,6 +61,7 @@ class ProductVariantAdmin(ModelAdmin):
 
 @admin.register(Sale)
 class SaleAdmin(ModelAdmin):
+    filter_horizontal = ('product',)  # Use horizontal selector
     list_display = ('sale_name', 'start_date', 'end_date')
     list_filter = ('start_date', 'end_date')
     search_fields = ('sale_name',)
