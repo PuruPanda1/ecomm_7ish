@@ -1,9 +1,10 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from .models import *
+from unfold.admin import ModelAdmin
 
-
-class CustomUserAdmin(UserAdmin):
+@admin.register(CustomUser)
+class CustomUserAdmin(ModelAdmin):
     model = CustomUser
     list_display = ['email', 'phone_number', 'is_staff', 'is_active']
     list_filter = ['is_staff', 'is_active']
@@ -22,5 +23,14 @@ class CustomUserAdmin(UserAdmin):
     search_fields = ('email',)
     ordering = ('email',)
 
-admin.site.register(CustomUser, CustomUserAdmin)
-admin.site.register(UserAddress)
+@admin.register(UserAddress)
+class UserAddressAdmin(ModelAdmin):
+    model = UserAddress
+    list_display = ['user', 'name', 'street_address', 'city', 'state', 'postal_code', 'country', 'mobile_number', 'address_nickname', 'email']
+    list_filter = ['user', 'name', 'country', 'state', 'city' ,'address_nickname']
+    fieldsets = (
+        (None, {'fields': ('user', 'name')}),
+        ('Address', {'fields': ('street_address', 'city', 'state', 'postal_code', 'country', 'mobile_number', 'address_nickname', 'email')}),
+    )
+    search_fields = ('user__email', 'name')
+    ordering = ('user__email', 'name')

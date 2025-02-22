@@ -1,13 +1,18 @@
 from django.contrib import admin
 from .models import *
+from unfold.admin import ModelAdmin, TabularInline
 
 
-class WishlistItemInline(admin.TabularInline):
+class WishlistItemInline(TabularInline):
     model = WishlistItem
     readonly_fields = ('added_at',)
     
-class WishlistAdmin(admin.ModelAdmin):
+@admin.register(Wishlist)
+class WishlistAdmin(ModelAdmin):
     inlines = [WishlistItemInline]
 
-admin.site.register(Wishlist, WishlistAdmin)
-admin.site.register(WishlistItem)
+@admin.register(WishlistItem)
+class WishlistItemAdmin(ModelAdmin):
+    list_display = ('wishlist', 'product','added_at')
+    list_filter = ('wishlist', 'product')
+    search_fields = ('wishlist__user__email', 'product__name')

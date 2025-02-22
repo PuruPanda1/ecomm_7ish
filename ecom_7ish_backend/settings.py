@@ -29,15 +29,20 @@ ALLOWED_HOSTS = []
 
 AUTH_USER_MODEL = 'users.CustomUser'
 
+# Enable JQuery
+USE_DJANGO_JQUERY = True
+
 # Application definition
 
 INSTALLED_APPS = [
+    'unfold',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'smart_selects',
     'users',
     'product',
     'orders',
@@ -145,3 +150,380 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# unfold configs
+
+from django.templatetags.static import static
+from django.urls import reverse_lazy
+from django.utils.translation import gettext_lazy as _
+
+UNFOLD = {
+    "SITE_TITLE": "7ish - Make your wish",
+    "SITE_HEADER": "7ish",
+    "SITE_SUBHEADER": "7ish",
+    "SITE_DROPDOWN": [
+        {
+            "icon": "diamond",
+            "title": _("View site"),
+            "link": "/",
+        },
+        # ...
+    ],
+    "SITE_URL": "/",
+    # "SITE_ICON": lambda request: static("icon.svg"),  # both modes, optimise for 32px height
+    "SITE_ICON": {
+        "light": lambda request: static("images/logo/favicon.svg"),  # light mode
+        "dark": lambda request: static("images/logo/favicon.svg"),  # dark mode
+    },
+    # "SITE_LOGO": lambda request: static("logo.svg"),  # both modes, optimise for 32px height
+    "SITE_LOGO": {
+        "light": lambda request: static("images/logo/favicon.svg"),  # light mode
+        "dark": lambda request: static("images/logo/favicon.svg"),  # dark mode
+    },
+    "SITE_SYMBOL": "speed",  # symbol from icon set
+    "SITE_FAVICONS": [
+        {
+            "rel": "icon",
+            "sizes": "32x32",
+            "type": "image/svg+xml",
+            "href": lambda request: static("images/logo/favicon.svg"),
+        },
+    ],
+    "SHOW_HISTORY": True, # show/hide "History" button, default: True
+    "SHOW_VIEW_ON_SITE": True, # show/hide "View on site" button, default: True
+    "SHOW_BACK_BUTTON": False, # show/hide "Back" button on changeform in header, default: False
+    "LOGIN": {
+        "image": lambda request: static("sample/login-bg.jpg"),
+        "redirect_after": lambda request: reverse_lazy("admin:APP_MODEL_changelist"),
+    },
+    "STYLES": [
+        lambda request: static("css/style.css"),
+    ],
+    "SCRIPTS": [
+        lambda request: static("js/script.js"),
+    ],
+    "BORDER_RADIUS": "6px",
+    "COLORS": {
+        "base": {
+            "50": "249 250 251",
+            "100": "243 244 246",
+            "200": "229 231 235",
+            "300": "209 213 219",
+            "400": "156 163 175",
+            "500": "107 114 128",
+            "600": "75 85 99",
+            "700": "55 65 81",
+            "800": "31 41 55",
+            "900": "17 24 39",
+            "950": "3 7 18",
+        },
+        "primary": {
+            "50": "250 245 255",
+            "100": "243 232 255",
+            "200": "233 213 255",
+            "300": "216 180 254",
+            "400": "192 132 252",
+            "500": "168 85 247",
+            "600": "147 51 234",
+            "700": "126 34 206",
+            "800": "107 33 168",
+            "900": "88 28 135",
+            "950": "59 7 100",
+        },
+        "font": {
+            "subtle-light": "var(--color-base-500)",  # text-base-500
+            "subtle-dark": "var(--color-base-400)",  # text-base-400
+            "default-light": "var(--color-base-600)",  # text-base-600
+            "default-dark": "var(--color-base-300)",  # text-base-300
+            "important-light": "var(--color-base-900)",  # text-base-900
+            "important-dark": "var(--color-base-100)",  # text-base-100
+        },
+    },
+   
+    "SIDEBAR": {
+        "show_search": True,  # Search in applications and models names
+        "show_all_applications": True,  # Dropdown with all applications and models
+        "navigation": [
+            {
+                "title": _("Dashboard"),
+                "separator": True,  # Top border
+                "collapsible": True,  # Collapsible group of links
+                "items": [
+                    {
+                        "title": _("Dashboard"),
+                        "icon": "dashboard",  
+                        "link": reverse_lazy("admin:index"),
+                        "permission": lambda request: request.user.is_superuser,
+                    },
+                ],
+            },
+            # user Details
+            {
+                "title": _("User Details"),
+                "separator": True,  # Top border
+                "collapsible": True,  # Collapsible group of links
+                "items": [
+                    {
+                        "title": _("Users"),
+                        "icon": "group",  
+                        "link": reverse_lazy("admin:users_customuser_changelist"),
+                        "permission": lambda request: request.user.is_superuser,
+                    },
+                    {
+                        "title": _("User Addresses"),
+                        "icon": "import_contacts",  
+                        "link": reverse_lazy("admin:users_useraddress_changelist"),
+                        "permission": lambda request: request.user.is_superuser,
+                    },
+                ],
+            },
+            # Men Banners
+            {
+                "title": _("Men Banners"),
+                "separator": True,  # Top border
+                "collapsible": True,  # Collapsible group of links
+                "items": [
+                    {
+                        "title": _("Top Banners"),
+                        "icon": "planner_banner_ad_pt",  
+                        "link": reverse_lazy("admin:banner_menbanner_changelist"),
+                        "permission": lambda request: request.user.is_superuser,
+                    },
+                    {
+                        "title": _("Collections"),
+                        "icon": "planner_banner_ad_pt",  
+                        "link": reverse_lazy("admin:banner_mencollection_changelist"),
+                        "permission": lambda request: request.user.is_superuser,
+                    },
+                    {
+                        "title": _("Mid-Page Banners"),
+                        "icon": "planner_banner_ad_pt",  
+                        "link": reverse_lazy("admin:banner_menmidbanner_changelist"),
+                        "permission": lambda request: request.user.is_superuser,
+                    },
+                    {
+                        "title": _("Countdown Timmer"),
+                        "icon": "planner_banner_ad_pt",  
+                        "link": reverse_lazy("admin:banner_mencountdown_changelist"),
+                        "permission": lambda request: request.user.is_superuser,
+                    },
+                    {
+                        "title": _("Bar-Info Text"),
+                        "icon": "planner_banner_ad_pt",  
+                        "link": reverse_lazy("admin:banner_menbartext_changelist"),
+                        "permission": lambda request: request.user.is_superuser,
+                    },
+                ],
+            },
+            # Women Banners
+            {
+                "title": _("Women Banners"),
+                "separator": True,  # Top border
+                "collapsible": True,  # Collapsible group of links
+                "items": [
+                    {
+                        "title": _("Top Banners"),
+                        "icon": "planner_banner_ad_pt",  
+                        "link": reverse_lazy("admin:banner_womenbanner_changelist"),
+                        "permission": lambda request: request.user.is_superuser,
+                    },  
+                    {
+                        "title": _("Mid-Page Banners"),
+                        "icon": "planner_banner_ad_pt",  
+                        "link": reverse_lazy("admin:banner_womenmidbanner_changelist"),
+                        "permission": lambda request: request.user.is_superuser,
+                    },
+                    {
+                        "title": _("Collections"),
+                        "icon": "planner_banner_ad_pt",  
+                        "link": reverse_lazy("admin:banner_womencollection_changelist"),
+                        "permission": lambda request: request.user.is_superuser,
+                    },
+                ],
+            },
+            # Kids Banners
+            {
+                "title": _("Kids Banners"),
+                "separator": True,  # Top border
+                "collapsible": True,  # Collapsible group of links
+                "items": [
+                    {
+                        "title": _("Top Banners"),
+                        "icon": "planner_banner_ad_pt",  
+                        "link": reverse_lazy("admin:banner_kidsbanner_changelist"),
+                        "permission": lambda request: request.user.is_superuser,
+                    },  
+                    {
+                        "title": _("Mid-Page Banners"),
+                        "icon": "planner_banner_ad_pt",  
+                        "link": reverse_lazy("admin:banner_kidsmidbanner_changelist"),
+                        "permission": lambda request: request.user.is_superuser,
+                    },
+                    {
+                        "title": _("Collections"),
+                        "icon": "planner_banner_ad_pt",  
+                        "link": reverse_lazy("admin:banner_kidscollection_changelist"),
+                        "permission": lambda request: request.user.is_superuser,
+                    },
+                    {
+                        "title": _("Bar-Info Text"),
+                        "icon": "planner_banner_ad_pt",  
+                        "link": reverse_lazy("admin:banner_kidbartext_changelist"),
+                        "permission": lambda request: request.user.is_superuser,
+                    },
+                ],
+            },
+            # Product Details
+            {
+                "title": _("Product Details"),
+                "separator": True,  # Top border
+                "collapsible": True,  # Collapsible group of links
+                "items": [
+                    {
+                        "title": _("Categories"),
+                        "icon": "category",  
+                        "link": reverse_lazy("admin:product_category_changelist"),
+                        "permission": lambda request: request.user.is_superuser,
+                    },
+                    {
+                        "title": _("Sub - Categories"),
+                        "icon": "category",  
+                        "link": reverse_lazy("admin:product_subcategory_changelist"),
+                        "permission": lambda request: request.user.is_superuser,
+                    },
+                    {
+                        "title": _("Tags"),
+                        "icon": "tag",  
+                        "link": reverse_lazy("admin:product_tag_changelist"),
+                        "permission": lambda request: request.user.is_superuser,
+                    },
+                    {
+                        "title": _("Products"),
+                        "icon": "apparel",  
+                        "link": reverse_lazy("admin:product_product_changelist"),
+                        "permission": lambda request: request.user.is_superuser,
+                    },  
+                    {
+                        "title": _("Product Variants"),
+                        "icon": "apparel",  
+                        "link": reverse_lazy("admin:product_productvariant_changelist"),
+                        "permission": lambda request: request.user.is_superuser,
+                    },
+                    {
+                        "title": _("Reviews"),
+                        "icon": "reviews",  
+                        "link": reverse_lazy("admin:reviews_review_changelist"),
+                        "permission": lambda request: request.user.is_superuser,
+                    },
+                ],
+            },
+            # Sale & coupon codes
+            {
+                "title": _("Sale & Coupon"),
+                "separator": True,  # Top border
+                "collapsible": True,  # Collapsible group of links
+                "items": [
+                    {
+                        "title": _("Sale"),
+                        "icon": "category",  
+                        "link": reverse_lazy("admin:product_sale_changelist"),
+                        "permission": lambda request: request.user.is_superuser,
+                    },
+                    {
+                        "title": _("Coupon Code"),
+                        "icon": "category",  
+                        "link": reverse_lazy("admin:product_coupon_changelist"),
+                        "permission": lambda request: request.user.is_superuser,
+                    },                    
+                ],
+            },
+            # Orders & Returns
+            {
+                "title": _("Orders & Returns"),
+                "separator": True,  # Top border
+                "collapsible": True,  # Collapsible group of links
+                "items": [
+                    {
+                        "title": _("Orders"),
+                        "icon": "orders",  
+                        "link": reverse_lazy("admin:orders_order_changelist"),
+                        "permission": lambda request: request.user.is_superuser,
+                    },
+                    {
+                        "title": _("Order Items"),
+                        "icon": "orders",  
+                        "link": reverse_lazy("admin:orders_orderitem_changelist"),
+                        "permission": lambda request: request.user.is_superuser,
+                    },
+                    {
+                        "title": _("Returns"),
+                        "icon": "orders",  
+                        "link": reverse_lazy("admin:orders_returns_changelist"),
+                        "permission": lambda request: request.user.is_superuser,
+                    },                    
+                ],
+            },
+            # Payments
+            {
+                "title": _("Payment Details"),
+                "separator": True,  # Top border
+                "collapsible": True,  # Collapsible group of links
+                "items": [
+                    {
+                        "title": _("Payment"),
+                        "icon": "orders",  
+                        "link": reverse_lazy("admin:payments_payment_changelist"),
+                        "permission": lambda request: request.user.is_superuser,
+                    },
+                ],
+            },
+            # Extars - No admin interference needed
+            {
+                "title": _("Extras"),
+                "separator": True,  # Top border
+                "collapsible": True,  # Collapsible group of links
+                "items": [
+                    {
+                        "title": _("Wishlist"),
+                        "icon": "favorite",  
+                        "link": reverse_lazy("admin:wishlist_wishlist_changelist"),
+                        "permission": lambda request: request.user.is_superuser,
+                    },
+                    {
+                        "title": _("Wishlist Items"),
+                        "icon": "favorite",  
+                        "link": reverse_lazy("admin:wishlist_wishlistitem_changelist"),
+                        "permission": lambda request: request.user.is_superuser,
+                    },     
+                    {
+                        "title": _("Cart"),
+                        "icon": "shopping_cart",  
+                        "link": reverse_lazy("admin:wishlist_wishlistitem_changelist"),
+                        "permission": lambda request: request.user.is_superuser,
+                    },                  
+                    {
+                        "title": _("Cart Items"),
+                        "icon": "shopping_cart",  
+                        "link": reverse_lazy("admin:wishlist_wishlistitem_changelist"),
+                        "permission": lambda request: request.user.is_superuser,
+                    },   
+                ],
+            },
+        ],
+    },
+    # "TABS": [
+    #     {
+    #         "models": [
+    #             "app_label.model_name_in_lowercase",
+    #         ],
+    #         "items": [
+    #             {
+    #                 "title": _("Your custom title"),
+    #                 "link": reverse_lazy("admin:app_label_model_name_changelist"),
+    #                 "permission": "sample_app.permission_callback",
+    #             },
+    #         ],
+    #     },
+    # ],
+}

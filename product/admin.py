@@ -1,42 +1,51 @@
 from django.contrib import admin
 from .models import *
+from unfold.admin import ModelAdmin, TabularInline
 
 
-class ProductVariantInline(admin.TabularInline):
+class ProductVariantInline(TabularInline):
     model = ProductVariant
     extra = 1
 
-class ProductImageInline(admin.TabularInline):
+class ProductImageInline(TabularInline):
     model = ProductImage
     extra = 1  # Allows adding multiple images per product
     ordering = ['order'] 
 
 @admin.register(ProductImage)
-class ProductImageAdmin(admin.ModelAdmin):
+class ProductImageAdmin(ModelAdmin):
     list_display = ('product', 'color', 'image', 'order')
     list_filter = ('product', 'color')
     ordering = ('order',)
     
 @admin.register(Product)
-class ProductAdmin(admin.ModelAdmin):
+class ProductAdmin(ModelAdmin):
     inlines = [ProductVariantInline, ProductImageInline]
     list_filter = ('category', 'sub_category', 'tags')
+    list_display = ('name', 'brand_name', 'created_at', 'updated_at', 'is_active')
+    search_fields = ('name', 'brand_name',)
 
-admin.site.register(Category)
+@admin.register(Category)
+class CategoryAdmin(ModelAdmin):
+    list_filter = ('name',)
+    list_display = ('name', 'created_at', 'updated_at')
+
 @admin.register(SubCategory)
-class SubCategoryAdmin(admin.ModelAdmin):
+class SubCategoryAdmin(ModelAdmin):
     list_filter = ('category__name',)
 
 
-admin.site.register(Tag)
-
+@admin.register(Tag)
+class TagAdmin(ModelAdmin):
+    list_display = ('name', 'is_active')
+    list_filter = ('category__name',)
 
 
 @admin.register(ProductVariant)
-class ProductVariantAdmin(admin.ModelAdmin):
+class ProductVariantAdmin(ModelAdmin):
     readonly_fields = ('sku',)
     list_display = ('sku', 'product', 'usual_price', 'discount_price', 'stock', 'returned_quantity', 'get_variant_name')
-    list_filter = ('product','stock','returned_quantity', 'is_active')
+    list_filter = ('is_active', 'product','stock','returned_quantity', 'size', 'color')
     search_fields = ('product__name', 'sku')
     list_per_page = 20
 
@@ -44,13 +53,13 @@ class ProductVariantAdmin(admin.ModelAdmin):
 # Sale and Coupon Admin
 
 @admin.register(Sale)
-class SaleAdmin(admin.ModelAdmin):
+class SaleAdmin(ModelAdmin):
     list_display = ('sale_name', 'start_date', 'end_date')
     list_filter = ('start_date', 'end_date')
     search_fields = ('sale_name',)
 
 @admin.register(Coupon)
-class CouponAdmin(admin.ModelAdmin):
+class CouponAdmin(ModelAdmin):
     list_display = ('coupon_code', 'discount_percentage', 'is_active')
     list_filter = ('is_active',)
     search_fields = ('coupon_code',)
