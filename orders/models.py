@@ -1,11 +1,9 @@
 from django.db import models
 from users.models import CustomUser, UserAddress
 from product.models import ProductVariant
-from decimal import Decimal
+from django.utils import timezone
+from smart_selects.db_fields import GroupedForeignKey
 
-# total_pre_tax = total_price + shipping_cost
-# total_tax = total_pre_tax * tax_rate
-# order_total = total_pre_tax + total_tax
 class Order(models.Model):
     ORDER_STATUS_CHOICES = [
         ('ordered', 'Ordered'),
@@ -16,11 +14,11 @@ class Order(models.Model):
         ('refunded', 'Refunded'),
     ]
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    order_date = models.DateTimeField(auto_now_add=True)
+    order_date = models.DateTimeField(default=timezone.now)
     shipping_cost = models.DecimalField(max_digits=10, decimal_places=2)
     order_status = models.CharField(max_length=100, choices=ORDER_STATUS_CHOICES, default='ordered')
-    shipping_address = models.ForeignKey(UserAddress, on_delete=models.CASCADE, related_name='shipping_address')
-    billing_address = models.ForeignKey(UserAddress, on_delete=models.CASCADE, related_name='billing_address')
+    shipping_address = GroupedForeignKey(UserAddress, 'user' ,on_delete=models.CASCADE, related_name='shipping_address')
+    billing_address = GroupedForeignKey(UserAddress, 'user' ,on_delete=models.CASCADE, related_name='billing_address')
     @property
     def total_price_pre_tax(self):
         return sum(item.total_price_pre_tax for item in self.order_items.all())

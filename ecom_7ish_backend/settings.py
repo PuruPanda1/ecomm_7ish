@@ -192,13 +192,14 @@ UNFOLD = {
             "href": lambda request: static("images/logo/favicon.svg"),
         },
     ],
+    "DASHBOARD_CALLBACK": "server.dashboard.dashboard_callback",
     "SHOW_HISTORY": True, # show/hide "History" button, default: True
     "SHOW_VIEW_ON_SITE": True, # show/hide "View on site" button, default: True
-    "SHOW_BACK_BUTTON": False, # show/hide "Back" button on changeform in header, default: False
-    "LOGIN": {
-        "image": lambda request: static("sample/login-bg.jpg"),
-        "redirect_after": lambda request: reverse_lazy("admin:APP_MODEL_changelist"),
-    },
+    "SHOW_BACK_BUTTON": True, # show/hide "Back" button on changeform in header, default: False
+    # "LOGIN": {
+    #     "image": lambda request: static("sample/login-bg.jpg"),
+    #     "redirect_after": lambda request: reverse_lazy("admin:APP_MODEL_changelist"),
+    # },
     "STYLES": [
         lambda request: static("css/style.css"),
     ],

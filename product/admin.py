@@ -51,9 +51,9 @@ class TagAdmin(ModelAdmin):
 @admin.register(ProductVariant)
 class ProductVariantAdmin(ModelAdmin):
     readonly_fields = ('sku',)
-    list_display = ('sku', 'product', 'usual_price', 'discount_price', 'stock', 'returned_quantity', 'get_variant_name')
+    list_display = ('id','sku', 'product', 'usual_price', 'discount_price', 'stock', 'returned_quantity', 'get_variant_name')
     list_filter = ('is_active', 'product','stock','returned_quantity', 'size', 'color')
-    search_fields = ('product__name', 'sku')
+    search_fields = ('product__name', 'color', 'size')
     list_per_page = 20
 
 
