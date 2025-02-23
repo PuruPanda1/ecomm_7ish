@@ -6,7 +6,8 @@ from product.models import Product, Tag, Category, SubCategory, Sale, ProductVar
 from banner.models import WomenBanner, WomenCollection, WomenMidBanner, MenBanner, MenCountdown, MenMidBanner, MenCollection, MenBarText, KidsBanner, KidsCollection, KidsMidBanner, KidBarText
 from reviews.models import Review
 from collaboration.models import Collaboration
-from users.forms import SignupForm, LoginForm
+from orders.models import Order, OrderItem
+from django.utils import timezone
 from django.http import HttpResponseBadRequest, HttpResponseNotFound, HttpResponse
 from django.db import models
 import time
@@ -15,6 +16,8 @@ from django.contrib import messages
 import math
 from decimal import Decimal
 from django.contrib.auth import get_user_model
+from .utils import calculate_cart_total, calculate_discount
+from django.db import transaction
 
 User = get_user_model()
 
@@ -812,40 +815,68 @@ def apply_coupon_code(request, gift_wrap):
         })
 
 
-# utils
-def calculate_cart_total(cart, discount):
-    items = CartItem.objects.filter(cart=cart)
+# order views
+# TODO: add need_gift_wrap amount (99) to final total and order note
+def create_order(request, need_gift_wrap, order_note):
+    user = request.user
+
+    if not user.is_authenticated:
+        return redirect("login")
+
+    cart, _ = Cart.objects.get_or_create(user=user)
+    cart_items = CartItem.objects.filter(cart=cart)
+
+    if not cart_items.exists():
+        return redirect("cart")
+
     
-    # Convert discount to Decimal for consistency
-    discount = Decimal(discount)
+    shipping_address_id = request.POST.get('selected_address')
+    shipping_address = UserAddress.objects.filter(id=shipping_address_id).first()
+    billing_address_id = request.POST.get('billing_address') or shipping_address.id
+    billing_address = UserAddress.objects.filter(id=billing_address_id).first()
+    
+    shipping_cost = request.POST.get('shipping_cost') or 0
+    coupon_code = request.POST.get('coupon_code') or ''
+    discount_amount = 0
 
-    # Calculate total pre-tax amount
-    total_pre_tax = sum(Decimal(item.product_variant.discount_price) * item.quantity for item in items)
+    if coupon_code != '':
+        coupon = Coupon.objects.filter(coupon_code=coupon_code).first()
+        if coupon:
+            discount_amount = calculate_discount(coupon, cart)
+        
 
-    # Avoid division by zero
-    if total_pre_tax == 0:
-        return {"subtotal": Decimal("0.00"), "tax": Decimal("0.00"), "final_total": Decimal("0.00")}
+    sub_total, tax, final_total = calculate_cart_total(cart, discount_amount).values()
 
-    # Apply Coupon Discount Proportionally
-    discounted_prices = {
-        item.id: (Decimal(item.product_variant.discount_price) * item.quantity) - (
-            (Decimal(item.product_variant.discount_price) * item.quantity / total_pre_tax) * discount
+    # use transactions for atomicity
+    with transaction.atomic():
+        order = Order.objects.create(
+            user=user,
+            order_date=timezone.now(),
+            shipping_cost=shipping_cost,
+            order_status='ordered',
+            shipping_address=shipping_address,
+            billing_address=billing_address,
+            total_price_pre_tax=sub_total,
+            total_tax=tax,
+            order_total=final_total,
+            discount=discount_amount,
+            coupon_code=coupon_code,
         )
-        for item in items
-    }
 
-    # Calculate total tax (since tax rate is in decimal form, use it directly)
-    total_tax = sum(
-        discounted_prices[item.id] * Decimal(item.product_variant.product.tax_rate)
-        for item in items
-    )
+        for item in cart_items:
+            product_variant = ProductVariant.objects.filter(id=item.product_variant.id).first()
+            product_variant.stock -= item.quantity
+            product_variant.save()
+            OrderItem.create_order_item(order, item.product_variant, item.quantity)
 
-    # Final total after discount and tax
-    final_total = sum(discounted_prices.values()) + total_tax
-    print(f"The final total is = {final_total}")
+        cart.delete()
 
-    return {
-        "subtotal": round(sum(discounted_prices.values()), 2),
-        "tax": round(total_tax, 2),
-        "final_total": round(final_total, 2)
-    }
+        return redirect("order-success")
+    
+    return redirect("order-failure")
+
+def order_success(request):
+    return render(request, 'server/components/checkout/order-success.html')
+
+def order_failure(request):
+        return render(request, 'server/components/checkout/order-failure.html')

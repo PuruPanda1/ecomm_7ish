@@ -25,14 +25,19 @@ def dashboard_callback(request, context):
 
     # Top cards count data
     orders = Order.objects.filter(order_status='delivered')
-    revenue = sum(order.total_price_pre_tax for order in orders)
+    revenue = orders.aggregate(Sum('total_price_pre_tax'))['total_price_pre_tax__sum'] or 0
     order_count = orders.count()
     pending_order_count = Order.objects.filter(order_status__in=['ordered','confirmed', 'shipped']).count()
     return_count = Order.objects.filter(order_status__in=['refunded','returned']).count()
 
     product_count = Product.objects.filter(is_active=True).count()
     
-    last_week_revenue = sum(order.total_price_pre_tax for order in orders.filter(order_date__gte=timezone.now() - timedelta(days=7)))
+    last_week_revenue = orders.filter(
+        order_date__gte=timezone.now() - timedelta(days=7)
+        ).aggregate(Sum('total_price_pre_tax'))['total_price_pre_tax__sum'] or 0
+    print(f"Revenue = {revenue}")
+    print(f"Last Week Revenue = {last_week_revenue}")
+
     last_week_orders = orders.filter(order_date__gte=timezone.now() - timedelta(days=7)).count()
     
     order_chart = get_order_chart(request)

@@ -1,4 +1,4 @@
-<div class="address-card" onclick="selectAddress(this)">
+<div class="address-card" data-address-id="{{ address.id }}" onclick="selectAddress(this)">
     <p><strong>
         {% if address.nickname %}
             {{address.nickname}}

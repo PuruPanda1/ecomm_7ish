@@ -108,7 +108,7 @@
                 <div class="tf-page-cart-footer">
                     <div class="tf-cart-footer-inner">
                         <h5 class="fw-5 mb_20">Your order</h5>
-                        <form class="tf-page-cart-checkout widget-wrap-checkout">
+                        <form class="tf-page-cart-checkout widget-wrap-checkout" id="order-create-form">
                             {% for item in cart_items %}
                                 <ul class="wrap-checkout-product">
                                     <li class="checkout-product-item">
@@ -158,8 +158,13 @@
                                     <h6 class="total fw-5">Rs. {{cart_total}}</h6>
                                 </div>
                             </div>
+                            <input type="hidden" name="selected_address" id="selected-address-input">
                             <button class="tf-btn radius-3 btn-fill btn-icon animate-hover-btn justify-content-center"
-
+                            hx-post="{% url 'create-order' need_gift_wrap|yesno:'1,0' 'hey' %}"
+                            hx-target="#floatingMessageContainer"
+                            hx-trigger="click"
+                            hx-swap="outerHTML"
+                            hx-include="#order-create-form,"
                             >
                                 Place order
                             </button>
@@ -219,6 +224,17 @@
 
             // Add 'selected' class to clicked card
             selectedCard.classList.add('selected');
+            selectedAddressId = selectedCard.getAttribute("data-address-id");
+            document.getElementById("selected-address-input").value = selectedAddressId;
+        }
+
+        function addSelectedAddress(event) {
+            if (!selectedAddressId) {
+                alert("Please select an address before placing your order.");
+                event.preventDefault(); // Stop form submission if no address is selected
+            } else {
+                document.getElementById("selected-address-input").value = selectedAddressId;
+            }
         }
 
         function toggleForm(){

@@ -19,17 +19,11 @@ class Order(models.Model):
     order_status = models.CharField(max_length=100, choices=ORDER_STATUS_CHOICES, default='ordered')
     shipping_address = GroupedForeignKey(UserAddress, 'user' ,on_delete=models.CASCADE, related_name='shipping_address')
     billing_address = GroupedForeignKey(UserAddress, 'user' ,on_delete=models.CASCADE, related_name='billing_address')
-    @property
-    def total_price_pre_tax(self):
-        return sum(item.total_price_pre_tax for item in self.order_items.all())
-    
-    @property 
-    def total_tax(self):
-        return sum(item.total_tax for item in self.order_items.all())
-        
-    @property
-    def order_total(self):
-        return self.total_price_pre_tax + self.total_tax + self.shipping_cost
+    total_price_pre_tax = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
+    total_tax = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
+    order_total = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
+    discount = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
+    coupon_code = models.CharField(max_length=100, default='')
     
     def __str__(self):
         return f"Order {self.id} - {self.user.email}"

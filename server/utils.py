@@ -9,7 +9,9 @@ import json
 from collections import defaultdict
 from decimal import Decimal
 from django.db.models import Sum, Count
-
+import math
+from orders.models import Order, OrderItem
+from cart.models import Cart, CartItem
 # order data for chart
 def get_order_chart(request):
     end_date = date.today()
@@ -159,3 +161,66 @@ def get_avg_chart():
     }
     chart_data = json.dumps(chart)
     return chart_data
+
+
+# cart total after discount
+def calculate_cart_total(cart, discount):
+    items = CartItem.objects.filter(cart=cart)
+    
+    # Convert discount to Decimal for consistency
+    discount = Decimal(discount)
+
+    # Calculate total pre-tax amount
+    total_pre_tax = sum(Decimal(item.product_variant.discount_price) * item.quantity for item in items)
+
+    # Avoid division by zero
+    if total_pre_tax == 0:
+        return {"subtotal": Decimal("0.00"), "tax": Decimal("0.00"), "final_total": Decimal("0.00")}
+
+    # Apply Coupon Discount Proportionally
+    discounted_prices = {
+        item.id: (Decimal(item.product_variant.discount_price) * item.quantity) - (
+            (Decimal(item.product_variant.discount_price) * item.quantity / total_pre_tax) * discount
+        )
+        for item in items
+    }
+
+    # Calculate total tax (since tax rate is in decimal form, use it directly)
+    total_tax = sum(
+        discounted_prices[item.id] * Decimal(item.product_variant.product.tax_rate)
+        for item in items
+    )
+
+    # Final total after discount and tax
+    final_total = sum(discounted_prices.values()) + total_tax
+    final_total = math.ceil(final_total)
+    print(f"The final total is = {final_total}")
+
+    return {
+        "subtotal": round(sum(discounted_prices.values()), 2),
+        "tax": round(total_tax, 2),
+        "final_total": round(final_total, 2)
+    }
+
+def calculate_discount(coupon, cart):
+    sub_total = cart.total_price_pre_tax
+
+    flat_discount = coupon.discount_amount
+    discount_percent = coupon.discount_percentage
+
+    # calculation for flat discount
+    if flat_discount:
+        discount_amount = f"{math.ceil(flat_discount):.2f}"
+        return discount_amount
+
+    # calculation for percentage discount
+    discount_amount = f"{math.ceil((discount_percent / 100) * sub_total):.2f}"
+
+    if Decimal(discount_amount) > coupon.max_discount_amount:
+        discount_amount = f"{coupon.max_discount_amount:.2f}"
+
+
+    
+    return discount_amount
+
+        

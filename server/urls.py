@@ -54,5 +54,8 @@ urlpatterns = [
     path('add-address/', add_address, name='add-address'),     
     path('apply-coupon-code/<int:gift_wrap>/', apply_coupon_code, name='apply-coupon-code'),
     
-
+    # orders urls
+    path('create-order/<int:need_gift_wrap>/<str:order_note>/', create_order, name='create-order'),
+    path('order-success/', order_success, name='order-success'),
+    path('order-failure/', order_failure, name='order-failure'),
 ]
