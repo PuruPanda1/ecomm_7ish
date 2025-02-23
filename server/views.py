@@ -14,20 +14,35 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 import math
 from decimal import Decimal
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 def signup_view(request):
     if request.user.is_authenticated:
         return redirect("home-women") 
     
     if request.method == "POST":
-        form = SignupForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            login(request, user)  # Log in the new user
-            return redirect("sever:home-women")  # Redirect to home page
-    else:
-        form = SignupForm()
-    return render(request, "server/users/signup.html", {"form": form})
+        email = request.POST.get("email")
+        password1 = request.POST.get("password1")
+        password2 = request.POST.get("password2")
+
+        if password1 != password2:
+            messages.error(request, "Passwords do not match")
+            return render(request, "server/users/signup.html")
+
+        if User.objects.filter(email=email).exists():
+            messages.error(request, "Email is already registered")
+            return render(request, "server/users/signup.html")
+
+        # Create new user
+        user = User.objects.create_user(email=email, password=password1)
+        user.save()
+
+        login(request, user)  # Log in the new user
+        return redirect("home-women")
+
+    return render(request, "server/users/signup.html")
 
 def login_view(request):
     if request.user.is_authenticated:
