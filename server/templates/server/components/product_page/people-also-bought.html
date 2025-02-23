@@ -13,7 +13,7 @@
                         <div class="swiper-slide" lazy="true">
                             <div class="card-product style-2">
                                 <div class="card-product-wrapper">
-                                    <a href="{% url 'server:product-detail' product.id %}" class="product-img">
+                                    <a href="{% url 'product-detail' product.id %}" class="product-img">
                                         {% with first_image=product.variants.first.get_images.first %}
                                             <img
                                                 class="lazyload img-product"
@@ -85,7 +85,7 @@
                                     </div>
                                 </div>
                                 <div class="card-product-info">
-                                    <a href="{% url 'server:product-detail' product.id %}" class="title link"
+                                    <a href="{% url 'product-detail' product.id %}" class="title link"
                                     >{{ product.name }}</a
                                         >
                                         {% with first_variant=product.variants.first %}

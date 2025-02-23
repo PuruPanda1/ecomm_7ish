@@ -6,9 +6,9 @@
             <div class="row wrapper-header align-items-center">
                 <div class="col-xl-5 tf-md-hidden">
                     <ul class="header-list-categories">
-                        <li class="categories-item {% if current_tab == 'Women' %}active{% endif %}"><a href="{% url 'server:home-women' %}" class="text-uppercase">Women</a></li>
-                        <li class="categories-item {% if current_tab == 'Men' %}active{% endif %}"><a href="{% url 'server:home-men' %}" class="text-uppercase">Men</a></li>
-                        <li class="categories-item {% if current_tab == 'Kids' %}active{% endif %}"><a href="{% url 'server:home-kids' %}" class="text-uppercase">Kids</a></li>
+                        <li class="categories-item {% if current_tab == 'Women' %}active{% endif %}"><a href="{% url 'home-women' %}" class="text-uppercase">Women</a></li>
+                        <li class="categories-item {% if current_tab == 'Men' %}active{% endif %}"><a href="{% url 'home-men' %}" class="text-uppercase">Men</a></li>
+                        <li class="categories-item {% if current_tab == 'Kids' %}active{% endif %}"><a href="{% url 'home-kids' %}" class="text-uppercase">Kids</a></li>
                     </ul>
                 </div>
                 <div class="col-md-4 col-3 tf-lg-hidden">
@@ -19,7 +19,7 @@
                     </a>
                 </div>
                 <div class="col-xl-2 col-md-4 col-6 text-center">
-                    <a href="{% url 'server:home-women' %}" class="logo-header">
+                    <a href="{% url 'home-women' %}" class="logo-header">
                         <img src="{% static 'images/logo/logo.svg' %}" alt="logo" class="logo">
                     </a>
                 </div>
@@ -28,13 +28,13 @@
                     <ul class="nav-icon d-flex justify-content-end align-items-center gap-20">
                         <li class="nav-search"><a href="#canvasSearch" data-bs-toggle="offcanvas" aria-controls="offcanvasLeft" class="nav-icon-item"><i class="icon icon-search"></i></a></li>
                         <li class="nav-account"><a href="#login" data-bs-toggle="modal" class="nav-icon-item"><i class="icon icon-account"></i></a></li>
-                        <li class="nav-wishlist" id="wishlist-count"><a href="{% url 'server:wishlist' %}" class="nav-icon-item"><i class="icon icon-heart"></i><span class="count-box">{{request.user|get_wishlist_count}}</span></a></li>
+                        <li class="nav-wishlist" id="wishlist-count"><a href="{% url 'wishlist' %}" class="nav-icon-item"><i class="icon icon-heart"></i><span class="count-box">{{request.user|get_wishlist_count}}</span></a></li>
                         {% if request.resolver_match.url_name != "cart" %}
-                        <li class="nav-cart"><a href="#shoppingCart" data-bs-toggle="modal" class="nav-icon-item"><i class="icon icon-bag"></i>
-                            <span class="count-box" id="cart-count">
-                                {{request.user|get_cart_count}}
-                            </span>
-                        </a></li>
+                            <li class="nav-cart"><a href="#shoppingCart" data-bs-toggle="modal" class="nav-icon-item"><i class="icon icon-bag"></i>
+                                <span class="count-box" id="cart-count">
+                                    {{request.user|get_cart_count}}
+                                </span>
+                            </a></li>
                         {% endif %}
                     </ul>
                 </div>
@@ -47,10 +47,10 @@
                 <nav class="box-navigation text-center">
                     <ul class="box-nav-ul d-flex align-items-center justify-content-center gap-30">
                         <li class="menu-item">
-                            <a href="{% url 'server:home-women' %}" class="item-link">Home</a>
+                            <a href="{% url 'home-women' %}" class="item-link">Home</a>
                         </li>
                         <li class="menu-item">
-                            <a href="{% url 'server:shop' %}" class="item-link">Shop</a>
+                            <a href="{% url 'shop' %}" class="item-link">Shop</a>
                         </li>
                         <li class="menu-item">
                             <a href="#" class="item-link">Products<i class="icon icon-arrow-down"></i></a>
@@ -62,7 +62,7 @@
                                                 <div class="menu-heading">Men Products</div>
                                                 <ul class="menu-list">
                                                     {% for tag in men_tags %}
-                                                        <li><a href="{% url 'server:shop-category' 'Men' tag.name %}" class="menu-link-text link">{{ tag.name }}</a></li>
+                                                        <li><a href="{% url 'shop-category' 'Men' tag.name %}" class="menu-link-text link">{{ tag.name }}</a></li>
                                                     {% endfor %}
                                                 </ul>
                                             </div>
@@ -72,7 +72,7 @@
                                                 <div class="menu-heading">Women Products</div>
                                                 <ul class="menu-list">
                                                     {% for tag in women_tags %}
-                                                        <li><a href="{% url 'server:shop-category' 'Women' tag.name %}" class="menu-link-text link">{{ tag.name }}</a></li>
+                                                        <li><a href="{% url 'shop-category' 'Women' tag.name %}" class="menu-link-text link">{{ tag.name }}</a></li>
                                                     {% endfor %}
                                                 </ul>
                                             </div>
@@ -82,7 +82,7 @@
                                                 <div class="menu-heading">Kids Products</div>
                                                 <ul class="menu-list">
                                                     {% for tag in kids_tags %}
-                                                        <li><a href="{% url 'server:shop-category' 'Kids' tag.name %}" class="menu-link-text link">{{ tag.name }}</a></li>
+                                                        <li><a href="{% url 'shop-category' 'Kids' tag.name %}" class="menu-link-text link">{{ tag.name }}</a></li>
                                                     {% endfor %}
                                                 </ul>
                                             </div>
@@ -96,7 +96,7 @@
                                                             <div class="swiper-slide" lazy="true">
                                                                 <div class="card-product style-2">
                                                                     <div class="card-product-wrapper">
-                                                                        <a href="{% url 'server:product-detail' product.id %}" class="product-img">
+                                                                        <a href="{% url 'product-detail' product.id %}" class="product-img">
                                                                             {% with first_image=product.variants.first.get_images.first %}
                                                                                 <img
                                                                                     class="lazyload img-product"
@@ -185,7 +185,7 @@
                                                                         </div>
                                                                     </div>
                                                                     <div class="card-product-info">
-                                                                        <a href="{% url 'server:product-detail' product.id %}" class="title link"
+                                                                        <a href="{% url 'product-detail' product.id %}" class="title link"
                                                                         >{{ product.name }}</a
                                                                             >
                                                                             {% with first_variant=product.variants.first %}
@@ -300,9 +300,9 @@
                     </ul>
                 </nav>
                 <ul class="header-list-categories tf-lg-hidden">
-                    <li class="categories-item {% if current_tab == 'Women' %}active{% endif %}"><a href="{% url 'server:home-women' %}" class="text-uppercase">Women</a></li>
-                    <li class="categories-item {% if current_tab == 'Men' %}active{% endif %}"><a href="{% url 'server:home-men' %}" class="text-uppercase">Men</a></li>
-                    <li class="categories-item {% if current_tab == 'Kids' %}active{% endif %}"><a href="{% url 'server:home-kids' %}" class="text-uppercase">Kids</a></li>
+                    <li class="categories-item {% if current_tab == 'Women' %}active{% endif %}"><a href="{% url 'home-women' %}" class="text-uppercase">Women</a></li>
+                    <li class="categories-item {% if current_tab == 'Men' %}active{% endif %}"><a href="{% url 'home-men' %}" class="text-uppercase">Men</a></li>
+                    <li class="categories-item {% if current_tab == 'Kids' %}active{% endif %}"><a href="{% url 'home-kids' %}" class="text-uppercase">Kids</a></li>
                 </ul>
             </div>
         </div>

@@ -13,7 +13,7 @@
                                class="tf-check"
                                id="size_{{ size }}"
                                value="{{ size }}"
-                               hx-get="{% url 'server:filter-products' category_id=selected_category.id %}"
+                               hx-get="{% url 'filter-products' category_id=selected_category.id %}"
                                hx-trigger="change"
                                hx-include="#filter-form"
                                hx-target="#gridLayout"

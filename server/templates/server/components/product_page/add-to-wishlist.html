@@ -3,12 +3,12 @@
 
 <div id="icon-wishlist-{{ product.id }}">
   {% if product|in_wishlist:request.user %}
-    <a href="javascript:void(0);" class="tf-product-btn-wishlist hover-tooltip box-icon bg_white wishlist btn-icon-action" hx-get="{% url 'server:add-remove-wishlist-item-product-page' product.id %}" hx-target="#icon-wishlist-{{ product.id }}" hx-swap="innerHTML">
+    <a href="javascript:void(0);" class="tf-product-btn-wishlist hover-tooltip box-icon bg_white wishlist btn-icon-action" hx-get="{% url 'add-remove-wishlist-item-product-page' product.id %}" hx-target="#icon-wishlist-{{ product.id }}" hx-swap="innerHTML">
       <span class="tooltip">Remove from Wishlist</span>
       <span class="icon icon-delete" style="display: block !important;"></span>
     </a>
   {% else %}
-    <a href="javascript:void(0);" class="tf-product-btn-wishlist hover-tooltip box-icon bg_white wishlist btn-icon-action" hx-get="{% url 'server:add-remove-wishlist-item-product-page' product.id %}" hx-target="#icon-wishlist-{{ product.id }}" hx-swap="innerHTML">
+    <a href="javascript:void(0);" class="tf-product-btn-wishlist hover-tooltip box-icon bg_white wishlist btn-icon-action" hx-get="{% url 'add-remove-wishlist-item-product-page' product.id %}" hx-target="#icon-wishlist-{{ product.id }}" hx-swap="innerHTML">
       <span class="tooltip">Add from Wishlist</span>
       <span class="icon icon-heart" style="display: block !important;"></span>
     </a>

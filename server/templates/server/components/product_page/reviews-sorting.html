@@ -6,13 +6,13 @@
       <span class="icon icon-arrow-down"></span>
     </div>
     <div class="dropdown-menu">
-      <div class="select-item active" hx-get="{% url 'server:sort-reviews' product_id=product.id sort_by='most_recent' %}" hx-trigger="click" hx-target="#reviews-list">
+      <div class="select-item active" hx-get="{% url 'sort-reviews' product_id=product.id sort_by='most_recent' %}" hx-trigger="click" hx-target="#reviews-list">
         <span class="text-value-item">Most Recent</span>
       </div>
-      <div class="select-item" hx-get="{% url 'server:sort-reviews' product_id=product.id sort_by='oldest' %}" hx-trigger="click" hx-target="#reviews-list">
+      <div class="select-item" hx-get="{% url 'sort-reviews' product_id=product.id sort_by='oldest' %}" hx-trigger="click" hx-target="#reviews-list">
         <span class="text-value-item">Oldest</span>
       </div>
-      <div class="select-item" hx-get="{% url 'server:sort-reviews' product_id=product.id sort_by='most_popular' %}" hx-trigger="click" hx-target="#reviews-list">
+      <div class="select-item" hx-get="{% url 'sort-reviews' product_id=product.id sort_by='most_popular' %}" hx-trigger="click" hx-target="#reviews-list">
         <span class="text-value-item">Most Popular</span>
       </div>
     </div>

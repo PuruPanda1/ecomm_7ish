@@ -35,7 +35,7 @@
                                             <ul class="dropdown-menu p-0 border-0">
                                                 <li>
                                                     <div class="lookbook-product">
-                                                        <a href="{% url 'server:product-detail' banner.product_variant.product.id %}" class="image">
+                                                        <a href="{% url 'product-detail' banner.product_variant.product.id %}" class="image">
                                                             <img class="lazyload" data-src="{{ banner.product_variant.get_images.first.image.url }}" src="{{ banner.product_variant.get_images.first.image.url }}" alt="">
                                                         </a>
                                                         <div class="content-wrap">
@@ -105,41 +105,41 @@
             <div class="masonry-layout-v3 wow fadeInUp" data-wow-delay="0s">
                 <div class="item-1 collection-item style-2 hover-img">
                     <div class="collection-inner">
-                        <a href="{% url 'server:shop-category' 'Men' firstC.sub_category.name %}" class="collection-image img-style">
+                        <a href="{% url 'shop-category' 'Men' firstC.sub_category.name %}" class="collection-image img-style">
                             <img class="lazyload" data-src="{{ firstC.image.url }}" src="{{ firstC.image.url }}" alt="collection-img">
                         </a>
                         <div class="collection-content">
-                            <a href="{% url 'server:shop-category' 'Men' firstC.sub_category.name %}" class="tf-btn collection-title hover-icon fs-15 rounded-full"><span>{{ firstC.title }}</span><i class="icon icon-arrow1-top-left"></i></a>
+                            <a href="{% url 'shop-category' 'Men' firstC.sub_category.name %}" class="tf-btn collection-title hover-icon fs-15 rounded-full"><span>{{ firstC.title }}</span><i class="icon icon-arrow1-top-left"></i></a>
                         </div>
                     </div>
                 </div>
                 <div class="item-2 collection-item style-2 hover-img">
                     <div class="collection-inner">
-                        <a href="{% url 'server:shop-category' 'Men' secondC.sub_category.name %}" class="collection-image img-style">
+                        <a href="{% url 'shop-category' 'Men' secondC.sub_category.name %}" class="collection-image img-style">
                             <img class="lazyload" data-src="{{ secondC.image.url }}" src="{{ secondC.image.url }}" alt="collection-img">
                         </a>
                         <div class="collection-content">
-                            <a href="{% url 'server:shop-category' 'Men' secondC.sub_category.name %}" class="tf-btn collection-title hover-icon fs-15 rounded-full"><span>{{ secondC.title }}</span><i class="icon icon-arrow1-top-left"></i></a>
+                            <a href="{% url 'shop-category' 'Men' secondC.sub_category.name %}" class="tf-btn collection-title hover-icon fs-15 rounded-full"><span>{{ secondC.title }}</span><i class="icon icon-arrow1-top-left"></i></a>
                         </div>
                     </div>
                 </div>
                 <div class="item-3 collection-item style-2 hover-img">
                     <div class="collection-inner">
-                        <a href="{% url 'server:shop-category' 'Men' thirdC.sub_category.name %}" class="collection-image img-style">
+                        <a href="{% url 'shop-category' 'Men' thirdC.sub_category.name %}" class="collection-image img-style">
                             <img class="lazyload" data-src="{{ thirdC.image.url }}" src="{{ thirdC.image.url }}" alt="collection-img">
                         </a>
                         <div class="collection-content">
-                            <a href="{% url 'server:shop-category' 'Men' thirdC.sub_category.name %}" class="tf-btn collection-title hover-icon fs-15 rounded-full"><span>{{ thirdC.title }}</span><i class="icon icon-arrow1-top-left"></i></a>
+                            <a href="{% url 'shop-category' 'Men' thirdC.sub_category.name %}" class="tf-btn collection-title hover-icon fs-15 rounded-full"><span>{{ thirdC.title }}</span><i class="icon icon-arrow1-top-left"></i></a>
                         </div>
                     </div>
                 </div>
                 <div class="item-4 collection-item style-2 hover-img">
                     <div class="collection-inner">
-                        <a href="{% url 'server:shop-category' 'Men' fourthC.sub_category.name %}" class="collection-image img-style">
+                        <a href="{% url 'shop-category' 'Men' fourthC.sub_category.name %}" class="collection-image img-style">
                             <img class="lazyload" data-src="{{ fourthC.image.url }}" src="{{ fourthC.image.url }}" alt="collection-img">
                         </a>
                         <div class="collection-content">
-                            <a href="{% url 'server:shop-category' 'Men' fourthC.sub_category.name %}" class="tf-btn collection-title hover-icon fs-15 rounded-full"><span>{{ fourthC.title }}</span><i class="icon icon-arrow1-top-left"></i></a>
+                            <a href="{% url 'shop-category' 'Men' fourthC.sub_category.name %}" class="tf-btn collection-title hover-icon fs-15 rounded-full"><span>{{ fourthC.title }}</span><i class="icon icon-arrow1-top-left"></i></a>
                         </div>
                     </div>
                 </div>
@@ -149,12 +149,12 @@
         <!-- /Collection -->
         <!-- Banner men collection -->
     <section class="banner-hero-collection-wrap">
-        <a href="{% url 'server:shop-category' 'Men' mid_banner.tag.name %}" class="img-wrap">
+        <a href="{% url 'shop-category' 'Men' mid_banner.tag.name %}" class="img-wrap">
             <img class="lazyload" data-src="{{ mid_banner.image.url }}" src="{{ mid_banner.image.url }}" alt="fashion-slideshow">
         </a>
         <div class="box-content">
             <div class="container">
-                <a href="{% url 'server:shop-category' 'Men' mid_banner.tag.name %}" class="card-box">
+                <a href="{% url 'shop-category' 'Men' mid_banner.tag.name %}" class="card-box">
                     <h3 class="heading">{{ mid_banner.title }}</h3>
                     <p class="text">{{ mid_banner.sub_title }}</p>
                     <div class="wow fadeInUp" data-wow-delay="0s">
@@ -186,7 +186,7 @@
                             {% include 'server/partials/product-grid.html' with products=best_seller %}
                         </div>
                         <div class="tf-pagination-wrap view-more-button text-center">
-                            <a href="{% url 'server:shop-category' 'Men' 'Best Seller' %}" >
+                            <a href="{% url 'shop-category' 'Men' 'Best Seller' %}" >
                                 <button class="tf-btn-loading tf-loading-default style-2"><span class="text">  Shop Now </span></button>
                             </a>
                         </div>
@@ -196,7 +196,7 @@
                             {% include 'server/partials/product-grid.html' with products=sale %}
                         </div>
                         <div class="tf-pagination-wrap view-more-button text-center">
-                            <a href="{% url 'server:shop-category' 'Men' 'Sale' %}" >
+                            <a href="{% url 'shop-category' 'Men' 'Sale' %}" >
                                 <button class="tf-btn-loading tf-loading-default style-2"><span class="text">  Shop Now </span></button>
                             </a>
                         </div>
@@ -207,7 +207,7 @@
 
                         </div>
                         <div class="tf-pagination-wrap view-more-button text-center">
-                            <a href="{% url 'server:shop-category' 'Men' 'New Arrivals' %}" >
+                            <a href="{% url 'shop-category' 'Men' 'New Arrivals' %}" >
                                 <button class="tf-btn-loading tf-loading-default style-2"><span class="text">  Shop Now </span></button>
                             </a>
                         </div>
@@ -235,7 +235,7 @@
                             <div class="js-countdown" data-timer="{{ countdown2.time_left }}" data-labels="Days,Hours,Mins,Secs"></div>
                         </div>
                     </div>
-                    <a href="{% url 'server:shop-category' 'Men' countdown.tag.name %}" class="tf-btn style-2 btn-fill rounded-full animate-hover-btn">{{countdown2.button_text}}</a>
+                    <a href="{% url 'shop-category' 'Men' countdown.tag.name %}" class="tf-btn style-2 btn-fill rounded-full animate-hover-btn">{{countdown2.button_text}}</a>
                 </div>
             </div>
         </div>

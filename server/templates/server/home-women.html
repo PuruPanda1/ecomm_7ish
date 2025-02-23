@@ -28,7 +28,7 @@
           {% for tag in tags %}
             <div class="collection-item-circle hover-img">
               <a
-                href="{% url 'server:shop-category' 'Women' tag.name %}"
+                href="{% url 'shop-category' 'Women' tag.name %}"
                 class="collection-image img-style">
                 <img
                   class="lazyload"
@@ -38,7 +38,7 @@
                 />
               </a>
               <div class="collection-content text-center">
-                <a href="{% url 'server:shop-category' 'Women' tag.name %}" class="link title fw-6"
+                <a href="{% url 'shop-category' 'Women' tag.name %}" class="link title fw-6"
                 >{{ tag.name }}</a
                   >
                 </div>
@@ -48,13 +48,13 @@
         <div class="tf-shopall-wrap">
           <div class="collection-item-circle tf-shopall">
             <a
-              href="{% url 'server:shop-category' 'Women' 'none' %}"
+              href="{% url 'shop-category' 'Women' 'none' %}"
               class="collection-image img-style tf-shopall-icon"
             >
               <i class="icon icon-arrow1-top-left"></i>
             </a>
             <div class="collection-content text-center">
-              <a href="{% url 'server:shop-category' 'Women' 'none' %}" class="link title fw-6"
+              <a href="{% url 'shop-category' 'Women' 'none' %}" class="link title fw-6"
               >Shop all</a
                 >
               </div>
@@ -99,7 +99,7 @@
                       {{ banner.sub_title }}
                     </p>
                     <a
-                      href="{% url 'server:shop-category' 'Women' banner.tag %}"
+                      href="{% url 'shop-category' 'Women' banner.tag %}"
                       class="fade-item fade-item-3 tf-btn btn-fill animate-hover-btn btn-xl radius-3"
                     ><span>{{ banner.button_text }}</span
                       ><i class="icon icon-arrow-right"></i
@@ -149,7 +149,7 @@
                     <div class="collection-item style-2 hover-img">
                       <div class="collection-inner">
                         <a
-                          href="{% url 'server:shop-category' 'Women' sub_category.name %}"
+                          href="{% url 'shop-category' 'Women' sub_category.name %}"
                           class="collection-image img-style"
                         >
                           <img
@@ -161,7 +161,7 @@
                         </a>
                         <div class="collection-content">
                           <a
-                            href="{% url 'server:shop-category' 'Women' sub_category.name %}"
+                            href="{% url 'shop-category' 'Women' sub_category.name %}"
                             class="tf-btn collection-title hover-icon fs-15 rounded-full"
                           ><span>{{ sub_category.name }}</span
                             ><i class="icon icon-arrow1-top-left"></i
@@ -213,7 +213,7 @@
                   <div class="collection-item-v4 hover-img">
                     <div class="collection-inner">
                       <a
-                        href="{% url 'server:shop-category' 'Women' collection.tag.name %}"
+                        href="{% url 'shop-category' 'Women' collection.tag.name %}"
                         class="collection-image img-style radius-10"
                       >
                         <img
@@ -229,7 +229,7 @@
                       >
                         <h5 class="heading text_white">{{ collection.title }}</h5>
                         <a
-                          href="{% url 'server:shop-category' 'Women' collection.tag.name %}"
+                          href="{% url 'shop-category' 'Women' collection.tag.name %}"
                           class="tf-btn style-3 fw-6 btn-light-icon rounded-full animate-hover-btn"
                         ><span>{{ collection.button_text }}</span></a
                           >
@@ -272,7 +272,7 @@
                   <div class="swiper-slide" lazy="true">
                     <div class="card-product style-2">
                       <div class="card-product-wrapper">
-                        <a href="{% url 'server:product-detail' product.id %}" class="product-img">
+                        <a href="{% url 'product-detail' product.id %}" class="product-img">
                           {% with first_image=product.variants.first.get_images.first %}
                             <img
                               class="lazyload img-product"
@@ -344,7 +344,7 @@
                         </div>
                       </div>
                       <div class="card-product-info">
-                        <a href="{% url 'server:product-detail' product.id %}" class="title link"
+                        <a href="{% url 'product-detail' product.id %}" class="title link"
                         >{{ product.name }}</a
                           >
                           {% with first_variant=product.variants.first %}
@@ -408,7 +408,7 @@
                 styles
               </p>
               <a
-                href="{% url 'server:shop-category' 'Women' mid_banner.tag.name %}"
+                href="{% url 'shop-category' 'Women' mid_banner.tag.name %}"
                 class="tf-btn style-2 btn-fill rounded-full animate-hover-btn"
               >{{ mid_banner.button_text }}</a
                 >
@@ -461,7 +461,7 @@
                             </div>
                             <div class="content">
                               <div class="name">{{ review.user.first_name }}</div>
-                              <a href="{% url 'server:product-detail' review.product.id %}" class="metas link"
+                              <a href="{% url 'product-detail' review.product.id %}" class="metas link"
                               >Purchase item : <span>{{ review.product.name }}</span></a
                                 >
                               </div>

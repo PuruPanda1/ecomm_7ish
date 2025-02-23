@@ -1,18 +1,18 @@
 {% load custom-filters %}
 <div class="tf-mini-cart-item" id="cart-item-{{varaint.details.id}}" >
     <div class="tf-mini-cart-image">
-        <a href="{% url 'server:product-detail' varaint.details.product.id %}">
+        <a href="{% url 'product-detail' varaint.details.product.id %}">
             <img src="{{ varaint.details.get_images.first.image.url }}" alt="" />
         </a>
     </div>
     <div class="tf-mini-cart-info">
-        <a class="title link" href="{% url 'server:product-detail' varaint.details.product.id %}">{{varaint.details.product.name}} - {{varaint.details.size}}</a
+        <a class="title link" href="{% url 'product-detail' varaint.details.product.id %}">{{varaint.details.product.name}} - {{varaint.details.size}}</a
             >
             <div class="meta-variant">{{varaint.details.color}}</div>
             <div class="price fw-6">Rs. {{varaint.quantity|product_price:varaint.details.discount_price}}</div>
             <div class="tf-mini-cart-btns">
                 <div class="tf-mini-cart-remove cursor-pointer"
-                     hx-delete="{% url 'server:remove-sidebar-cart-item' varaint.details.id %}"
+                     hx-delete="{% url 'remove-sidebar-cart-item' varaint.details.id %}"
                      hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
                      hx-target="#cart-item-{{varaint.details.id}}"
                      hx-swap="delete"

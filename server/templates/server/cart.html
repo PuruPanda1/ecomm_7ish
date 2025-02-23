@@ -45,72 +45,72 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                    {% for item in cart_items %}
-                                        <tr class="tf-cart-item file-delete">
-                                            <td class="tf-cart-item_product">
-                                                <a href="{% url 'server:product-detail' item.product_variant.product.id %}" class="img-box">
-                                                    <img src="{{ item.product_variant.get_images.first.image.url }}" alt="img-product">
-                                                </a>
-                                                <div class="cart-info">
-                                                    <a href="{% url 'server:product-detail' item.product_variant.product.id %}" class="cart-title link">{{ item.product_variant.product.name }}</a>
-                                                    <div class="cart-meta-variant">{{ item.product_variant.color|capfirst }} / {{ item.product_variant.size|capfirst }}</div>
-                                                    <div class="remove-cart link remove"
-                                                    hx-delete="{% url 'server:remove-cart-item' item.product_variant.id %}"
-                                                    hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
-                                                    hx-target="closest tr"
-                                                    hx-swap="delete"
-                                                    >Remove</div>
-                                                </div>
-                                            </td>
-                                            <td class="tf-cart-item_price tf-variant-item-price" cart-data-title="Price">
-                                                <div class="cart-price price">Rs. {{ item.price }}</div>
-                                            </td>
+                                {% for item in cart_items %}
+                                    <tr class="tf-cart-item file-delete">
+                                        <td class="tf-cart-item_product">
+                                            <a href="{% url 'product-detail' item.product_variant.product.id %}" class="img-box">
+                                                <img src="{{ item.product_variant.get_images.first.image.url }}" alt="img-product">
+                                            </a>
+                                            <div class="cart-info">
+                                                <a href="{% url 'product-detail' item.product_variant.product.id %}" class="cart-title link">{{ item.product_variant.product.name }}</a>
+                                                <div class="cart-meta-variant">{{ item.product_variant.color|capfirst }} / {{ item.product_variant.size|capfirst }}</div>
+                                                <div class="remove-cart link remove"
+                                                     hx-delete="{% url 'remove-cart-item' item.product_variant.id %}"
+                                                     hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+                                                     hx-target="closest tr"
+                                                     hx-swap="delete"
+                                                >Remove</div>
+                                            </div>
+                                        </td>
+                                        <td class="tf-cart-item_price tf-variant-item-price" cart-data-title="Price">
+                                            <div class="cart-price price">Rs. {{ item.price }}</div>
+                                        </td>
                                         {% comment %} TODO implement the out of stock situation {% endcomment %}
-                                            <td class="tf-cart-item_quantity" cart-data-title="Quantity">
-                                                <div class="cart-quantity">
+                                        <td class="tf-cart-item_quantity" cart-data-title="Quantity">
+                                            <div class="cart-quantity">
                                                     {% comment %} Quantity {% endcomment %}
-                                                    <div class="wg-quantity">
-                                                            {% if item.in_stock %}
-                                                            {% if item.quantity > 1 %}
-                                                            <span class="btn-quantity btn-decrease" id="quantity-decrease-{{item.product_variant.id}}" 
-                                                            hx-get="{% url 'server:cart-update-quantity' item.product_variant.id 'decrease' %}" 
-                                                            hx-target="#floatingMessageContainer"
-                                                            hx-trigger="click" 
-                                                            hx-swap="outerHTML" 
-                                                            hx-swap-oob="true">
+                                                <div class="wg-quantity">
+                                                    {% if item.in_stock %}
+                                                        {% if item.quantity > 1 %}
+                                                            <span class="btn-quantity btn-decrease" id="quantity-decrease-{{item.product_variant.id}}"
+                                                                  hx-get="{% url 'cart-update-quantity' item.product_variant.id 'decrease' %}"
+                                                                  hx-target="#floatingMessageContainer"
+                                                                  hx-trigger="click"
+                                                                  hx-swap="outerHTML"
+                                                                  hx-swap-oob="true">
                                                                 -
                                                             </span>
-                                                            {% else %}
+                                                        {% else %}
                                                             <span class="btn-quantity btn-decrease" id="quantity-decrease-{{item.product_variant.id}}" hx-swap-oob="true"></span>
-                                                            {% endif %}
-                                                            <input type="text" class="quantity-product" id="quantity-product-{{item.product_variant.id}}" name="quantity" value="{{ item.quantity }}" hx-swap-oob="true" />
-                                                            <span class="btn-quantity btn-increase" 
-                                                            hx-get="{% url 'server:cart-update-quantity' item.product_variant.id 'increase' %}" 
-                                                            hx-target="#floatingMessageContainer"
-                                                            hx-trigger="click" 
-                                                            hx-swap="outerHTML"
-                                                            >
-                                                             +
-                                                            </span>
-                                                            {% else %}
-                                                            <p> Out of Stock </p>
-                                                            {% endif %}
-                                                    </div>
-                                                    
+                                                        {% endif %}
+                                                        <input type="text" class="quantity-product" id="quantity-product-{{item.product_variant.id}}" name="quantity" value="{{ item.quantity }}" hx-swap-oob="true" />
+                                                        <span class="btn-quantity btn-increase"
+                                                              hx-get="{% url 'cart-update-quantity' item.product_variant.id 'increase' %}"
+                                                              hx-target="#floatingMessageContainer"
+                                                              hx-trigger="click"
+                                                              hx-swap="outerHTML"
+                                                        >
+                                                            +
+                                                        </span>
+                                                    {% else %}
+                                                        <p> Out of Stock </p>
+                                                    {% endif %}
                                                 </div>
-                                            </td>
-                                            <td class="tf-cart-item_total tf-variant-item-total" cart-data-title="Total">
-                                                <div class="cart-total price" id="cart-item-total-{{item.product_variant.id}}" hx-swap-oob="true">Rs. {{ item.total_price_pre_tax }}</div>
-                                            </td>
-                                        </tr>
-                                    {% endfor %}
+
+                                            </div>
+                                        </td>
+                                        <td class="tf-cart-item_total tf-variant-item-total" cart-data-title="Total">
+                                            <div class="cart-total price" id="cart-item-total-{{item.product_variant.id}}" hx-swap-oob="true">Rs. {{ item.total_price_pre_tax }}</div>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
                             </tbody>
                         </table>
                         {% if cart_items|length != 0%}
-                        <div class="tf-page-cart-note">
-                            <label for="cart-note">Add Order Note</label>
-                            <textarea name="note" id="cart-note" placeholder="How can we help you?"></textarea>
-                        </div>
+                            <div class="tf-page-cart-note">
+                                <label for="cart-note">Add Order Note</label>
+                                <textarea name="note" id="cart-note" placeholder="How can we help you?"></textarea>
+                            </div>
                         {% endif %}
                     </form>
                 </div>
@@ -149,14 +149,14 @@
                                 Taxes and <a href="shipping-delivery.html">shipping</a>  calculated at checkout
                             </p>
                             {% with cart_items|length as cart_item_length %}
-                            <div class="cart-checkout-btn" id="checkout-btn" hx-swap-oob="true">
-                                <a href="{% url 'server:checkout' %}" 
-                                   class="tf-btn w-100 btn-fill animate-hover-btn radius-3 justify-content-center {% if cart_item_length == 0 %}disabled{% endif %}"
-                                   {% if cart_item_length == 0 %}onclick="return false;"{% endif %}
-                                   style="{% if cart_item_length == 0 %}opacity: 0.5; cursor: not-allowed;{% endif %}">
-                                    <span>Check out</span>
-                                </a>
-                            </div>
+                                <div class="cart-checkout-btn" id="checkout-btn" hx-swap-oob="true">
+                                    <a href="{% url 'checkout' %}"
+                                       class="tf-btn w-100 btn-fill animate-hover-btn radius-3 justify-content-center {% if cart_item_length == 0 %}disabled{% endif %}"
+                                       {% if cart_item_length == 0 %}onclick="return false;"{% endif %}
+                                       style="{% if cart_item_length == 0 %}opacity: 0.5; cursor: not-allowed;{% endif %}">
+                                        <span>Check out</span>
+                                    </a>
+                                </div>
                             {% endwith %}
                             <div class="tf-page-cart_imgtrust">
                                 <p class="text-center fw-6">Guarantee Safe Checkout</p>
@@ -218,17 +218,17 @@
                                     </div>
                                     <div class="product">
                                         <div class="image">
-                                            <a href="{% url 'server:product-detail' review.product.id %}">
+                                            <a href="{% url 'product-detail' review.product.id %}">
                                                 <img class="lazyload" data-src="{{review.product.images.first.image.url}}" src="{{review.product.images.first.image.url}}" alt="">
                                             </a>
                                         </div>
                                         <div class="content-wrap">
                                             <div class="product-title">
-                                                <a href="{% url 'server:product-detail' review.product.id %}">{{review.product.name}}</a>
+                                                <a href="{% url 'product-detail' review.product.id %}">{{review.product.name}}</a>
                                             </div>
                                             <div class="price">Rs. {{review.product.variants.first.discount_price}}</div>
                                         </div>
-                                        <a href="{% url 'server:product-detail' review.product.id %}"><i class="icon-arrow1-top-left"></i></a>
+                                        <a href="{% url 'product-detail' review.product.id %}"><i class="icon-arrow1-top-left"></i></a>
                                     </div>
                                 </div>
                             </div>
@@ -292,10 +292,10 @@
         document.getElementById("checkout-btn").addEventListener("click", function(event) {
             let giftWrap = document.getElementById("cart-gift-checkbox").checked ? "1" : "0";
             let orderNote = encodeURIComponent(document.getElementById("cart-note").value.trim());
-    
-            let checkoutUrl = "{% url 'server:checkout' %}";
+
+            let checkoutUrl = "{% url 'checkout' %}";
             let params = `?gift_wrap=${giftWrap}&note=${orderNote}`;
-    
+
             event.preventDefault(); // Prevent default navigation
             window.location.href = checkoutUrl + params;
         });

@@ -4,17 +4,17 @@
 {%block head%}
 
    <!-- font -->
-   <link rel="stylesheet" href="{% static 'fonts/fonts.css' %}">
+    <link rel="stylesheet" href="{% static 'fonts/fonts.css' %}">
    <!-- Icons -->
-   <link rel="stylesheet" href="{% static 'fonts/font-icons.css' %}">
-   <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-   <link rel="stylesheet" href="{% static 'css/swiper-bundle.min.css' %}">
-   <link rel="stylesheet" href="{% static 'css/animate.css' %}">
-   <link rel="stylesheet" href="{% static 'sibforms.com/forms/end-form/build/sib-styles.css' %}">
-   <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'fonts/font-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/swiper-bundle.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/animate.css' %}">
+    <link rel="stylesheet" href="{% static 'sibforms.com/forms/end-form/build/sib-styles.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
 
-   <style>
-    
+    <style>
+
     </style>
 
 {% endblock %}
@@ -22,94 +22,94 @@
 
 {% block body%}
 
-        <div id="floatingMessageContainer" class="floating-message hide">No errors exists</div>
+    <div id="floatingMessageContainer" class="floating-message hide">No errors exists</div>
         <!-- page-title -->
-        <div class="tf-page-title">
-            <div class="container-full">
-                <div class="heading text-center">Check Out</div>
-            </div>
+    <div class="tf-page-title">
+        <div class="container-full">
+            <div class="heading text-center">Check Out</div>
         </div>
+    </div>
         <!-- /page-title -->
-        
+
         <!-- page-cart -->
-        <section class="flat-spacing-11">
-            <div class="container">
-                <div class="tf-page-cart-wrap layout-2">
+    <section class="flat-spacing-11">
+        <div class="container">
+            <div class="tf-page-cart-wrap layout-2">
                     {% comment %} user addresses {% endcomment %}
-                    <div class="tf-page-cart-item">
-                        <h5 class="fw-5 mb_20">Billing details - Select or Add new Address</h5>
+                <div class="tf-page-cart-item">
+                    <h5 class="fw-5 mb_20">Billing details - Select or Add new Address</h5>
                         {% comment %} TODO load all user address and add new option to add new billing address {% endcomment %}
-                        <form class="form-checkout">
-                            <div id="address-card-list">
-                                {% for address in user_addresses %}
+                    <form class="form-checkout">
+                        <div id="address-card-list">
+                            {% for address in user_addresses %}
                                 {% include 'server/partials/checkout/user-address.html' %}
-                                {% endfor %}
-                            </div>
-                            <fieldset class="box fieldset" style="padding-left:0.7rem;">
-                                <label for="note">Order note (optional)</label>
-                                <textarea name="note" id="note">{{order_note}}</textarea>
-                            </fieldset>
-                        </form>
-                        <div class="tf-pagination-wrap view-more-button text-center">
-                            <a href="javascript:void(0);" onclick="toggleForm()" >
-                                <button class="tf-btn-loading tf-loading-default style-2" id="toggle-btn" ><span class="text">  New address </span></button>
-                            </a>
+                            {% endfor %}
                         </div>
-                        <form class="form-checkout hidden pt-4" id="form-checkout">
-                            <fieldset class="box fieldset">
-                                <label for="city">Name</label>
-                                <input type="text" id="city" name="name">
-                            </fieldset>
-                            <fieldset class="box fieldset">
-                                <label for="city">Country</label>
-                                <input type="text" id="city" name="country">
-                            </fieldset>
-                            <fieldset class="box fieldset">
-                                <label for="city">State</label>
-                                <input type="text" id="city" name="state">
-                            </fieldset>
-                            <fieldset class="box fieldset">
-                                <label for="city">Town/City</label>
-                                <input type="text" id="city" name="city">
-                            </fieldset>
-                            <fieldset class="box fieldset">
-                                <label for="address">Street Address</label>
-                                <input type="text" id="address" name="street_address">
-                            </fieldset>
-                            <fieldset class="box fieldset">
-                                <label for="postal_code">Postal code</label>
-                                <input type="text" id="postal_code" name="postal_code">
-                            </fieldset>
-                            <fieldset class="box fieldset">
-                                <label for="phone">Phone Number</label>
-                                <input type="number" id="phone" name="mobile_number">
-                            </fieldset>
-                            <fieldset class="box fieldset">
-                                <label for="email">Email</label>
-                                <input type="email" id="email" name="email">
-                            </fieldset>
-                            <fieldset class="box fieldset">
-                                <label for="nickname">Address nickname (optional)</label>
-                                <input type="text" id="nickname" name="address_nickname">
-                            </fieldset>
-                            <button class="tf-btn radius-3 btn-fill btn-icon animate-hover-btn justify-content-center"
-                            hx-get="{% url 'server:add-address' %}"
-                            hx-include="#form-checkout"
-                            hx-swap="beforeend"
-                            hx-target="#address-card-list"
-                            hx-trigger="click"
-                            hx-on::after-request="document.getElementById('form-checkout').reset();"
-                            >
-                            Add address
-                            </button>
-                        </form>
+                        <fieldset class="box fieldset" style="padding-left:0.7rem;">
+                            <label for="note">Order note (optional)</label>
+                            <textarea name="note" id="note">{{order_note}}</textarea>
+                        </fieldset>
+                    </form>
+                    <div class="tf-pagination-wrap view-more-button text-center">
+                        <a href="javascript:void(0);" onclick="toggleForm()" >
+                            <button class="tf-btn-loading tf-loading-default style-2" id="toggle-btn" ><span class="text">  New address </span></button>
+                        </a>
                     </div>
+                    <form class="form-checkout hidden pt-4" id="form-checkout">
+                        <fieldset class="box fieldset">
+                            <label for="city">Name</label>
+                            <input type="text" id="city" name="name">
+                        </fieldset>
+                        <fieldset class="box fieldset">
+                            <label for="city">Country</label>
+                            <input type="text" id="city" name="country">
+                        </fieldset>
+                        <fieldset class="box fieldset">
+                            <label for="city">State</label>
+                            <input type="text" id="city" name="state">
+                        </fieldset>
+                        <fieldset class="box fieldset">
+                            <label for="city">Town/City</label>
+                            <input type="text" id="city" name="city">
+                        </fieldset>
+                        <fieldset class="box fieldset">
+                            <label for="address">Street Address</label>
+                            <input type="text" id="address" name="street_address">
+                        </fieldset>
+                        <fieldset class="box fieldset">
+                            <label for="postal_code">Postal code</label>
+                            <input type="text" id="postal_code" name="postal_code">
+                        </fieldset>
+                        <fieldset class="box fieldset">
+                            <label for="phone">Phone Number</label>
+                            <input type="number" id="phone" name="mobile_number">
+                        </fieldset>
+                        <fieldset class="box fieldset">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email">
+                        </fieldset>
+                        <fieldset class="box fieldset">
+                            <label for="nickname">Address nickname (optional)</label>
+                            <input type="text" id="nickname" name="address_nickname">
+                        </fieldset>
+                        <button class="tf-btn radius-3 btn-fill btn-icon animate-hover-btn justify-content-center"
+                                hx-get="{% url 'add-address' %}"
+                                hx-include="#form-checkout"
+                                hx-swap="beforeend"
+                                hx-target="#address-card-list"
+                                hx-trigger="click"
+                                hx-on::after-request="document.getElementById('form-checkout').reset();"
+                        >
+                            Add address
+                        </button>
+                    </form>
+                </div>
                     {% comment %} order products {% endcomment %}
-                    <div class="tf-page-cart-footer">
-                        <div class="tf-cart-footer-inner">
-                            <h5 class="fw-5 mb_20">Your order</h5>
-                            <form class="tf-page-cart-checkout widget-wrap-checkout">
-                                {% for item in cart_items %}
+                <div class="tf-page-cart-footer">
+                    <div class="tf-cart-footer-inner">
+                        <h5 class="fw-5 mb_20">Your order</h5>
+                        <form class="tf-page-cart-checkout widget-wrap-checkout">
+                            {% for item in cart_items %}
                                 <ul class="wrap-checkout-product">
                                     <li class="checkout-product-item">
                                         <figure class="img-product">
@@ -125,50 +125,50 @@
                                         </div>
                                     </li>
                                 </ul>
-                                {% endfor %}
-                                <div class="coupon-box">
-                                    <input type="text" placeholder="Coupon code" name="coupon_code" id="coupon_code">
-                                    <a href="#" class="tf-btn btn-sm radius-3 btn-fill btn-icon animate-hover-btn"
-                                    hx-get="{% url 'server:apply-coupon-code' need_gift_wrap|yesno:'1,0' %}"
-                                    hx-target="#floatingMessageContainer"
-                                    hx-trigger="click"
-                                    hx-swap="outerHTML"
-                                    hx-include="#coupon_code"
-                                    >Apply
+                            {% endfor %}
+                            <div class="coupon-box">
+                                <input type="text" placeholder="Coupon code" name="coupon_code" id="coupon_code">
+                                <a href="#" class="tf-btn btn-sm radius-3 btn-fill btn-icon animate-hover-btn"
+                                   hx-get="{% url 'apply-coupon-code' need_gift_wrap|yesno:'1,0' %}"
+                                   hx-target="#floatingMessageContainer"
+                                   hx-trigger="click"
+                                   hx-swap="outerHTML"
+                                   hx-include="#coupon_code"
+                                >Apply
                                 </a>
-                                </div>
-                                <div class="d-flex justify-content-between line pb_20">
-                                    <h6 class="fw-5">Sub-total</h6>
-                                    <h6 class="total fw-5">Rs. {{cart.total_price_pre_tax}}</h6>
-                                </div>
-                                <div id="checkout-prices" hx-swap-oob="true">
-                                    
-                                    {% if need_gift_wrap %}
+                            </div>
+                            <div class="d-flex justify-content-between line pb_20">
+                                <h6 class="fw-5">Sub-total</h6>
+                                <h6 class="total fw-5">Rs. {{cart.total_price_pre_tax}}</h6>
+                            </div>
+                            <div id="checkout-prices" hx-swap-oob="true">
+
+                                {% if need_gift_wrap %}
                                     <div class="d-flex justify-content-between line pb_20">
                                         <h6 class="fw-5">Gift Wrap</h6>
                                         <h6 class="total fw-5">Rs. 99.00</h6>
                                     </div>
-                                    {% endif %}
-                                    <div class="d-flex justify-content-between line pb_20">
-                                        <h6 class="fw-5">Tax</h6>
-                                        <h6 class="total fw-5">Rs. {{cart.total_tax}}</h6>
-                                    </div>
-                                    <div class="d-flex justify-content-between line pb_20">
-                                        <h6 class="fw-5">Total</h6>
-                                        <h6 class="total fw-5">Rs. {{cart_total}}</h6>
-                                    </div>
+                                {% endif %}
+                                <div class="d-flex justify-content-between line pb_20">
+                                    <h6 class="fw-5">Tax</h6>
+                                    <h6 class="total fw-5">Rs. {{cart.total_tax}}</h6>
                                 </div>
-                                <button class="tf-btn radius-3 btn-fill btn-icon animate-hover-btn justify-content-center"
-                               
-                                >
+                                <div class="d-flex justify-content-between line pb_20">
+                                    <h6 class="fw-5">Total</h6>
+                                    <h6 class="total fw-5">Rs. {{cart_total}}</h6>
+                                </div>
+                            </div>
+                            <button class="tf-btn radius-3 btn-fill btn-icon animate-hover-btn justify-content-center"
+
+                            >
                                 Place order
-                                </button>
+                            </button>
                         </form>
-                        </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
         <!-- page-cart -->
 
 {% endblock %}

@@ -1,4 +1,4 @@
-<form id="review-form" class="form-write-review write-review-wrap" method="POST" action="{% url 'server:submit-review' product_id=product.id %}">
+<form id="review-form" class="form-write-review write-review-wrap" method="POST" action="{% url 'submit-review' product_id=product.id %}">
   {% csrf_token %}
 
   <div class="heading">

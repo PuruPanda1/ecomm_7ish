@@ -11,7 +11,7 @@
             max="{{max_price}}"
             value="{{max_price}}"
             hx-trigger="input changed delay:200ms"
-            hx-get="{% url 'server:filter-products' category_id=selected_category.id %}"
+            hx-get="{% url 'filter-products' category_id=selected_category.id %}"
             hx-target="#gridLayout"
             hx-include="#filter-form"
             name="max_price"

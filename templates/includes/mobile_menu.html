@@ -11,7 +11,7 @@
       <ul class="nav-ul-mb" id="wrapper-menu-navigation">
         <li class="nav-mb-item">
           <a
-            href="{% url 'server:home-women' %}"
+            href="{% url 'home-women' %}"
             class="collapsed mb-menu-link current"
           >
             <span>Home</span>
@@ -19,7 +19,7 @@
         </li>
         <li class="nav-mb-item">
           <a
-            href="{% url 'server:shop' %}"
+            href="{% url 'shop' %}"
             class="collapsed mb-menu-link current"
           >
             <span>Shop</span>
@@ -53,7 +53,7 @@
                   <ul class="sub-nav-menu sub-menu-level-2">
                     {% for tag in men_tags %}
                       <li>
-                        <a href="{% url 'server:shop-category' 'Men' tag.name %}" class="sub-nav-link"
+                        <a href="{% url 'shop-category' 'Men' tag.name %}" class="sub-nav-link"
                         >{{ tag.name }}</a
                           >
                         </li>
@@ -76,7 +76,7 @@
                   <ul class="sub-nav-menu sub-menu-level-2">
                     {% for tag in women_tags %}
                       <li>
-                        <a href="{% url 'server:shop-category' 'Men' tag.name %}" class="sub-nav-link"
+                        <a href="{% url 'shop-category' 'Men' tag.name %}" class="sub-nav-link"
                         >{{ tag.name }}</a
                           >
                         </li>
@@ -99,7 +99,7 @@
                   <ul class="sub-nav-menu sub-menu-level-2">
                     {% for tag in kids_tags %}
                       <li>
-                        <a href="{% url 'server:shop-category' 'Men' tag.name %}" class="sub-nav-link"
+                        <a href="{% url 'shop-category' 'Men' tag.name %}" class="sub-nav-link"
                         >{{ tag.name }}</a
                           >
                         </li>

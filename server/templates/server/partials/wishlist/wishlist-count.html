@@ -1,2 +1,2 @@
 {% load custom-filters %}
-<li class="nav-wishlist" id="wishlist-count" hx-swap-oob="true"><a href="{% url 'server:wishlist' %}" class="nav-icon-item"><i class="icon icon-heart"></i><span class="count-box">{{request.user|get_wishlist_count}}</span></a></li>
+<li class="nav-wishlist" id="wishlist-count" hx-swap-oob="true"><a href="{% url 'wishlist' %}" class="nav-icon-item"><i class="icon icon-heart"></i><span class="count-box">{{request.user|get_wishlist_count}}</span></a></li>

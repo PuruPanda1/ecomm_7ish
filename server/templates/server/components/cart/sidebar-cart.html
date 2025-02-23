@@ -11,7 +11,7 @@
       {% if not request.user.is_authenticated %}
         <div class="login-message">
           <p>
-            Please <a href="{% url 'server:login' %}" class="login-link">login</a> to continue.
+            Please <a href="{% url 'login' %}" class="login-link">login</a> to continue.
           </p>
         </div>
       {% else %}
@@ -40,12 +40,12 @@
                           <div class="swiper-slide">
                             <div class="tf-minicart-recommendations-item">
                               <div class="tf-minicart-recommendations-item-image">
-                                <a href="{% url 'server:product-detail' product.id %}">
+                                <a href="{% url 'product-detail' product.id %}">
                                   <img src="{{product.images.first.image.url}}" alt="" />
                                 </a>
                               </div>
                               <div class="tf-minicart-recommendations-item-infos flex-grow-1">
-                                <a class="title" href="{% url 'server:product-detail' product.id %}">{{product.name}}</a>
+                                <a class="title" href="{% url 'product-detail' product.id %}">{{product.name}}</a>
                                 <div class="price">Rs. {{product.variants.first.discount_price}}</div>
                               </div>
                             </div>
@@ -81,7 +81,7 @@
                 </div>
                 <div class="tf-mini-cart-line"></div>
                 <div class="tf-mini-cart-view-checkout">
-                  <a href="{% url 'server:cart' %}" class="tf-btn btn-outline radius-3 link w-100 justify-content-center">View cart</a>
+                  <a href="{% url 'cart' %}" class="tf-btn btn-outline radius-3 link w-100 justify-content-center">View cart</a>
                 </div>
               </div>
             </div>

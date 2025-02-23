@@ -42,7 +42,7 @@
 </form>
 
 <div
-    hx-get="{% url 'server:product-varaint-detail' product.id %}"
+    hx-get="{% url 'product-varaint-detail' product.id %}"
     hx-trigger="change from:#product-variant-form"
     hx-target="#product-price-info"
     hx-include="#product-variant-form"

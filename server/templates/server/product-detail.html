@@ -49,11 +49,11 @@
                                 </div>
                                 {% include 'server/partials/product/product-price.html' %}
                                 {% if product_variant.stock < 5 %}
-                                <div class="tf-product-info-liveview">
-                                    <p class="fw-6">Only</p>
-                                    <div class="liveview-count">{{product_variant.stock}}</div>
-                                    <p class="fw-6">left</p>
-                                </div>
+                                    <div class="tf-product-info-liveview">
+                                        <p class="fw-6">Only</p>
+                                        <div class="liveview-count">{{product_variant.stock}}</div>
+                                        <p class="fw-6">left</p>
+                                    </div>
                                 {% endif %}
                                 {% if product.sale.first.time_left > 0 %}
                                     <div class="tf-product-info-countdown">

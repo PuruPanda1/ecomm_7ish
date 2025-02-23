@@ -16,6 +16,9 @@ import math
 from decimal import Decimal
 
 def signup_view(request):
+    if request.user.is_authenticated:
+        return redirect("home-women") 
+    
     if request.method == "POST":
         form = SignupForm(request.POST)
         if form.is_valid():
@@ -27,20 +30,23 @@ def signup_view(request):
     return render(request, "server/users/signup.html", {"form": form})
 
 def login_view(request):
+    if request.user.is_authenticated:
+        return redirect("home-women") 
+    
     if request.method == "POST":
-        form = LoginForm(request.POST)
-        if form.is_valid():
-            email = form.cleaned_data["email"]
-            password = form.cleaned_data["password"]
-            user = authenticate(request, username=email, password=password)
-            if user:
-                login(request, user)
-                return redirect("server:home-women")  # Redirect to home page
-            else:
-                messages.error(request, "Invalid username or password")
-    else:
-        form = LoginForm()
-    return render(request, "server/users/login.html", {"form": form})
+        email = request.POST.get("email")
+        password = request.POST.get("password")
+        
+        # Authenticate user
+        user = authenticate(request, username=email, password=password)
+        
+        if user is not None:
+            login(request, user)
+            return redirect("home-women")  # Redirect to your dashboard or home page
+        else:
+            messages.error(request, "Invalid email or password")  # Display error message
+
+    return render(request, "server/users/login.html") 
 
 def logout_view(request):
     logout(request)
@@ -449,7 +455,7 @@ def wishlist_page(request):
 
     
     if not request.user.is_authenticated:
-        return redirect("server:login")
+        return redirect("login")
     
     wishlist, created = Wishlist.objects.get_or_create(user=request.user)
 
@@ -667,13 +673,13 @@ def checkout_page(request):
     user = request.user
 
     if not user.is_authenticated:
-        return redirect("server:login")
+        return redirect("login")
     
     cart, _ = Cart.objects.get_or_create(user=user)
     cart_items = CartItem.objects.filter(cart=cart)
 
     if not cart_items.exists():
-        return redirect("server:cart")
+        return redirect("cart")
 
     need_gift_wrap = request.GET.get("gift_wrap", "0") == "1"
     order_note = request.GET.get("note", "").strip()

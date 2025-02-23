@@ -26,7 +26,7 @@
                                 <div class="container">
                                     <h1 class="fade-item fade-item-1 text-white heading">{{ banner.title }}</h1>
                                     <p class="fade-item fade-item-2 text-white">{{ banner.sub_title }}</p>
-                                    <a href="{% url 'server:shop-category' 'Kids' banner.tag.name %}" class="fade-item fade-item-3 tf-btn btn-primary animate-hover-btn btn-xl radius-60"><span>{{ banner.button_text }}</span><i class="icon icon-arrow-right"></i></a>
+                                    <a href="{% url 'shop-category' 'Kids' banner.tag.name %}" class="fade-item fade-item-3 tf-btn btn-primary animate-hover-btn btn-xl radius-60"><span>{{ banner.button_text }}</span><i class="icon icon-arrow-right"></i></a>
                                 </div>
 
                             </div>
@@ -56,7 +56,7 @@
                             <div class="swiper-slide" lazy="true">
                                 <div class="card-product style-8">
                                     <div class="card-product-wrapper">
-                                        <a href="{% url 'server:product-detail' product.id %}" class="product-img">
+                                        <a href="{% url 'product-detail' product.id %}" class="product-img">
                                             <img class="lazyload img-product" data-src="{{ product.images.first.image.url }}" src="{{ product.images.first.image.url }}" alt="image-product">
                                             <img class="lazyload img-hover" data-src="{{ product.images.first.image.url }}" src="{{ product.images.first.image.url }}" alt="image-product">
                                         </a>
@@ -111,7 +111,7 @@
                     {% for collection in collections %}
                         <div class="swiper-slide" lazy="true">
                             <div class="collection-item-v2 hover-img">
-                                <a href="{% url 'server:shop-category' 'Kids' collection.tag.name %}" class="collection-inner">
+                                <a href="{% url 'shop-category' 'Kids' collection.tag.name %}" class="collection-inner">
                                     <div class="collection-image radius-10 img-style">
                                         <img class="lazyload" data-src="{{ collection.image.url }}" src="{{ collection.image.url }}" alt="collection-img">
                                     </div>
@@ -284,7 +284,7 @@
                 <div class="tf-content-wrap text-center w-100 wow fadeInUp" data-wow-delay="0s">
                     <div class="heading">{{ mid_banner.title }}</div>
                     <p class="description">{{ mid_banner.sub_title }}</p>
-                    <a href="{% url 'server:shop-category' 'Kids' mid_banner.tag.name %}" class="tf-btn style-2 btn-fill radius-60 animate-hover-btn">{{ mid_banner.button_text }}</a>
+                    <a href="{% url 'shop-category' 'Kids' mid_banner.tag.name %}" class="tf-btn style-2 btn-fill radius-60 animate-hover-btn">{{ mid_banner.button_text }}</a>
                 </div>
             </div>
         </div>

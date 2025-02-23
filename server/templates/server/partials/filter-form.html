@@ -1,7 +1,7 @@
 <form id="filter-form" hx-swap-oob="true">
   <div class="btn filter-icon d-flex align-items-center bg-light rounded px-2 mb-2" id="clear-all-btn"
        onclick="document.querySelectorAll('#filter-form input[type=checkbox]').forEach(checkbox => checkbox.checked = false);"
-       hx-get="{% url 'server:filter-products' category_id=selected_category.id %}"
+       hx-get="{% url 'filter-products' category_id=selected_category.id %}"
        hx-trigger="click"
        hx-target="#gridLayout"
        hx-swap="innerHTML"
