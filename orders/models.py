@@ -69,14 +69,7 @@ class OrderItem(models.Model):
         )
         order_item.save()
         return order_item
-    
-    def save(self, *args, **kwargs):
-        if self.quantity > self.product_variant.stock:
-            raise ValueError(f"Error: Out of stock. Available stock: {self.product_variant.stock}")
-        # Reduce stock when saving an order item
-        self.product_variant.stock -= self.quantity
-        self.product_variant.save()
-        super().save(*args, **kwargs)
+  
 
 class Returns(models.Model):
     RETURN_STATUS_CHOICES = [
@@ -90,23 +83,6 @@ class Returns(models.Model):
     return_images = models.ImageField(upload_to='returns/')
     return_status = models.CharField(max_length=100, choices=RETURN_STATUS_CHOICES, default='pending')
 
-    def save(self, *args, **kwargs):
-        if self.return_status == 'pending':
-            self.order_item.order.order_status = 'returned'
-            self.order_item.order.save()
-        elif self.return_status == 'approved':
-            self.order_item.order.order_status = 'refunded'
-            self.order_item.order.save()
-            self.order_item.order.payment.payment_status = 'refunded'
-            self.order_item.order.payment.save()
-            self.order_item.product_variant.returned_quantity += self.order_item.quantity
-            self.order_item.product_variant.save()
-        elif self.return_status == 'rejected':
-            self.order_item.order.order_status = 'delivered'
-            self.order_item.order.save()
-        super().save(*args, **kwargs)
-    
-    
     def __str__(self):
         return f"Return {self.id} - {self.order_item.product_variant.product.name}"
     

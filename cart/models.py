@@ -62,7 +62,3 @@ class CartItem(models.Model):
         cart_item.save()
         return cart_item
     
-    def save(self, *args, **kwargs):
-        if self.quantity > self.product_variant.stock:
-            raise ValueError(f"Error: Out of stock. Available stock: {self.product_variant.stock}")
-        super().save(*args, **kwargs)

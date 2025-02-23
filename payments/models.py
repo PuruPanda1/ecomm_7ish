@@ -25,16 +25,6 @@ class Payment(models.Model):
     def amount(self):
         return self.order.order_total
     
-    def save(self, *args, **kwargs):
-        if self.payment_status == 'success':
-            self.order.order_status = 'confirmed'
-            self.order.save()
-        elif self.payment_status == 'failed':
-            self.payment_method = 'cod'
-            self.payment_method_details = 'NA'
-            self.transaction_id = 'NA'
-        super().save(*args, **kwargs)
-    
     def __str__(self):
         return f"Payment {self.id} - {self.order.user.email} --> {self.order.id}"
     

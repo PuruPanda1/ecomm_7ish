@@ -582,6 +582,12 @@ def add_cart_item(request, product_id, quantity):
     variant_size = selected_size or default_size
     product_variant = ProductVariant.objects.filter(product=product,color__iexact=variant_color, size__iexact=variant_size).first()
     
+    if product_variant.stock < quantity:
+        error = f"Out of Stock - Decrease Quantity"
+        return render(request, 'server/partials/cart/error-message.html', {
+            'error': error
+        })
+
     cart, _ = Cart.objects.get_or_create(user=request.user)
     # creating cart item
     cart_item, created = CartItem.objects.get_or_create(cart=cart, product_variant=product_variant)
