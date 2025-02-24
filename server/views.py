@@ -16,7 +16,7 @@ from django.contrib import messages
 import math
 from decimal import Decimal
 from django.contrib.auth import get_user_model
-from .utils import calculate_cart_total, calculate_discount
+from .utils import calculate_cart_total, calculate_discount, is_minimmum_amount
 from django.db import transaction
 
 User = get_user_model()
@@ -708,7 +708,7 @@ def checkout_page(request):
     need_gift_wrap = request.GET.get("gift_wrap", "0") == "1"
     order_note = request.GET.get("note", "").strip()
 
-    cart_total = float(cart.cart_total) + (99.00 if need_gift_wrap else 0)
+    cart_total = float(cart.cart_total) + (99.00 if need_gift_wrap else 0) + (99 if cart.free_shipping_remaining > 0 else 0)
 
     cart_total = f"{math.ceil(cart_total):.2f}"
 
@@ -828,7 +828,7 @@ def create_order(request, need_gift_wrap, order_note):
 
     if not cart_items.exists():
         return redirect("cart")
-
+    
     
     shipping_address_id = request.POST.get('selected_address')
     shipping_address = UserAddress.objects.filter(id=shipping_address_id).first()
@@ -838,20 +838,28 @@ def create_order(request, need_gift_wrap, order_note):
     print(f"Shipping Address ID: {shipping_address_id}")
     print(f"Shipping Address: {shipping_address}")
 
-    shipping_cost = request.POST.get('shipping_cost') or 0
+    shipping_cost = 99 if cart.free_shipping_remaining > 0 else 0
     coupon_code = request.POST.get('coupon_code') or ''
     discount_amount = 0
+    need_gift_wrap = (need_gift_wrap == "1")
+
 
     print(f"Coupon code = {coupon_code}")
     print(f"Shipping cost = {shipping_cost}")
 
     if coupon_code != '':
         coupon = Coupon.objects.filter(coupon_code=coupon_code).first()
-        if coupon:
+        if coupon and is_minimmum_amount(coupon, cart):
             discount_amount = calculate_discount(coupon, cart)
+        else:
+            coupon_code = ''
         
+    print(f"Discount amount = {discount_amount}")
+    sub_total, tax, final_total = calculate_cart_total(cart, discount_amount, shipping_cost, need_gift_wrap).values()
 
-    sub_total, tax, final_total = calculate_cart_total(cart, discount_amount).values()
+    print(f"Sub total = {sub_total}")
+    print(f"Tax = {tax}")
+    print(f"Final total = {final_total}")
 
     # use transactions for atomicity
     # with transaction.atomic():

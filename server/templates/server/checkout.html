@@ -153,6 +153,12 @@
                                         <h6 class="total fw-5">Rs. 99.00</h6>
                                     </div>
                                 {% endif %}
+                                {% if cart.free_shipping_remaining > 0 %}
+                                    <div class="d-flex justify-content-between line pb_20">
+                                        <h6 class="fw-5">Shipping</h6>
+                                        <h6 class="total fw-5">Rs. 99.00</h6>
+                                    </div>
+                                {% endif %}
                                 <div class="d-flex justify-content-between line pb_20">
                                     <h6 class="fw-5">Tax</h6>
                                     <h6 class="total fw-5">Rs. {{cart.total_tax}}</h6>
@@ -229,8 +235,9 @@
         }
 
         document.body.addEventListener("htmx:beforeRequest", function(event) {
-            let address = document.getElementById("address").value;
+            let address = document.getElementById("selected-address-input").value;
             if (!address) {
+                console.log('address issue');
                 event.preventDefault();
                 validateAddress(event);
             }
@@ -239,6 +246,7 @@
         function validateAddress(event) {
             selectedAddressId = document.getElementById("selected-address-input").value;
             if (!selectedAddressId) {
+                console.log("Inside no address")
                 let loadingOverlay = document.getElementById("loadingOverlay");
                 let messageContainer = document.getElementById("floatingMessageContainer");
                 messageContainer.textContent = "Please select an address to continue!";

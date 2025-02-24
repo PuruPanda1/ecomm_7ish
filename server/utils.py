@@ -164,7 +164,7 @@ def get_avg_chart():
 
 
 # cart total after discount
-def calculate_cart_total(cart, discount):
+def calculate_cart_total(cart, discount, shipping_cost, need_gift_wrap):
     items = CartItem.objects.filter(cart=cart)
     
     # Convert discount to Decimal for consistency
@@ -192,7 +192,7 @@ def calculate_cart_total(cart, discount):
     )
 
     # Final total after discount and tax
-    final_total = sum(discounted_prices.values()) + total_tax
+    final_total = sum(discounted_prices.values()) + total_tax + shipping_cost + (99 if need_gift_wrap else 0)
     final_total = math.ceil(final_total)
     print(f"The final total is = {final_total}")
 
@@ -224,3 +224,10 @@ def calculate_discount(coupon, cart):
     return discount_amount
 
         
+def is_minimmum_amount(coupon, cart):
+    sub_total = cart.total_price_pre_tax
+
+    if sub_total < coupon.min_order_amount:
+        return False    
+    
+    return True
