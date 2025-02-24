@@ -835,9 +835,15 @@ def create_order(request, need_gift_wrap, order_note):
     billing_address_id = request.POST.get('billing_address') or shipping_address.id
     billing_address = UserAddress.objects.filter(id=billing_address_id).first()
     
+    print(f"Shipping Address ID: {shipping_address_id}")
+    print(f"Shipping Address: {shipping_address}")
+
     shipping_cost = request.POST.get('shipping_cost') or 0
     coupon_code = request.POST.get('coupon_code') or ''
     discount_amount = 0
+
+    print(f"Coupon code = {coupon_code}")
+    print(f"Shipping cost = {shipping_cost}")
 
     if coupon_code != '':
         coupon = Coupon.objects.filter(coupon_code=coupon_code).first()
@@ -848,30 +854,30 @@ def create_order(request, need_gift_wrap, order_note):
     sub_total, tax, final_total = calculate_cart_total(cart, discount_amount).values()
 
     # use transactions for atomicity
-    with transaction.atomic():
-        order = Order.objects.create(
-            user=user,
-            order_date=timezone.now(),
-            shipping_cost=shipping_cost,
-            order_status='ordered',
-            shipping_address=shipping_address,
-            billing_address=billing_address,
-            total_price_pre_tax=sub_total,
-            total_tax=tax,
-            order_total=final_total,
-            discount=discount_amount,
-            coupon_code=coupon_code,
-        )
+    # with transaction.atomic():
+    #     order = Order.objects.create(
+    #         user=user,
+    #         order_date=timezone.now(),
+    #         shipping_cost=shipping_cost,
+    #         order_status='ordered',
+    #         shipping_address=shipping_address,
+    #         billing_address=billing_address,
+    #         total_price_pre_tax=sub_total,
+    #         total_tax=tax,
+    #         order_total=final_total,
+    #         discount=discount_amount,
+    #         coupon_code=coupon_code,
+    #     )
 
-        for item in cart_items:
-            product_variant = ProductVariant.objects.filter(id=item.product_variant.id).first()
-            product_variant.stock -= item.quantity
-            product_variant.save()
-            OrderItem.create_order_item(order, item.product_variant, item.quantity)
+    #     for item in cart_items:
+    #         product_variant = ProductVariant.objects.filter(id=item.product_variant.id).first()
+    #         product_variant.stock -= item.quantity
+    #         product_variant.save()
+    #         OrderItem.create_order_item(order, item.product_variant, item.quantity)
 
-        cart.delete()
+    #     cart.delete()
 
-        return redirect("order-success")
+    #     return redirect("order-success")
     
     return redirect("order-failure")
 

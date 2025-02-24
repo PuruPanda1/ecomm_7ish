@@ -21560,6 +21560,14 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-handle {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+.floating-message.green{
+  background: linear-gradient(to right, #28a745, #32cd32);
+}
+
+.floating-message.red{
+  background: linear-gradient(to right, #ff4d4d, #ff6b6b);
+}
+
 .floating-message.hide {
   opacity: 0;
   visibility: hidden;

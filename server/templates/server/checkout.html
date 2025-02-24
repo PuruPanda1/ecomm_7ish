@@ -108,7 +108,11 @@
                 <div class="tf-page-cart-footer">
                     <div class="tf-cart-footer-inner">
                         <h5 class="fw-5 mb_20">Your order</h5>
-                        <form class="tf-page-cart-checkout widget-wrap-checkout" id="order-create-form">
+                        <form class="tf-page-cart-checkout widget-wrap-checkout" id="order-create-form"
+                        hx-post="{% url 'create-order' need_gift_wrap|yesno:'1,0' 'hey' %}"
+                        hx-target="#floatingMessageContainer"
+                        hx-swap="outerHTML"
+                        >
                             {% for item in cart_items %}
                                 <ul class="wrap-checkout-product">
                                     <li class="checkout-product-item">
@@ -160,11 +164,7 @@
                             </div>
                             <input type="hidden" name="selected_address" id="selected-address-input">
                             <button class="tf-btn radius-3 btn-fill btn-icon animate-hover-btn justify-content-center"
-                            hx-post="{% url 'create-order' need_gift_wrap|yesno:'1,0' 'hey' %}"
-                            hx-target="#floatingMessageContainer"
-                            hx-trigger="click"
-                            hx-swap="outerHTML"
-                            hx-include="#order-create-form,"
+                            type="submit"
                             >
                                 Place order
                             </button>
@@ -228,13 +228,37 @@
             document.getElementById("selected-address-input").value = selectedAddressId;
         }
 
-        function addSelectedAddress(event) {
-            if (!selectedAddressId) {
-                alert("Please select an address before placing your order.");
-                event.preventDefault(); // Stop form submission if no address is selected
-            } else {
-                document.getElementById("selected-address-input").value = selectedAddressId;
+        document.body.addEventListener("htmx:beforeRequest", function(event) {
+            let address = document.getElementById("address").value;
+            if (!address) {
+                event.preventDefault();
+                validateAddress(event);
             }
+        });
+
+        function validateAddress(event) {
+            selectedAddressId = document.getElementById("selected-address-input").value;
+            if (!selectedAddressId) {
+                let loadingOverlay = document.getElementById("loadingOverlay");
+                let messageContainer = document.getElementById("floatingMessageContainer");
+                messageContainer.textContent = "Please select an address to continue!";
+                messageContainer.classList.remove("hide");
+                messageContainer.classList.add("show");
+
+                // Hide message after 3 seconds
+                setTimeout(() => {
+                    messageContainer.classList.remove("show");
+                    messageContainer.classList.add("hide");
+                }, 3000);
+
+                setTimeout(() => {
+                    loadingOverlay.style.display = "none";
+                }, 100);
+
+                event.preventDefault();
+                return false;// Stop form submission if no address is selected
+            }
+            return true;
         }
 
         function toggleForm(){
