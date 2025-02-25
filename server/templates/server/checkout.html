@@ -235,6 +235,9 @@
         }
 
         document.body.addEventListener("htmx:beforeRequest", function(event) {
+            if (event.detail.target.id === "address-card-list") {
+                return
+            }
             let address = document.getElementById("selected-address-input").value;
             if (!address) {
                 console.log('address issue');

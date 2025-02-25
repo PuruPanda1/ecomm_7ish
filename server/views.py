@@ -18,6 +18,7 @@ from decimal import Decimal
 from django.contrib.auth import get_user_model
 from .utils import calculate_cart_total, calculate_discount, is_minimmum_amount
 from django.db import transaction
+from django.core.exceptions import ValidationError
 
 User = get_user_model()
 
@@ -769,6 +770,7 @@ def apply_coupon_code(request, gift_wrap):
 
     cart = Cart.objects.get(user=user)
     sub_total = cart.total_price_pre_tax
+    shipping_cost = 99 if cart.free_shipping_remaining > 0 else 0
 
     if sub_total < coupon.min_order_amount:
         error = f"Minimum order value should be {coupon.min_order_amount}"
@@ -801,9 +803,7 @@ def apply_coupon_code(request, gift_wrap):
             discount_amount = f"{coupon.max_discount_amount:.2f}"
 
 
-        sub_total, tax, final_total = calculate_cart_total(cart, discount_amount).values()
-        if gift_wrap:
-            final_total = final_total + Decimal("99.00")
+        sub_total, tax, final_total = calculate_cart_total(cart, discount_amount, shipping_cost, gift_wrap).values()
         print(sub_total, tax, final_total)
 
         return render(request, 'server/partials/checkout/update-checkout-prices.html',{
@@ -862,35 +862,47 @@ def create_order(request, need_gift_wrap, order_note):
     print(f"Final total = {final_total}")
 
     # use transactions for atomicity
-    # with transaction.atomic():
-    #     order = Order.objects.create(
-    #         user=user,
-    #         order_date=timezone.now(),
-    #         shipping_cost=shipping_cost,
-    #         order_status='ordered',
-    #         shipping_address=shipping_address,
-    #         billing_address=billing_address,
-    #         total_price_pre_tax=sub_total,
-    #         total_tax=tax,
-    #         order_total=final_total,
-    #         discount=discount_amount,
-    #         coupon_code=coupon_code,
-    #     )
+    try:
+        with transaction.atomic():
+            order = Order.objects.create(
+                user=user,
+                order_date=timezone.now(),
+                shipping_cost=shipping_cost,
+                order_status='ordered',
+                shipping_address=shipping_address,
+                billing_address=billing_address,
+                total_price_pre_tax=sub_total,
+                total_tax=tax,
+                order_total=final_total,
+                discount=discount_amount,
+                coupon_code=coupon_code,
+            )
 
-    #     for item in cart_items:
-    #         product_variant = ProductVariant.objects.filter(id=item.product_variant.id).first()
-    #         product_variant.stock -= item.quantity
-    #         product_variant.save()
-    #         OrderItem.create_order_item(order, item.product_variant, item.quantity)
+            for item in cart_items:
+                product_variant = ProductVariant.objects.select_for_update().get(id=item.product_variant.id)
 
-    #     cart.delete()
+                if product_variant.stock < item.quantity:
+                    raise ValidationError(f"Not enough stock for {product_variant.product.name}. Available: {product_variant.stock}")
+                
+                time.sleep(80)
+                product_variant.stock -= item.quantity
+                product_variant.save()
+                OrderItem.create_order_item(order, item.product_variant, item.quantity)
 
-    #     return redirect("order-success")
+            cart.delete()
+
+            return redirect("order-success")
     
-    return redirect("order-failure")
+    except ValidationError as e:
+    # Handle stock issues gracefully
+        print(e)
+        return redirect("order-failure")  # Redirect to order failure page
+
 
 def order_success(request):
-    return render(request, 'server/components/checkout/order-success.html')
+    return render(request, 'server/components/checkout/order-success.html', {
+        'order_id': Order.objects.last().id
+    })
 
 def order_failure(request):
         return render(request, 'server/components/checkout/order-failure.html')
