@@ -14,6 +14,10 @@ urlpatterns = [
     path("reset/<uidb64>/<token>/", auth_views.PasswordResetConfirmView.as_view(template_name="server/users/password-reset-confirm.html"), name="password_reset_confirm"),
     path("reset/done/", auth_views.PasswordResetCompleteView.as_view(template_name="server/users/password_reset_complete.html"), name="password_reset_complete"),
 
+    # my account
+    path('my-account/', my_account, name='my-account'),
+    path('account_action/<str:option>/', account_action, name='account-action'),
+
     path('', home_women, name='home-women'),
     path('home/men/', home_men, name='home-men'),
     path('home/kids/', home_kids, name='home-kids'),

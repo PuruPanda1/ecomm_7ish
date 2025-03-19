@@ -5,6 +5,8 @@ from cart.models import Cart, CartItem
 from django.db.models import Avg
 from collections import Counter
 from product.models import Product
+from orders.models import Order
+from users.models import UserAddress
 
 register = template.Library()
 
@@ -164,3 +166,22 @@ def shipping_progress_bar(price):
 @register.filter(name='range')
 def filter_range(start, end):
     return range(start, end)
+
+@register.filter
+def get_orders(user):
+    orders = Order.objects.filter(user=user)
+    return orders
+
+@register.filter
+def get_address(user):
+    addresses = UserAddress.objects.filter(user=user)
+    return addresses
+
+@register.filter
+def get_wishlist(user):
+    wishlist, created = Wishlist.objects.get_or_create(user=user)
+
+    wishlist_items = WishlistItem.objects.filter(wishlist=wishlist)
+    products_list = [item.product for item in wishlist_items]
+
+    return products_list

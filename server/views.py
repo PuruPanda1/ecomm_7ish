@@ -71,6 +71,30 @@ def logout_view(request):
     logout(request)
     return redirect("login")
 
+
+# My account views
+def my_account(request):
+
+    if not request.user.is_authenticated:
+        return redirect("login")
+
+    return render(request, 'server/my-account.html')
+
+def account_action  (request, option):
+    user = request.user
+    if not user.is_authenticated:
+        return redirect("login")
+    
+    if option == 'orders':
+        return render(request, 'server/partials/account/orders.html')
+    elif option == 'address':
+        return render(request, 'server/partials/account/address.html')
+    elif option == 'account_details':
+        return render(request, 'server/partials/account/details.html')
+    else:
+        return render(request, 'server/partials/account/wishlist.html')
+    
+
 # home view for women
 def home_women(request):
     # header tags

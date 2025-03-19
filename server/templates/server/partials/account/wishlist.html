@@ -1,0 +1,12 @@
+{%load static%}
+{% load custom-filters %}
+
+<div class="my-account-content account-wishlist">
+
+    <div class="grid-layout wrapper-shop" data-grid="grid-3">
+        {% with products=request.user|get_wishlist %}
+            {% include 'server/partials/wishlist/wishlist-items.html' %}
+        {% endwith %}
+    </div>
+
+</div>

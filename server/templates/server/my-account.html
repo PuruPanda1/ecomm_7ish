@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{%block head%}
+
+   <!-- font -->
+    <link rel="stylesheet" href="{% static 'fonts/fonts.css' %}">
+   <!-- Icons -->
+    <link rel="stylesheet" href="{% static 'fonts/font-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/swiper-bundle.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/animate.css' %}">
+    <link rel="stylesheet" href="{% static 'sibforms.com/forms/end-form/build/sib-styles.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+
+
+{% endblock %}
+
+{% block body %}
+
+        <!-- page-title -->
+        <div class="tf-page-title">
+            <div class="container-full">
+                <div class="heading text-center">My Account</div>
+            </div>
+        </div>
+        <!-- /page-title -->
+        
+        <!-- page-cart -->
+        <section class="flat-spacing-11">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3">
+                        <div>
+                            <ul class="my-account-nav">
+                                <li><a hx-target="#account-details-section" hx-trigger="click" hx-swap="innerHTML" hx-get="{%url 'account-action' 'orders'%}" class="my-account-nav-item">Orders</a></li>
+                                <li><a hx-target="#account-details-section" hx-trigger="click" hx-swap="innerHTML" hx-get="{%url 'account-action' 'address'%}" class="my-account-nav-item">Address</a></li>
+                                <li><a hx-target="#account-details-section" hx-trigger="click" hx-swap="innerHTML" hx-get="{%url 'account-action' 'account_details'%}" class="my-account-nav-item">Account Details</a></li>
+                                <li><a hx-target="#account-details-section" hx-trigger="click" hx-swap="innerHTML" hx-get="{%url 'account-action' 'wishlist'%}" class="my-account-nav-item">Wishlist</a></li>
+                                <li><a href="{%url 'logout'%}" class="my-account-nav-item">Logout</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-9" id="account-details-section">
+                       {%include 'server/partials/account/orders.html'%}
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- page-cart -->
+
+
+{% endblock %}
+
+
+{% block scripts %}
+
+ <!-- Javascript -->
+ <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+ <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+ <script type="text/javascript" src="{% static 'js/swiper-bundle.min.js' %}"></script>
+ <script type="text/javascript" src="{% static 'js/carousel.js' %}"></script>
+
+ <script type="text/javascript" src="{% static 'js/bootstrap-select.min.js' %}"></script>
+ <script type="text/javascript" src="{% static 'js/lazysize.min.js' %}"></script>
+ <script type="text/javascript" src="{% static 'js/count-down.js' %}"></script>
+ <script type="text/javascript" src="{% static 'js/wow.min.js' %}"></script>
+ <script type="text/javascript" src="{% static 'js/wow.min.js' %}"></script>
+ <script type="text/javascript" src="{% static 'js/multiple-modal.js' %}"></script>
+ <script type="text/javascript" src="{% static 'js/main.js' %}"></script>
+
+ <script src="{% static 'js/sibforms.js' %}" defer></script>
+{% endblock %}

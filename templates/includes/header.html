@@ -27,7 +27,7 @@
                 <div class="col-xl-5 col-md-4 col-3">
                     <ul class="nav-icon d-flex justify-content-end align-items-center gap-20">
                         <li class="nav-search"><a href="#canvasSearch" data-bs-toggle="offcanvas" aria-controls="offcanvasLeft" class="nav-icon-item"><i class="icon icon-search"></i></a></li>
-                        <li class="nav-account"><a href="#login" data-bs-toggle="modal" class="nav-icon-item"><i class="icon icon-account"></i></a></li>
+                        <li class="nav-account"><a href="{% url 'my-account' %}"  class="nav-icon-item"><i class="icon icon-account"></i></a></li>
                         <li class="nav-wishlist" id="wishlist-count"><a href="{% url 'wishlist' %}" class="nav-icon-item"><i class="icon icon-heart"></i><span class="count-box">{{request.user|get_wishlist_count}}</span></a></li>
                         {% if request.resolver_match.url_name != "cart" %}
                             <li class="nav-cart"><a href="#shoppingCart" data-bs-toggle="modal" class="nav-icon-item"><i class="icon icon-bag"></i>
