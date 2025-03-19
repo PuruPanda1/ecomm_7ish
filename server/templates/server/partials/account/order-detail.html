@@ -1,0 +1,107 @@
+{%load static %}
+
+<div class="wd-form-order">
+    <div class="order-head">
+        <figure class="img-product">
+            <img src="{{order_items.first.product_variant.get_images.first.image.url}}" alt="product">
+        </figure>
+        <div class="content">
+            <div class="badge">{{order.order_status}}</div>
+            <h6 class="mt-8 fw-5">Order #{{order.id}}</h6>
+        </div>
+    </div>
+    <div class="tf-grid-layout md-col-2 gap-15">
+        <div class="item">
+            <div class="text-2 text_black-2">Courier</div>
+            <div class="text-2 mt_4 fw-6">Blue Dart</div>
+        </div>
+        <div class="item">
+            <div class="text-2 text_black-2">Start Time</div>
+            <div class="text-2 mt_4 fw-6">{{order.order_date}}</div>
+        </div>
+        <div class="item">
+            <div class="text-2 text_black-2">Address</div>
+        <div class="text-2 mt_4 fw-6">{{order.shipping_address.street_address}}, {{order.shipping_address.city}}, {{order.shipping_address.state}} {{order.shipping_address.postal_code}}</div>
+        </div>
+    </div>
+    <div class="widget-tabs style-has-border widget-order-tab">
+        <ul class="widget-menu-tab">
+            <li class="item-title active">
+                <span class="inner">Order History</span>
+            </li>
+            <li class="item-title">
+                <span class="inner">Item Details</span>
+            </li>
+            <li class="item-title">
+                <span class="inner">Courier</span>
+            </li>
+            <li class="item-title">
+                <span class="inner">Receiver</span>
+            </li>
+        </ul>
+        <div class="widget-content-tab">
+            <div class="widget-content-inner active">
+                <div class="widget-timeline">
+                    <ul class="timeline">
+                        {% for status  in order_status  %}
+                        <li>
+                            <div class="timeline-badge success"></div>
+                            <div class="timeline-box">
+                                <a class="timeline-panel" href="javascript:void(0);">
+                                    <div class="text-2 fw-6">Product {{status.step}}</div>
+                                </a>
+                                
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <div class="widget-content-inner">
+                <div class="order-head">
+                    {% for item in order_items %}
+                    <figure class="img-product">
+                        <img src="{{item.product_variant.get_images.first.image.url}}" alt="product">
+                    </figure>
+                        <div class="content">
+                            <div class="text-2 fw-6">{{item.product_variant.product.name}}</div>
+                            <div class="mt_4"><span class="fw-6">Price :</span> Rs. {{item.product_variant.discount_price}}</div>
+                            <div class="mt_4"><span class="fw-6">Size :</span> {{item.product_variant.size}}</div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <ul>
+                    <li class="d-flex justify-content-between text-2">
+                        <span>Total Price</span>
+                        <span class="fw-6">Rs. {{order.total_price_pre_tax}}</span>
+                    </li>
+                    <li class="d-flex justify-content-between text-2">
+                        <span>Tax</span>
+                        <span class="fw-6">Rs. {{order.total_tax}}</span>
+                    </li>
+                    <li class="d-flex justify-content-between text-2 mt_4 pb_8 line">
+                        <span>Total Discounts</span>
+                        <span class="fw-6">Rs. {{order.discount}}</span>
+
+                    </li>
+                    <li class="d-flex justify-content-between text-2 mt_8">
+                        <span>Order Total</span>
+                        <span class="fw-6">Rs. {{order.order_total}}</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="widget-content-inner">
+                <p>Our courier service is dedicated to providing fast, reliable, and secure delivery solutions tailored to meet your needs. Whether you're sending documents, parcels, or larger shipments, our team ensures that your items are handled with the utmost care and delivered on time. With a commitment to customer satisfaction, real-time tracking, and a wide network of routes, we make it easy for you to send and receive packages both locally and internationally. Choose our service for a seamless and efficient delivery experience.</p>
+            </div>
+            <div class="widget-content-inner">
+                <p class="text-2 text_success">Thank you Your order has been received</p>
+                <ul class="mt_20">
+                    <li>Order Number : <span class="fw-7">#{{order.id}}</span></li>
+                    <li>Date : <span class="fw-7"> {{order.order_date}}</span></li>
+                    <li>Total : <span class="fw-7">Rs. {{order.order_total}}</span></li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -56,6 +56,44 @@
 
 {% block scripts %}
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    var tabs = function () {
+        $(".widget-tabs").each(function () {
+          $(this)
+            .find(".widget-menu-tab")
+            .children(".item-title")
+            .on("click", function () {
+              var liActive = $(this).index();
+              var contentActive = $(this)
+                .siblings()
+                .removeClass("active")
+                .parents(".widget-tabs")
+                .find(".widget-content-tab")
+                .children()
+                .eq(liActive);
+              contentActive.addClass("active").fadeIn("slow");
+              contentActive.siblings().removeClass("active");
+              $(this)
+                .addClass("active")
+                .parents(".widget-tabs")
+                .find(".widget-content-tab")
+                .children()
+                .eq(liActive);
+            });
+        });
+      };
+      
+      // Initialize tabs when page loads
+      tabs();
+      
+      // Re-initialize tabs after HTMX content swap
+      $(document).on('htmx:afterSwap', function() {
+        tabs();
+      });
+</script>
+
  <!-- Javascript -->
  <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
  <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>

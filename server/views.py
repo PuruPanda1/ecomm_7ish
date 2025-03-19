@@ -94,6 +94,33 @@ def account_action  (request, option):
     else:
         return render(request, 'server/partials/account/wishlist.html')
     
+def order_detail(request, order_id):
+    order = Order.objects.get(id=order_id)
+    order_items = OrderItem.objects.filter(order=order)
+    order_status = [
+        {"step": "ordered"},
+        {"step": "confirmed"},
+        {"step": "shipped" },
+        {"step": "delivered"},
+        {"step": "returned"},
+        {"step": "refunded"},
+    ]
+
+    # Get the current order status (assuming it's a string like 'Shipped', 'Delivered', etc.)
+    current_status = order.order_status  # Example: "Shipped"
+    
+    # Find the index of the current status
+    status_index = next((index for index, status in enumerate(order_status) if status["step"] == current_status), -1)
+    
+    # If a valid status was found, slice the list of order statuses up to and including the current status
+    if status_index != -1:
+        order_status = order_status[:status_index + 1]
+
+    return render(request, 'server/partials/account/order-detail.html', {
+        'order': order,
+        'order_items': order_items,
+        'order_status': order_status
+    })
 
 # home view for women
 def home_women(request):

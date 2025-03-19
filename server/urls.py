@@ -17,6 +17,7 @@ urlpatterns = [
     # my account
     path('my-account/', my_account, name='my-account'),
     path('account_action/<str:option>/', account_action, name='account-action'),
+    path('order-detail/<int:order_id>/', order_detail, name='order-detail'),
 
     path('', home_women, name='home-women'),
     path('home/men/', home_men, name='home-men'),
